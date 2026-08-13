@@ -32,6 +32,14 @@ function scoreTier(score: number): string {
   return 'dim'
 }
 
+/** 插件自带静态站 / 主页：补全 scheme；空值或与仓库 URL 相同时返回 null（避免冗余链接）。 */
+function normalizeSite(homepage?: string | null, repoUrl?: string): string | null {
+  const h = (homepage ?? '').trim()
+  if (!h) return null
+  const url = h.includes('://') ? h : `https://${h}`
+  return url === repoUrl ? null : url
+}
+
 /** ISO 时间戳 → 本地可读格式，如 2026-08-14 05:27（UTC+8）。解析失败原样返回，缺省显示 —。 */
 function formatTime(iso?: string): string {
   if (!iso) return '—'
@@ -133,6 +141,20 @@ body[data-ds-dark-theme] .dshr-wrap {
   border: 1px solid var(--dshr-border);
 }
 .dshr-pill b { font-weight: 600; color: var(--dshr-text); }
+.dshr-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.dshr-act {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12.5px; line-height: 1; text-decoration: none; border-radius: 999px;
+  padding: 6px 12px; border: 1px solid var(--dshr-border);
+  color: var(--dshr-text-secondary); background: var(--dshr-surface);
+  transition: border-color .15s ease, color .15s ease;
+}
+.dshr-act:hover { border-color: var(--dshr-accent); color: var(--dshr-accent); }
+.dshr-act.dshr-star { color: #b8860b; border-color: #e6c25e; background: #fffaf0; font-weight: 600; }
+.dshr-act.dshr-star:hover { color: #8a6a00; background: #fff3d6; border-color: #b8860b; }
+body[data-ds-dark-theme] .dshr-act.dshr-star { color: #f5c518; background: rgba(245, 197, 24, .12); border-color: rgba(245, 197, 24, .45); }
+body[data-ds-dark-theme] .dshr-act.dshr-star:hover { color: #ffd84d; background: rgba(245, 197, 24, .2); border-color: #f5c518; }
+.dshr-act.dshr-repo { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12px; }
 .dshr-note { font-size: 12.5px; color: var(--dshr-text-tertiary); }
 `
 
@@ -141,7 +163,7 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
   const [error, setError] = useState<string | null>(null)
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('')
-  const [view, setView] = useState<'score' | 'stars' | 'updated'>('score')
+  const [view, setView] = useState<'score' | 'stars' | 'updated' | 'newest'>('score')
 
   useEffect(() => {
     let alive = true
@@ -253,6 +275,29 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
                   })}
                 </span>
               </div>
+
+              {/* 仓库 / Star / 站点联动链接；被排除（占位/WIP）仓库不引导 Star */}
+              {p.excluded ? null : (
+                <div className="dshr-actions">
+                  <a
+                    className="dshr-act dshr-star"
+                    href={p.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    title="打开仓库，点右上角 ⭐ Star 支持作者 —— 免费，却是对作者最好的感谢"
+                  >
+                    ⭐ Star 支持作者
+                  </a>
+                  <a className="dshr-act dshr-repo" href={p.url} target="_blank" rel="noreferrer" title="仓库地址（打开即可 Star）">
+                    github.com/{p.fullName}
+                  </a>
+                  {normalizeSite(p.homepage, p.url) ? (
+                    <a className="dshr-act dshr-site" href={normalizeSite(p.homepage, p.url)!} target="_blank" rel="noreferrer" title="插件静态站 / 文档">
+                      🌐 站点
+                    </a>
+                  ) : null}
+                </div>
+              )}
             </article>
           )
         })}
@@ -277,6 +322,7 @@ export interface RegistryDoc {
     excluded: string | null
     pushedAt: string | null
     createdAt: string | null
+    homepage?: string | null
     signals: Record<string, number>
   }>
 }

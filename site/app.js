@@ -23,6 +23,20 @@ function scoreTier(score) {
   return 'dim'
 }
 
+/** HTML 转义：homepage / description 等来自 GitHub API 的文本，避免破坏布局或注入。 */
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
+}
+
+/** 插件自带静态站 / 主页链接：补全 scheme，空值或与仓库 URL 相同时不展示（避免冗余）。 */
+function siteLink(p) {
+  const h = String(p.homepage ?? '').trim()
+  if (!h) return ''
+  const url = h.includes('://') ? h : `https://${h}`
+  if (url === p.url) return ''
+  return `<a class="act site" href="${esc(url)}" target="_blank" rel="noopener" title="插件静态站 / 文档">🌐 站点</a>`
+}
+
 async function load() {
   try {
     const reg = await fetch('../data/registry.json').then((r) => r.json())
@@ -77,23 +91,33 @@ function render() {
       .filter((k) => p.signals?.[k] !== undefined)
       .map((k) => `<span class="pill">${SIGNAL_LABELS[k]} <b>${p.signals[k].toFixed(2)}</b></span>`)
       .join('')
+    const repoLabel = `github.com/${esc(p.fullName)}`
+    const site = siteLink(p)
+    // 被排除（占位/WIP）仓库不引导 Star，避免把用户导去空仓库
+    const actions = p.excluded ? '' : `
+      <div class="actions">
+        <a class="act star" href="${esc(p.url)}" target="_blank" rel="noopener" title="打开仓库，点右上角 ⭐ Star 支持作者 —— 免费，却是对作者最好的感谢">⭐ Star 支持作者</a>
+        <a class="act repo" href="${esc(p.url)}" target="_blank" rel="noopener" title="仓库地址（打开即可 Star）">${repoLabel}</a>
+        ${site}
+      </div>`
     el.innerHTML = `
       <div class="row-top">
         <span class="rank ${tier}">${medal}</span>
         <div class="name">
-          <a href="${p.url}" target="_blank" rel="noopener" title="${p.fullName}">${p.fullName}${p.excluded ? `<span class="reason">${p.excluded}</span>` : ''}</a>
-          ${p.category ? `<span class="cat">${p.category}</span>` : ''}
+          <a href="${esc(p.url)}" target="_blank" rel="noopener" title="${esc(p.fullName)}">${esc(p.fullName)}${p.excluded ? `<span class="reason">${esc(p.excluded)}</span>` : ''}</a>
+          ${p.category ? `<span class="cat">${esc(p.category)}</span>` : ''}
         </div>
         <div class="right">
           <span class="stars">★ ${p.stars}</span>
           <span class="score"><span class="num ${tier}">${p.score.toFixed(3)}</span></span>
         </div>
       </div>
-      ${p.description ? `<p class="desc">${p.description}</p>` : ''}
+      ${p.description ? `<p class="desc">${esc(p.description)}</p>` : ''}
       <div class="foot">
         <span class="bar"><i class="${tier}" style="width:${Math.round((p.score / (topScore || 1)) * 100)}%"></i></span>
         <span class="pills">${pills}</span>
-      </div>`
+      </div>
+      ${actions}`
     list.append(el)
   }
   document.getElementById('count').textContent = `显示 ${rows.length} 条`

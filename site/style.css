@@ -79,6 +79,20 @@ input:focus, select:focus { border-color: var(--accent); }
 }
 .pill b { font-weight: 600; color: var(--fg); }
 .reason { display: block; font-size: 12px; color: #e05252; font-weight: 400; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.act {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 13px; text-decoration: none; border-radius: 999px;
+  padding: 6px 13px; border: 1px solid var(--border); color: var(--muted); background: var(--panel);
+  transition: border-color .15s ease, color .15s ease, background .15s ease;
+}
+.act:hover { border-color: var(--accent); color: var(--accent-soft); }
+.act.star { color: #b8860b; border-color: #e6c25e; background: #fffaf0; font-weight: 600; }
+.act.star:hover { background: #fff3d6; border-color: var(--gold); color: #8a6a00; }
+.act.repo { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12.5px; }
+.act.site { color: var(--accent-soft); }
 #count { margin-top: 14px; }
 footer { color: var(--dim); font-size: 13px; padding-top: 30px; border-top: 1px solid var(--border); margin-top: 20px; }
 footer a { color: var(--accent-soft); }
+.footer-links { margin: 8px 0 0; }
+.footer-links a { font-weight: 600; }
