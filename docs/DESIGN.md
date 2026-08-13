@@ -29,7 +29,7 @@
               ▼                     ▼                     ▼
    ┌──────────────────┐   ┌──────────────────┐   ┌──────────────────┐
    │ DSH bundle 插件   │   │ 静态排行站 site/  │   │ 外部消费者        │
-   │ packages/plugin  │   │ GitHub Pages     │   │ （其他工具/脚本）  │
+   │ 仓库根（src/→lib/）│   │ GitHub Pages     │   │ （其他工具/脚本）  │
    │ host: 4 个工具    │   │ 零构建，吃 JSON   │   │                   │
    │ browser: 排行页   │   └──────────────────┘   └──────────────────┘
    └──────────────────┘
@@ -77,9 +77,9 @@ CI 门禁：结构完整、无重复、分数在 [0,1]、排名降序、rankings
 | `data/meta.json` | 生成时间 / 数量 / 评分版本 / 公式快照 |
 | `data/raw/` | 采集原始数据（gitignore，不入库） |
 
-## 4. DSH 插件设计（packages/plugin）
+## 4. DSH 插件设计（仓库根即 bundle）
 
-单包 bundle：`dsh.bundle`（patch）+ `dsh.client`（浏览器半）双声明，patch 插入两行：
+单包 bundle（仓库根 `package.json` 声明 `dsh.bundle` + `dsh.client`），patch 插入三行：
 
 ```yaml
 - insert:

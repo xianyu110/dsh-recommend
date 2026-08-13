@@ -22,17 +22,18 @@
 - ⏳ 联动兼容性雷达：把 AdamPlatin123/awesome-dsh-plugins 的兼容性结论作为独立信号（或展示列）
 - ⏳ 联动 hub：双向「收录状态」展示与同步
 
-## M2 — DSH bundle 插件（第 2-3 周）✅ 代码完成，待真机安装验证
+## M2 — DSH bundle 插件（第 2-3 周）✅ 代码完成，真机验证中
 
-- ✅ `packages/plugin` 完整实现：
+- ✅ 插件实现（仓库根即 bundle：`src/` → `lib/`）：
   - host 半：`rank_plugins` / `recommend_plugins` / `search_plugins` / `sync_registry` 四工具
   - web 半：同源路由 `/dsh-recommend/registry.json`（`ctx.webServer.register`，官方契约）
   - browser 半：设置页「插件排行」标签（`settings.plugins.tab` 贡献，已接数据）
 - ✅ 验证项：client 半装载链（dsh.client → /plugins/<id>/client.js）与 webServer 拆行方案
   ——结论已回填 [ADR-0003](decisions/0003-single-package-dual-half.md)
 - ✅ 依赖均已在 npm 发布（rc.1），tsdown 构建可用
-- ⏳ **待办**：`dsh plugin --profile web add github:zp-home/dsh-recommend` 真机安装验证
-  （需本地装好 dsh；装完确认：设置页出现排行标签 + 四工具可调 + /dsh-recommend/registry.json 200）
+- ✅ 仓库根即插件包（避免 `&path:` 子目录安装）：`dsh plugin --profile web add github:zp-home/dsh-recommend` 一键安装
+- 🔨 **进行中**：真机安装验证（本机 dsh web profile）
+  （装完确认：设置页出现排行标签 + 四工具可调 + /dsh-recommend/registry.json 200）
 
 **M2 验收**：装完插件，设置页出现排行标签，agent 能调用四个工具并给出有据可查的推荐。
 

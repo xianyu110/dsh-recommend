@@ -1,8 +1,8 @@
 /**
- * tsdown 构建配置（M2）：三个产物。
- *   lib/host/index.js  host 工具半（node）
- *   lib/host/web.js    web 数据路由半（node）
- *   lib/client.js      browser 排行标签半
+ * tsdown 构建配置：三个产物。
+ *   lib/host/index.mjs  host 工具半（node）
+ *   lib/host/web.mjs    web 数据路由半（node）
+ *   lib/client.js       browser 排行标签半
  *
  * client 契约（官方 client-modules 装载链，见 2026-07-23-client-plugin-loading-model）：
  *   - CJS 输出，banner/footer 实现 window.__ModuleLoader__.load({ id, factory })

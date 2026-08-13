@@ -45,11 +45,14 @@ node scripts/validate.mjs        # 只校验
 ```
 data/           每日生成的 registry.json / rankings.json / meta.json（Git 即数据库）
 scripts/        fetch（采集）→ score（过滤+评分）→ validate（门禁）→ sync（总入口）
-packages/plugin DSH bundle 插件（host 工具半 + browser 设置页半）
+src/            插件源码（host 工具半 + web 路由半 + browser 设置页半），构建产物 lib/
+cordis.patch.yml 插件配置层（bundle patch）
 site/           静态排行站（零构建，直接吃 data/rankings.json）
 docs/           设计 / 评分模型 / 路线图 / 决策记录
 .github/        Actions（每日 cron + PR 校验）与提交插件表单
 ```
+
+> 仓库根目录即插件包（`dsh.bundle` + `dsh.client` 双声明），`dsh plugin add github:zp-home/dsh-recommend` 一键安装。
 
 ## 数据源
 
