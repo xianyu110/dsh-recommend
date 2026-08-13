@@ -174,6 +174,7 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
     list.sort((a, b) => {
       if (view === 'stars') return b.stars - a.stars
       if (view === 'updated') return (b.pushedAt ?? '').localeCompare(a.pushedAt ?? '')
+      if (view === 'newest') return (b.createdAt ?? '').localeCompare(a.createdAt ?? '')
       return b.score - a.score
     })
     return list.slice(0, 100)
@@ -213,6 +214,7 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
           <option value="score">按综合分</option>
           <option value="stars">按热度（★）</option>
           <option value="updated">按最近更新</option>
+          <option value="newest">按最新发布</option>
         </select>
       </div>
 
@@ -274,6 +276,7 @@ export interface RegistryDoc {
     category: string | null
     excluded: string | null
     pushedAt: string | null
+    createdAt: string | null
     signals: Record<string, number>
   }>
 }

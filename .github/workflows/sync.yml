@@ -1,8 +1,8 @@
-# 每日数据同步：全量重算（fetch → score → validate），数据变化直接提交回 main（Git 即数据库）。
+# 定期数据同步：全量重算（fetch → score → validate），数据变化直接提交回 main（Git 即数据库）。
 name: sync
 on:
   schedule:
-    - cron: '17 3 * * *'   # 每日 03:17 UTC
+    - cron: '17 */2 * * *'   # 每 2 小时整点过 17 分同步（UTC）
   workflow_dispatch: {}
 
 permissions:
@@ -22,5 +22,5 @@ jobs:
           git config user.name "dsh-recommend bot"
           git config user.email "actions@github.com"
           git add data/ CHANGELOG.md
-          git diff --cached --quiet && echo "无数据变化" || git commit -m "data: 每日生态同步 $(date -u +%Y-%m-%d)"
+          git diff --cached --quiet && echo "无数据变化" || git commit -m "data: 生态同步 $(date -u +%Y-%m-%dT%H:%M)Z"
           git push

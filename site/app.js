@@ -57,6 +57,7 @@ function currentRows() {
     score: (a, b) => b.score - a.score,
     stars: (a, b) => b.stars - a.stars,
     updated: (a, b) => (b.pushedAt ?? '').localeCompare(a.pushedAt ?? ''),
+    newest: (a, b) => (b.createdAt ?? '').localeCompare(a.createdAt ?? ''),
   }
   rows.sort(sorters[view])
   return rows.slice(0, 200)
