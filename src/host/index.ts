@@ -21,6 +21,17 @@ export interface Config {
   cachePath: string
 }
 
+/** ISO 时间戳 → 本地可读格式，如 2026-08-14 05:27（UTC+8）。解析失败原样返回，缺省显示 —。 */
+function formatTime(iso: string | null | undefined): string {
+  if (!iso) return '—'
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return iso
+  const p = (n: number) => String(n).padStart(2, '0')
+  const off = -d.getTimezoneOffset() / 60
+  const tz = off === 0 ? 'UTC' : `UTC${off > 0 ? '+' : ''}${off}`
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}（${tz}）`
+}
+
 export function apply(ctx: Context, config: Config) {
   const cachePath = config.cachePath
 
@@ -52,7 +63,7 @@ export function apply(ctx: Context, config: Config) {
       },
       render: (_args, value) => [{
         type: 'text',
-        text: `registry 已更新：${value.count} 个仓库（${value.fetchedAt}）`,
+        text: `registry 已更新：${value.count} 个仓库（${formatTime(value.fetchedAt)}）`,
       }],
     },
     async execute() {

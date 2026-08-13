@@ -3,6 +3,17 @@
 const SIGNAL_LABELS = { maintenance: '维护性', popularity: '热度', quality: '质量', ecosystem: '生态' }
 const SIGNAL_ORDER = ['maintenance', 'popularity', 'quality', 'ecosystem']
 
+/** ISO 时间戳 → 本地可读格式，如 2026-08-14 05:27（UTC+8）。解析失败原样返回，缺省显示 —。 */
+function formatTime(iso) {
+  if (!iso) return '—'
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return iso
+  const p = (n) => String(n).padStart(2, '0')
+  const off = -d.getTimezoneOffset() / 60
+  const tz = off === 0 ? 'UTC' : `UTC${off > 0 ? '+' : ''}${off}`
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}（${tz}）`
+}
+
 let doc = null // { meta, plugins }（registry）
 
 function scoreTier(score) {
@@ -26,7 +37,7 @@ async function load() {
     }
     const exc = doc.plugins.filter((p) => p.excluded).length
     document.getElementById('meta').textContent =
-      `数据 ${reg.meta.generatedAt} · 全量 ${reg.meta.counts.topicRepos} · 上榜 ${reg.meta.counts.ranked} · 排除 ${exc} · 评分模型 v${reg.meta.scoringVersion}`
+      `数据 ${formatTime(reg.meta.generatedAt)} · 全量 ${reg.meta.counts.topicRepos} · 上榜 ${reg.meta.counts.ranked} · 排除 ${exc} · 评分模型 v${reg.meta.scoringVersion}`
     render()
   } catch (err) {
     document.getElementById('meta').textContent = `加载失败：${err.message}（先跑 node scripts/sync.mjs 生成数据）`

@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### 修复
+
+- 时间展示：registry 生成时间由 ISO 字符串（如 `2026-08-13T21:27:05.874Z`）改为本地可读格式（如 `2026-08-14 05:27（UTC+8）`），静态站 / 设置页排行标签 / sync_registry 输出三处统一
+
 ### 新增（M0 骨架）
 
 - 数据管道 v0：`scripts/fetch.mjs`（GitHub topic 抓取 + hub 目录 + awesome 列表）、`scripts/score.mjs`（排除规则 + 四维评分）、`scripts/validate.mjs`（CI 门禁）、`scripts/sync.mjs`（总入口）
