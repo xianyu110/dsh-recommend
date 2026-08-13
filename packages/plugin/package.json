@@ -1,19 +1,20 @@
 {
   "name": "dsh-recommend",
-  "version": "0.1.0",
-  "description": "DSH 插件透明排行与推荐：rank/recommend/search 工具 + 设置页排行标签",
+  "version": "0.2.0",
+  "description": "DSH 插件透明排行与推荐：rank/recommend/search 工具 + 设置页排行标签（M2）",
   "type": "module",
-  "main": "lib/host/index.js",
-  "types": "lib/types/host/index.d.ts",
+  "main": "lib/host/index.mjs",
+  "types": "lib/host/index.d.mts",
   "exports": {
     ".": {
-      "types": "./lib/types/host/index.d.ts",
-      "default": "./lib/host/index.js"
+      "types": "./lib/host/index.d.mts",
+      "default": "./lib/host/index.mjs"
     },
-    "./client": {
-      "types": "./lib/types/client/index.d.ts",
-      "default": "./lib/client.js"
+    "./web": {
+      "types": "./lib/host/web.d.mts",
+      "default": "./lib/host/web.mjs"
     },
+    "./client": "./lib/client.js",
     "./package.json": "./package.json"
   },
   "files": [
@@ -36,17 +37,33 @@
   },
   "scripts": {
     "bundle": "tsdown",
-    "watch": "tsdown --watch"
+    "watch": "tsdown --watch",
+    "typecheck": "tsc --noEmit"
   },
   "license": "MIT",
-  "peerDependencies": {
-    "@deepseek-ai/cordis": "^0.1.0",
-    "@deepseek-ai/dsh-tools": "^0.1.0"
-  },
   "devDependencies": {
-    "@deepseek-ai/cordis": "^0.1.0",
-    "@deepseek-ai/dsh-tools": "^0.1.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.0",
+    "react": "^18.3.0",
     "tsdown": "^0.22.0",
     "typescript": "^5.5.0"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": { "optional": true },
+    "@deepseek-ai/dsh-tools": { "optional": true },
+    "@deepseek-ai/dsh-host-webserver": { "optional": true },
+    "@deepseek-ai/dsh-client-locale": { "optional": true },
+    "@deepseek-ai/dsh-client-runtime": { "optional": true },
+    "@deepseek-ai/dsh-client-ui-settings": { "optional": true },
+    "@deepseek-ai/dsh-client-ui-slots": { "optional": true }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*",
+    "@deepseek-ai/dsh-tools": "*",
+    "@deepseek-ai/dsh-host-webserver": "*",
+    "@deepseek-ai/dsh-client-locale": "*",
+    "@deepseek-ai/dsh-client-runtime": "*",
+    "@deepseek-ai/dsh-client-ui-settings": "*",
+    "@deepseek-ai/dsh-client-ui-slots": "*"
   }
 }

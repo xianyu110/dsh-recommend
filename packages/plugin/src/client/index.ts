@@ -1,19 +1,16 @@
 /**
- * dsh-recommend browser 半：设置页「插件排行」标签。
+ * dsh-recommend browser 半：设置页「插件排行」标签（M2 已接入数据供给）。
  *
- * 遵循官方 client 插件模型（dsh.client manifest + exports["./client"]）：
- *   - 通过 ctx.slots.inject('settings.plugins.tab', ...) 注册排行标签，
- *     与官方「插件列表」标签（id: 'all'）并列（参考
- *     @deepseek-ai/dsh-client-ui-settings-plugin-inventory 的写法）。
- *   - 数据供给：M2 落地时二选一（见 docs/decisions/0003 与 roadmap 验证项）：
- *     a) host 半注册同源 JSON 路由，本半直接 fetch；
- *     b) 官方 Remote 命名空间（需上游白名单）。
- *   - 本骨架先渲染「数据未接入」占位态，保证插件激活即不白屏。
+ * 装载链（M2 实测结论，回填 ADR-0003）：第三方 bundle 声明 dsh.client 后，
+ * 官方 client-modules 的 node 半扫描 loader 条目中的 dsh.client 声明，把
+ * exports["./client"] 的构建产物以 /plugins/<id>/client.js 动态供给浏览器；
+ * 数据经 host 半注册的同源路由 /dsh-recommend/registry.json 拉取（无跨域、
+ * 无 Remote 白名单依赖）。
  */
 import type {} from '@deepseek-ai/dsh-client-locale/client'
 import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client'
 import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import { RankingsTab, type RankingsTabInjected } from './RankingsTab.tsx'
+import { RankingsTab, type RankingsTabInjected, type RegistryDoc } from './RankingsTab.tsx'
 import { en, zh, type RankingsLocaleKey } from './locales.ts'
 
 export type { RankingsTabInjected, RankingsTabProps } from './RankingsTab.tsx'
@@ -38,9 +35,12 @@ export function apply(ctx: ClientContext): void {
 
   const t = ctx.locale.bind(NS)
   const injected = (): RankingsTabInjected => ({
-    // M2：接入数据供给（host 同源路由或 Remote 命名空间）后，在这里返回真实数据函数
-    loadRankings: async () => {
-      throw new Error('dsh-recommend: 数据供给尚未接入（M2）')
+    loadRankings: async (): Promise<RegistryDoc> => {
+      const res = await fetch('/dsh-recommend/registry.json', { cache: 'no-store' })
+      if (!res.ok) {
+        throw new Error(`registry 路由 ${res.status}（先调用 sync_registry）`)
+      }
+      return res.json()
     },
   })
 

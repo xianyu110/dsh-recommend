@@ -42,9 +42,13 @@ export function apply(ctx: Context, config: Config) {
     parameters: {},
     output: {
       schema: {
-        fetchedAt: { type: 'string' },
-        count: { type: 'number' },
-        excluded: { type: 'number' },
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          fetchedAt: { type: 'string' },
+          count: { type: 'number' },
+          excluded: { type: 'number' },
+        },
       },
       render: (_args, value) => [{
         type: 'text',
@@ -78,24 +82,41 @@ export function apply(ctx: Context, config: Config) {
     },
     output: {
       schema: {
-        rankings: {
-          type: 'array',
-          items: {
-            rank: { type: 'number' },
-            fullName: { type: 'string' },
-            url: { type: 'string' },
-            description: { type: 'string' },
-            stars: { type: 'number' },
-            score: { type: 'number' },
-            signals: { type: 'object' },
-            pushedAt: { type: 'string' },
-            excluded: { type: 'string' },
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          rankings: {
+            type: 'array',
+            items: {
+              type: 'object',
+              additionalProperties: false,
+              properties: {
+                rank: { type: 'number' },
+                fullName: { type: 'string' },
+                url: { type: 'string' },
+                description: { type: 'string' },
+                stars: { type: 'number' },
+                score: { type: 'number' },
+                signals: {
+                  type: 'object',
+                  additionalProperties: false,
+                  properties: {
+                    maintenance: { type: 'number' },
+                    popularity: { type: 'number' },
+                    quality: { type: 'number' },
+                    ecosystem: { type: 'number' },
+                  },
+                },
+                pushedAt: { oneOf: [{ type: 'string' }, { type: 'null' }] },
+                excluded: { oneOf: [{ type: 'string' }, { type: 'null' }] },
+              },
+            },
           },
         },
       },
       render: (_args, value) => [{
         type: 'text',
-        text: value.rankings
+        text: (value.rankings ?? [])
           .map((r) => `#${r.rank} ${r.fullName}（score ${r.score}，★${r.stars}）${r.excluded ? ` [${r.excluded}]` : ''}\n  ${r.description}`)
           .join('\n'),
       }],
@@ -137,23 +158,31 @@ export function apply(ctx: Context, config: Config) {
     },
     output: {
       schema: {
-        results: {
-          type: 'array',
-          items: {
-            fullName: { type: 'string' },
-            url: { type: 'string' },
-            description: { type: 'string' },
-            stars: { type: 'number' },
-            score: { type: 'number' },
-            excluded: { type: 'string' },
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          results: {
+            type: 'array',
+            items: {
+              type: 'object',
+              additionalProperties: false,
+              properties: {
+                fullName: { type: 'string' },
+                url: { type: 'string' },
+                description: { type: 'string' },
+                stars: { type: 'number' },
+                score: { type: 'number' },
+                excluded: { oneOf: [{ type: 'string' }, { type: 'null' }] },
+              },
+            },
           },
         },
       },
       render: (_args, value) => [{
         type: 'text',
-        text: value.results.length === 0
+        text: (value.results ?? []).length === 0
           ? '无匹配结果'
-          : value.results.map((r) => `${r.fullName}（score ${r.score}，★${r.stars}）${r.excluded ? ` [${r.excluded}]` : ''}\n  ${r.description}`).join('\n'),
+          : (value.results ?? []).map((r) => `${r.fullName}（score ${r.score}，★${r.stars}）${r.excluded ? ` [${r.excluded}]` : ''}\n  ${r.description}`).join('\n'),
       }],
     },
     async execute(args) {
@@ -178,22 +207,30 @@ export function apply(ctx: Context, config: Config) {
     },
     output: {
       schema: {
-        recommendations: {
-          type: 'array',
-          items: {
-            fullName: { type: 'string' },
-            url: { type: 'string' },
-            description: { type: 'string' },
-            score: { type: 'number' },
-            reason: { type: 'string' },
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          recommendations: {
+            type: 'array',
+            items: {
+              type: 'object',
+              additionalProperties: false,
+              properties: {
+                fullName: { type: 'string' },
+                url: { type: 'string' },
+                description: { type: 'string' },
+                score: { type: 'number' },
+                reason: { type: 'string' },
+              },
+            },
           },
         },
       },
       render: (_args, value) => [{
         type: 'text',
-        text: value.recommendations.length === 0
+        text: (value.recommendations ?? []).length === 0
           ? '没有找到明显匹配的插件，试试 search_plugins 换关键词'
-          : value.recommendations.map((r) => `${r.fullName}（score ${r.score}）\n  理由：${r.reason}\n  ${r.description}`).join('\n'),
+          : (value.recommendations ?? []).map((r) => `${r.fullName}（score ${r.score}）\n  理由：${r.reason}\n  ${r.description}`).join('\n'),
       }],
     },
     async execute(args) {
@@ -232,8 +269,10 @@ function tokenize(input: string): string[] {
   const s = input.toLowerCase()
   const tokens = [...(s.match(/[a-z0-9-]+/g) ?? [])]
   for (let i = 0; i < s.length - 1; i += 1) {
-    if (/[\u4e00-\u9fff]/.test(s[i]) || /[\u4e00-\u9fff]/.test(s[i + 1])) {
-      tokens.push(s.slice(i, i + 2))
+    const a = s[i] ?? ''
+    const b = s[i + 1] ?? ''
+    if (/[\u4e00-\u9fff]/.test(a) || /[\u4e00-\u9fff]/.test(b)) {
+      tokens.push(a + b)
     }
   }
   return tokens
