@@ -1,8 +1,10 @@
-# dsh-recommend bundle patch：插入三行。
+# dsh-recommend bundle patch：插入两行 host 半。
 #   dsh-recommend        host 工具半（main；仅依赖 tools，任何 profile 可用）
 #   dsh-recommend-web    web 数据路由半（./web；依赖 webServer，仅 web profile 激活）
-#   dsh-recommend-client browser 排行标签半（exports["./client"]；由官方 client-modules
-#                        扫描 dsh.client 声明后以 /plugins/<id>/client.js 动态供给）
+# 浏览器半（设置页排行标签）不需要独立 loader 行：官方 client-modules 扫描本包
+# package.json 的 dsh.client 声明后，自动把 exports["./client"] 的构建产物
+# 以 /plugins/dsh-recommend/client.js 供给浏览器（与官方 client 插件同模型——
+# 官方 roster 行也只写包名，见 2026-07-23-client-plugin-loading-model）。
 # 两行 host 半共享同一份 config（dataUrl/cachePath）。
 
 - insert:
@@ -16,6 +18,3 @@
       name: 'dsh-recommend/web'
       config:
         cachePath: !!js dshHomePath('dsh-recommend/registry.json')
-
-    - id: dsh-recommend-client
-      name: 'dsh-recommend/client'
