@@ -1,6 +1,6 @@
 # 🐋 dsh-recommend
 
-> DSH 插件生态的**透明排行与推荐**：每日自动抓取全 GitHub 的 `dsh-plugin` 话题仓库，按公开的评分模型打分排序；DSH 插件与静态站消费同一份数据。
+> DSH 插件生态的**透明排行与推荐**：每 2 小时自动抓取全 GitHub 的 `dsh-plugin` 话题仓库，按公开的评分模型打分排序；DSH 插件与静态站消费同一份数据。
 
 <p>
   <a href="https://github.com/zp-home/dsh-recommend"><img src="https://img.shields.io/github/stars/zp-home/dsh-recommend?style=flat-square" alt="stars"></a>
@@ -16,16 +16,22 @@
 ## ✨ 特性
 
 - **透明**：评分公式、权重、全部原始数据都公开在这个仓库里，任何人 `clone` 后跑一遍 `node scripts/sync.mjs` 即可复算——这是排行类项目信任的基石
-- **自动化**：GitHub Actions 每日全量重算并提交 `data/`，数据永不人工维护
+- **自动化**：GitHub Actions 每 2 小时全量重算并提交 `data/`，数据永不人工维护
 - **一份数据，三个消费端**：`data/registry.json` 是唯一事实源，静态排行站、DSH 插件（模型工具 + 设置页标签）、外部工具共用
 
 ## 🚀 快速开始
 
 ### 1️⃣ 网页版排行（不用安装）
 
-👉 打开 **https://zp-home.github.io/dsh-recommend/site/** —— 卡片式排行榜：前三名奖牌、分数条、四维信号徽章，支持搜索 / 分类筛选 / 三种排序。
+👉 打开 **https://zp-home.github.io/dsh-recommend/site/** —— 卡片式排行榜：前三名奖牌、分数条、四维信号徽章，支持搜索 / 分类筛选 / 四种排序（综合分 / 热度 / 最近更新 / 最新发布）。
 
-也可以直接看原始数据：[`data/rankings.json`](data/rankings.json)（每日自动更新）。
+**📸 效果预览：**
+
+![排行榜静态站 1](docs/images/site-1.png)
+
+![排行榜静态站 2](docs/images/site-2.png)
+
+也可以直接看原始数据：[`data/rankings.json`](data/rankings.json)（每 2 小时自动更新）。
 
 ### 2️⃣ 在 DSH 里安装插件（✅ 已真机验证）
 
@@ -56,21 +62,21 @@ node scripts/validate.mjs        # 只校验
 
 ## 📊 当前数据
 
-- 全量抓取 **~660** 个 `dsh-plugin` 话题仓库；排除占位/空仓库/WIP 后 **~555** 个上榜
+- 全量抓取 **~700** 个 `dsh-plugin` 话题仓库；排除占位/空仓库/WIP 后 **~600** 个上榜
 - 评分 = **0.35×维护性 + 0.30×热度 + 0.20×质量 + 0.15×生态**（公式与权重全公开，改版走评审，详见 [docs/scoring.md](docs/scoring.md)）
 - 排除条目保留在 `data/registry.json` 并附原因（fork / 已归档 / 空仓库 / 无描述 / 占位特征）
 
 ## 📁 仓库结构
 
 ```
-data/           每日生成的 registry.json / rankings.json / meta.json（Git 即数据库）
+data/           每 2 小时生成的 registry.json / rankings.json / meta.json（Git 即数据库）
 scripts/        fetch（采集）→ score（过滤+评分）→ validate（门禁）→ sync（总入口）
 src/            插件源码（host 工具半 + web 数据路由半 + browser 设置页半）
 lib/            构建产物（随库提交，git 安装免构建）
 cordis.patch.yml 插件配置层（bundle patch）
 site/           静态排行站（零构建，直接吃 data/registry.json）
 docs/           设计 / 评分模型 / 路线图 / 决策记录
-.github/        Actions（每日 cron + PR 校验）与提交插件表单
+.github/        Actions（每 2 小时 cron + PR 校验）与提交插件表单
 ```
 
 ## 数据源
