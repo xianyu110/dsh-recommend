@@ -1,0 +1,14 @@
+# dsh-recommend bundle patch：插入 host 工具半与 browser 排行标签两行。
+# 两行按包名引用本包（host 半 = main 入口，browser 半 = exports["./client"]），
+# Node/浏览器两侧的 loader 各取所需；client 半由官方 client-modules 扫描
+# 本包 package.json 的 dsh.client 声明后以 /plugins/<id>/client.js 动态供给。
+
+- insert:
+    - id: dsh-recommend
+      name: dsh-recommend
+      config:
+        dataUrl: https://raw.githubusercontent.com/zp-home/dsh-recommend/main/data/registry.json
+        cachePath: !!js dshHomePath('dsh-recommend/registry.json')
+
+    - id: dsh-recommend-client
+      name: 'dsh-recommend/client'

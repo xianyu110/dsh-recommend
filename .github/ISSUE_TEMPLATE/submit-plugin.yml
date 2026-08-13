@@ -1,0 +1,38 @@
+name: 提交插件收录
+description: 1 分钟收录你的 DSH 插件（也可直接打 dsh-plugin 话题，每日同步自动收录）
+title: "[收录] <插件名>"
+labels: [plugin-submission]
+body:
+  - type: input
+    id: repo
+    attributes:
+      label: GitHub 仓库地址
+      description: 例如 https://github.com/your-name/dsh-recommend
+    validations:
+      required: true
+  - type: input
+    id: category
+    attributes:
+      label: 分类（可选）
+      description: UI 增强 / 会话与消息 / 工具与能力 / 工作流与自动化 / 通知与集成 / 开发与运行时 / 娱乐
+  - type: textarea
+    id: description
+    attributes:
+      label: 一句话描述
+      description: 会被用于榜单展示与搜索
+    validations:
+      required: true
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 自检清单
+      options:
+        - label: 仓库已打上 dsh-plugin 话题标签
+        - label: 有 README（≥40 字符描述）
+        - label: 有 LICENSE（加分项）
+        - label: 非 fork、非空仓库、非占位
+  - type: markdown
+    attributes:
+      value: |
+        > 收录 = 展示，不等于安全背书。详见 SECURITY.md。
+        > 如果你的插件声明了 dsh.bundle，强烈建议同时发布到 npm 或提供 tarball。

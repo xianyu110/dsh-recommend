@@ -1,0 +1,23 @@
+{
+  "scoringVersion": 1,
+  "weights": {
+    "maintenance": 0.35,
+    "popularity": 0.3,
+    "quality": 0.2,
+    "ecosystem": 0.15
+  },
+  "generatedAt": "2026-08-13T21:27:05.874Z",
+  "rawFetchedAt": "2026-08-13T21:26:13.841Z",
+  "counts": {
+    "topicRepos": 665,
+    "excluded": 106,
+    "ranked": 559
+  },
+  "formula": {
+    "maintenance": "exp(-daysSincePush / 180)",
+    "popularity": "min(1, log10(stars + 1) / 3)",
+    "quality": "0.4*hasLicense + 0.3*richDescription(>=40 chars) + 0.3*hasContent(sizeKb>0)",
+    "ecosystem": "curated(1.0) | awesome-listed(1.0) | else 0.2",
+    "score": "0.35*maintenance + 0.30*popularity + 0.20*quality + 0.15*ecosystem"
+  }
+}

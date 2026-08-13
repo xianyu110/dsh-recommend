@@ -1,0 +1,12 @@
+# 运行时产物（每次 sync 重新生成）
+data/raw/
+
+# Node
+node_modules/
+*.tsbuildinfo
+
+# 编辑器/系统
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

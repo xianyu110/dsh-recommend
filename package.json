@@ -1,0 +1,17 @@
+{
+  "name": "dsh-recommend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DSH 插件排行与推荐：每日自动抓取全生态 → 透明评分 → 排行/推荐工具与面板",
+  "type": "module",
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "sync": "node scripts/sync.mjs",
+    "fetch": "node scripts/fetch.mjs",
+    "score": "node scripts/score.mjs",
+    "validate": "node scripts/validate.mjs"
+  },
+  "license": "MIT"
+}

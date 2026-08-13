@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>dsh-recommend · DSH 插件排行</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header>
+    <h1>🐋 dsh-recommend <span class="tag">DSH 插件透明排行</span></h1>
+    <p class="meta" id="meta">加载中…</p>
+  </header>
+
+  <main>
+    <section class="controls">
+      <input id="search" type="search" placeholder="搜索名称/描述/分类…">
+      <select id="view">
+        <option value="score">综合分</option>
+        <option value="stars">热门（★）</option>
+        <option value="updated">最近更新</option>
+      </select>
+      <select id="category"><option value="">全部分类</option></select>
+      <label class="toggle"><input type="checkbox" id="showExcluded"> 显示被排除仓库</label>
+    </section>
+
+    <table id="table">
+      <thead>
+        <tr><th>#</th><th>仓库</th><th>描述</th><th>★</th><th>分数</th><th>信号</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p class="meta" id="count"></p>
+  </main>
+
+  <footer>
+    <p>收录 ≠ 安全背书。安装第三方插件前请自行审查源码。数据每日自动重算，公式公开可复算（<a href="../docs/scoring.md">评分模型</a>）。</p>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

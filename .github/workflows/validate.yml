@@ -1,0 +1,27 @@
+# PR 校验
+
+任何 PR（尤其改评分/管道的）先过数据门禁。评分变更的 PR 描述必须附新旧 Top20 对比（见 CONTRIBUTING.md）。
+
+```yaml
+name: validate
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 冒烟：抓取链路可用
+        run: node scripts/sync.mjs --limit 1
+      - name: 数据完整性校验
+        run: node scripts/validate.mjs
+      - name: 打印当前评分版本
+        run: |
+          node -e "const m=require('./data/meta.json');console.log('scoringVersion =',m.scoringVersion,'（改过评分必须重新生成 data/）')"
+```
