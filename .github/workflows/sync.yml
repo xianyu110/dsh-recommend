@@ -1,8 +1,4 @@
-# 每日数据同步
-
-全量重算（fetch → score → validate），数据变化直接提交回 main（Git 即数据库）。
-
-```yaml
+# 每日数据同步：全量重算（fetch → score → validate），数据变化直接提交回 main（Git 即数据库）。
 name: sync
 on:
   schedule:
@@ -28,4 +24,3 @@ jobs:
           git add data/ CHANGELOG.md
           git diff --cached --quiet && echo "无数据变化" || git commit -m "data: 每日生态同步 $(date -u +%Y-%m-%d)"
           git push
-```
