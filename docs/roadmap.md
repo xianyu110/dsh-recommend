@@ -22,18 +22,22 @@
 - ⏳ 联动兼容性雷达：把 AdamPlatin123/awesome-dsh-plugins 的兼容性结论作为独立信号（或展示列）
 - ⏳ 联动 hub：双向「收录状态」展示与同步
 
-## M2 — DSH bundle 插件（第 2-3 周）✅ 代码完成，真机验证中
+## M2 — DSH bundle 插件 ✅ 已完成（真机验证通过）
 
 - ✅ 插件实现（仓库根即 bundle：`src/` → `lib/`）：
   - host 半：`rank_plugins` / `recommend_plugins` / `search_plugins` / `sync_registry` 四工具
   - web 半：同源路由 `/dsh-recommend/registry.json`（`ctx.webServer.register`，官方契约）
   - browser 半：设置页「插件排行」标签（`settings.plugins.tab` 贡献，已接数据）
-- ✅ 验证项：client 半装载链（dsh.client → /plugins/<id>/client.js）与 webServer 拆行方案
-  ——结论已回填 [ADR-0003](decisions/0003-single-package-dual-half.md)
-- ✅ 依赖均已在 npm 发布（rc.1），tsdown 构建可用
-- ✅ 仓库根即插件包（避免 `&path:` 子目录安装）：`dsh plugin --profile web add github:zp-home/dsh-recommend` 一键安装
-- 🔨 **进行中**：真机安装验证（本机 dsh web profile）
-  （装完确认：设置页出现排行标签 + 四工具可调 + /dsh-recommend/registry.json 200）
+- ✅ 验证项全部落地（结论回填 [ADR-0003](decisions/0003-single-package-dual-half.md)）：
+  - client 半装载链：client-modules 自动供给 `/plugins/dsh-recommend/client.js`（实测 200）
+  - **踩坑**：client 半不能是独立 loader 行（host 会 import 它 → `window is not defined` 整个 profile 崩）
+  - 仓库根即插件包（`github:` 安装取根 package.json，子目录会变成无 bundle 的普通依赖）
+- ✅ **真机安装验证**（2026-08-13，本机 dsh 0.1.0-rc.5 web profile）：
+  - `dsh plugin --profile web add github:zp-home/dsh-recommend` 一键安装 ✓
+  - `--dump-config` 显示 `# == dsh-recommend` 层与两行 host 半 ✓
+  - `/dsh-recommend/registry.json` 实测 200（723KB 真实数据）✓
+  - `/plugins/dsh-recommend/client.js` 实测 200（`__ModuleLoader__.load` 契约）✓
+- ⏳ 唯一剩余：**重启你的 dsh web 实例**后，设置页 → 插件 → 「插件排行」标签可见
 
 **M2 验收**：装完插件，设置页出现排行标签，agent 能调用四个工具并给出有据可查的推荐。
 
