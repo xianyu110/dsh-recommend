@@ -5,6 +5,9 @@ data/raw/
 node_modules/
 *.tsbuildinfo
 
+# npm 凭据（发布用，防误提交）
+.npmrc
+
 # 编辑器/系统
 .DS_Store
 Thumbs.db

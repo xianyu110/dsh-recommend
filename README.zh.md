@@ -35,11 +35,28 @@
 
 ### 2️⃣ 在 DSH 里安装插件（✅ 已真机验证）
 
+**方式 A：npm 安装（国内用户推荐，走 npmmirror 镜像）**
+
+```sh
+dsh plugin --profile web add dsh-recommend
+# 重启 dsh web 后生效
+```
+
+**方式 B：GitHub 直装**
+
 ```sh
 dsh plugin --profile web add github:zp-home/dsh-recommend
 dsh --profile web --dump-config   # 应出现 "# == dsh-recommend" 层
 # 重启 dsh web 后生效
 ```
+
+**方式 C：本地目录安装（完全离线，拷文件夹即可）**
+
+```sh
+dsh plugin --profile web add D:\路径\dsh-recommend
+```
+
+> 💡 **国内网络提示**：插件榜单数据默认从 `raw.githubusercontent.com` 拉取（`sync_registry` 工具）。无法访问该域名时，可编辑已安装插件包中的 `cordis.patch.yml`（`node_modules/dsh-recommend/cordis.patch.yml`），把 `dsh-recommend` 的 `dataUrl` 改为 `https://cdn.jsdelivr.net/gh/zp-home/dsh-recommend@main/data/registry.json`（jsDelivr CDN，国内一般可达，数据可能有数小时缓存延迟），改后重启 DSH。
 
 安装后获得：
 

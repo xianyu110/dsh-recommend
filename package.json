@@ -2,6 +2,23 @@
   "name": "dsh-recommend",
   "version": "0.2.0",
   "description": "DSH 插件透明排行与推荐：每日自动抓取 dsh-plugin 话题生态 + 公开评分模型 + rank/recommend/search 工具 + 设置页排行标签",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zp-home/dsh-recommend.git"
+  },
+  "homepage": "https://github.com/zp-home/dsh-recommend",
+  "bugs": {
+    "url": "https://github.com/zp-home/dsh-recommend/issues"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "ranking",
+    "leaderboard",
+    "recommendation"
+  ],
+  "author": "zp-home",
   "type": "module",
   "main": "lib/host/index.mjs",
   "types": "lib/host/index.d.mts",

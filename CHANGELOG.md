@@ -11,6 +11,7 @@
 - 静态站渲染对 GitHub API 文本（仓库名 / 描述 / 主页 / 排除原因）统一做 HTML 转义，防止特殊字符破坏卡片布局
 - 榜单分页：每页 50 条（静态站 + 设置页排行标签），全部插件可翻页浏览；搜索 / 分类 / 排序变化自动回到第 1 页；排名与奖牌按全局位置连续显示
 - 仓库地址链接上移到卡片顶部（插件名下方等宽字体展示），底部操作行只保留 ⭐ Star 支持作者 与 🌐 站点
+- npm 发布（`dsh-recommend@0.2.0`）：新增 npm 安装方式（国内可走 npmmirror 镜像）；package.json 补齐 repository/homepage/keywords/author 元数据；README 增加三种安装方式与国内数据源（jsDelivr）提示
 
 ### 变更
 
