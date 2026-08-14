@@ -8,6 +8,7 @@
   <a href="https://github.com/zp-home/dsh-recommend/actions/workflows/sync.yml"><img src="https://img.shields.io/github/actions/workflow/status/zp-home/dsh-recommend/sync.yml?style=flat-square&label=data%20sync" alt="data sync"></a>
   <a href="https://zp-home.github.io/dsh-recommend/site/"><img src="https://img.shields.io/website?url=https%3A%2F%2Fzp-home.github.io%2Fdsh-recommend%2Fsite%2F&style=flat-square&label=leaderboard" alt="leaderboard site"></a>
   <a href="https://github.com/topics/dsh-plugin"><img src="https://img.shields.io/badge/topic-dsh--plugin-4D6BFE?style=flat-square" alt="dsh-plugin topic"></a>
+  <a href="https://awesome-dsh-plugin.com"><img src="https://awesome-dsh-plugin.com/badge.svg" alt="awesome · DSH 插件"></a>
   <img src="https://img.shields.io/badge/version-0.2.0-4D6BFE?style=flat-square" alt="version">
 </p>
 
