@@ -6,7 +6,7 @@
 
 - **定位**：DSH 插件生态的透明评分/排行/推荐。数据管道是核心资产，插件与网站是消费端。
 - **命令**：
-  - `node scripts/sync.mjs` —— 全量重算（fetch → score → validate）。未认证 ~1 分钟，CI 里快得多。
+  - `node scripts/sync.mjs` —— 全量重算（fetch → score → validate）。**本地需配 GITHUB_TOKEN**（未认证在仓库数 >1000 后会被限流，见 scripts/README.md）。
   - `node scripts/sync.mjs --limit 1` —— 冒烟测试（只抓 1 页，~5 秒）。
   - `node scripts/validate.mjs` —— 只校验 data/。
 - **零依赖铁律**：scripts/ 只能用 Node 18+ 内置 API。不要引入 npm 依赖。
@@ -21,7 +21,7 @@
 
 ## 已知事实（2026-08 调研结论）
 
-- GitHub `dsh-plugin` 话题约 650+ 公开仓库，含大量占位/WIP（排除规则在 score.mjs）。
+- GitHub `dsh-plugin` 话题仓库数已远超 1000（2026-08-14 单日新增簇就有 1474 个），含大量占位/WIP（排除规则在 score.mjs）。全量抓取受 Search API 硬限制（单查询 1000 条、单日 1000 条）约束且请求数达百级，**本地全量必须配 GITHUB_TOKEN**（CI 已注入）；见 scripts/fetch.mjs 与 scripts/README.md。
 - 竞争/协作关系：WhaleHub（网站，Stars 排序）、dsh-find-plugins（技能，语义发现）、AdamPlatin123/awesome-dsh-plugins 与 dsh-plugin-radar（兼容性雷达）——我们的差异化是「评分+排行+推荐」且公式公开可复算。
 - 上游官方仓库：`deepseek-ai/deepseek-harness`。官方插件契约：`dsh.bundle`（配置层 patch）+ `dsh.client`（浏览器半 manifest），安装走 `dsh plugin --profile <name> add <spec>`。
 - 官方机制会变（如 2026-08 删除 repository 插件机制）：涉及插件契约的改动前，先查上游最新文档/发布。

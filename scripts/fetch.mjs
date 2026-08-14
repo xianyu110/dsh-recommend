@@ -4,12 +4,16 @@
  * 从公开数据源抓取 DSH 插件生态的原始数据，写入 data/raw/：
  *   1. GitHub Search API：topic:dsh-plugin 的全部公开仓库（含元数据：stars/forks/
  *      pushed_at/license/size/描述等，一次请求内返回，无需逐仓再查）。
+ *      注意：Search API 单个查询最多返回 1000 条（10 页 × 100），第 11 页起恒为空，
+ *      且 repository 搜索不支持按 created 排序；全量通过 created 日期区间分桶 +
+ *      递归拆分实现（见 fetchTopicRepos）。
  *   2. dsh-external/hub 精选目录的公开镜像（0xsline/awesome-deepseek-harness 的
  *      CATALOG.md）：官方精选目录（分类映射 + 精选信号）。
  *   3. 三个 awesome 精选列表：人工精选信号（被收录 = 生态信号加分）。
  *
  * 全部使用 Node 18+ 内置 fetch，零依赖。未认证时 GitHub Search API 限额
- * 10 次/分钟（够跑一轮）；CI 里设置 GITHUB_TOKEN 可提到 30 次/分钟。
+ * 10 次/分钟；话题仓库数 >1000 后全量请求数会到百级，**必须设置 GITHUB_TOKEN**
+ * （30 次/分钟）才能完整跑完，CI 已注入 github.token。
  *
  * 用法：node scripts/fetch.mjs [--out data/raw]
  */
@@ -26,6 +30,31 @@ const headers = {
   Accept: 'application/vnd.github+json',
   'User-Agent': 'dsh-recommend',
   ...(token ? { Authorization: `Bearer ${token}` } : {}),
+}
+
+/** GitHub Search API 硬上限：单个查询最多返回 1000 条（10 页 × 100）。 */
+const SEARCH_RESULTS_CAP = 1000
+const SEARCH_PER_PAGE = 100
+/** 单个查询最多可翻的页数（超过也是空数组，不用再试）。 */
+const SEARCH_PAGES_PER_QUERY = SEARCH_RESULTS_CAP / SEARCH_PER_PAGE
+/** 一次运行的总页数安全阀（按年分桶后请求数随仓库数增长），防失控请求。
+ *  注意：话题仓库数超过 1000 且存在单日密集簇时，拆分树会吃掉大量页数
+ *  （单日簇的定位过程会重复翻页），全量请配 GITHUB_TOKEN（未认证 10 次/分
+ *  撑不住百级请求，会 403 限流）。 */
+const MAX_PAGES_DEFAULT = 200
+/** created 分桶下界：dsh-plugin 话题不可能早于 2008。 */
+const CREATED_FLOOR = '2008-01-01'
+
+/** 'YYYY-MM-DD' 的 UTC 毫秒值。 */
+function dayMs(dateStr) {
+  return Date.parse(`${dateStr}T00:00:00Z`)
+}
+
+/** 'YYYY-MM-DD' ± n 天（UTC，与 GitHub 的 created_at 时区一致）。 */
+function addDays(dateStr, days) {
+  const d = new Date(dayMs(dateStr))
+  d.setUTCDate(d.getUTCDate() + days)
+  return d.toISOString().slice(0, 10)
 }
 
 async function gh(url, retries = 3) {
@@ -49,22 +78,89 @@ async function text(url) {
   return res.text()
 }
 
-/** 抓取 topic:dsh-plugin 全量公开仓库（Search API 每页 100，最多 10 页）。 */
-export async function fetchTopicRepos(maxPages = 10) {
+/**
+ * 抓取 topic:dsh-plugin 全量公开仓库。
+ *
+ * Search API 单个查询最多返回 1000 条（10 页 × 100），第 11 页恒为空数组；且
+ * repository 搜索不支持按 created 排序（sort=created 会被静默忽略、按相关度返回），
+ * 所以「全量」不能用游标推进，只能按 created 日期区间分桶 + 递归拆分：
+ *   1. 按 `created:lo..hi` 区间分桶查询（区间含两端，日期粒度精确到天，桶间无重叠、
+ *      不依赖任何排序），桶内 ≤1000 条时翻 10 页即可全部取完（顺序无关）；
+ *   2. 某桶取满 1000 条（10 页）说明桶内可能更多，从中间日期拆成两个子桶重抓，
+ *      直到子桶不足 1000 条，或拆到单日（单日 ≥1000 条是 Search API 无法绕过的
+ *      极限——created 只精确到天，此时告警截断）；
+ *   3. 桶间无重叠，重复仅为翻页漂移，仍按 full_name 去重兜底。
+ *
+ * maxPages 是本次运行的总页数预算（--limit N 冒烟测试传小值）；默认给足一轮全量，
+ * 预算耗尽且最后处理的桶仍是满的（或桶内抓取被打断）时打警告。
+ */
+export async function fetchTopicRepos(maxPages = MAX_PAGES_DEFAULT) {
   const repos = []
   const seen = new Set()
-  for (let page = 1; page <= maxPages; page += 1) {
-    const url = `${GITHUB_API}/search/repositories?q=topic%3Adsh-plugin&per_page=100&page=${page}`
-    const body = await gh(url)
-    for (const item of body.items) {
-      // 翻页期间结果集可能变化导致同一仓库重复出现：按 full_name 去重，保留首个
-      if (seen.has(item.full_name)) continue
-      seen.add(item.full_name)
-      repos.push(item)
+  let pagesUsed = 0
+  let truncatedByBudget = false // 桶内翻页时预算耗尽（有仓库没取完）
+  let lastBucketFull = false // 最后一个桶取满了 10 页（可能还有仓库没取完）
+
+  /** 抓取一个 created:[lo,hi] 区间桶；返回该桶是否「满」（可能更大需要拆）。 */
+  async function fetchBucket(lo, hi) {
+    let rawItems = 0
+    let bucketTotal = Infinity
+    for (let page = 1; page <= SEARCH_PAGES_PER_QUERY; page += 1) {
+      if (pagesUsed >= maxPages) {
+        truncatedByBudget = true
+        break
+      }
+      const url = `${GITHUB_API}/search/repositories?q=topic%3Adsh-plugin%20created%3A${lo}..${hi}&per_page=${SEARCH_PER_PAGE}&page=${page}`
+      const body = await gh(url)
+      const items = body.items ?? []
+      bucketTotal = body.total_count ?? bucketTotal
+      rawItems += items.length
+      for (const item of items) {
+        // 翻页期间结果集可能变化导致同一仓库重复出现：按 full_name 去重，保留首个
+        if (seen.has(item.full_name)) continue
+        seen.add(item.full_name)
+        repos.push(item)
+      }
+      pagesUsed += 1
+      if (items.length === 0 || rawItems >= bucketTotal) break
+      // 未认证 Search 限额 10/min（页间间隔 6.5s）；带 token 30/min（2s 足够）
+      await new Promise((r) => setTimeout(r, token ? 2000 : 6500))
     }
-    if (repos.length >= body.total_count || body.items.length === 0) break
-    // 未认证 Search 限额 10/min（页间间隔 6.5s）；带 token 30/min（2s 足够）
-    await new Promise((r) => setTimeout(r, token ? 2000 : 6500))
+    return rawItems >= SEARCH_RESULTS_CAP && rawItems < bucketTotal
+  }
+
+  // 分桶：从最近一年往早排（--limit 冒烟时先抓最新的仓库）
+  const today = new Date().toISOString().slice(0, 10)
+  const thisYear = Number(today.slice(0, 4))
+  const ranges = [[`${thisYear}-01-01`, today]]
+  for (let y = thisYear - 1; y >= Number(CREATED_FLOOR.slice(0, 4)); y -= 1) {
+    ranges.push([`${y}-01-01`, `${y}-12-31`])
+  }
+
+  while (ranges.length > 0 && pagesUsed < maxPages) {
+    const [lo, hi] = ranges.shift()
+    lastBucketFull = await fetchBucket(lo, hi)
+    if (!lastBucketFull) continue
+    if (lo === hi) {
+      // 拆到单日仍满：created 只精确到天，超出部分 API 永远拿不到
+      console.warn(
+        `日期 ${lo} 单日仓库数 ≥ ${SEARCH_RESULTS_CAP} 条，超出部分是 Search API ` +
+          '无法返回的（created 只精确到天），本次结果不完整',
+      )
+      continue
+    }
+    // 桶可能更大：从中间日期拆成 [lo,mid] + [mid+1,hi]（无重叠、必前进）
+    const mid = addDays(lo, Math.floor((dayMs(hi) - dayMs(lo)) / 86400000 / 2))
+    const next = addDays(mid, 1)
+    ranges.unshift([lo, mid])
+    if (next <= hi) ranges.unshift([next, hi])
+  }
+
+  if (pagesUsed >= maxPages && (lastBucketFull || truncatedByBudget)) {
+    console.warn(
+      `页预算 ${maxPages} 页已耗尽但仍有仓库未取完（话题仓库数可能超过 ` +
+        `${maxPages * SEARCH_PER_PAGE} 条）：请调大 MAX_PAGES_DEFAULT 或设置 GITHUB_TOKEN 提速`,
+    )
   }
   return repos
 }
@@ -157,7 +253,7 @@ export function toRepoRecord(repo) {
 const argv = process.argv.slice(2)
 const out = argv.includes('--dry') ? null : RAW_DIR
 const limitIndex = argv.indexOf('--limit')
-const maxPages = limitIndex >= 0 ? Number(argv[limitIndex + 1]) || 10 : 10
+const maxPages = limitIndex >= 0 ? Number(argv[limitIndex + 1]) || MAX_PAGES_DEFAULT : MAX_PAGES_DEFAULT
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const repos = await fetchTopicRepos(maxPages)
