@@ -16,6 +16,9 @@ function formatTime(iso) {
 
 let doc = null // { meta, plugins }（registry）
 
+const PAGE_SIZE = 50 // 每页条数
+let page = 1 // 当前页（1 起）
+
 function scoreTier(score) {
   if (score >= 0.85) return 'gold'
   if (score >= 0.65) return 'accent'
@@ -74,17 +77,22 @@ function currentRows() {
     newest: (a, b) => (b.createdAt ?? '').localeCompare(a.createdAt ?? ''),
   }
   rows.sort(sorters[view])
-  return rows.slice(0, 200)
+  return rows
 }
 
 function render() {
+  const all = currentRows()
+  const totalPages = Math.max(1, Math.ceil(all.length / PAGE_SIZE))
+  if (page > totalPages) page = totalPages
+  const start = (page - 1) * PAGE_SIZE
+  const rows = all.slice(start, start + PAGE_SIZE)
+
   const list = document.getElementById('list')
-  const rows = currentRows()
   const topScore = rows[0]?.score ?? 0
   list.replaceChildren()
   for (const [i, p] of rows.entries()) {
     const tier = scoreTier(p.score)
-    const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i + 1}`
+    const medal = start + i === 0 ? '🥇' : start + i === 1 ? '🥈' : start + i === 2 ? '🥉' : `#${start + i + 1}`
     const el = document.createElement('article')
     el.className = 'row' + (p.excluded ? ' excluded' : '')
     const pills = SIGNAL_ORDER
@@ -97,7 +105,6 @@ function render() {
     const actions = p.excluded ? '' : `
       <div class="actions">
         <a class="act star" href="${esc(p.url)}" target="_blank" rel="noopener" title="打开仓库，点右上角 ⭐ Star 支持作者 —— 免费，却是对作者最好的感谢">⭐ Star 支持作者</a>
-        <a class="act repo" href="${esc(p.url)}" target="_blank" rel="noopener" title="仓库地址（打开即可 Star）">${repoLabel}</a>
         ${site}
       </div>`
     el.innerHTML = `
@@ -106,6 +113,7 @@ function render() {
         <div class="name">
           <a href="${esc(p.url)}" target="_blank" rel="noopener" title="${esc(p.fullName)}">${esc(p.fullName)}${p.excluded ? `<span class="reason">${esc(p.excluded)}</span>` : ''}</a>
           ${p.category ? `<span class="cat">${esc(p.category)}</span>` : ''}
+          <a class="repo-addr" href="${esc(p.url)}" target="_blank" rel="noopener" title="仓库地址（打开即可 Star）">${repoLabel}</a>
         </div>
         <div class="right">
           <span class="stars">★ ${p.stars}</span>
@@ -120,12 +128,40 @@ function render() {
       ${actions}`
     list.append(el)
   }
-  document.getElementById('count').textContent = `显示 ${rows.length} 条`
+
+  // 分页控制
+  const pager = document.getElementById('pager')
+  pager.replaceChildren()
+  const prev = document.createElement('button')
+  prev.type = 'button'
+  prev.textContent = '« 上一页'
+  prev.disabled = page <= 1
+  prev.addEventListener('click', () => { page -= 1; render() })
+  const next = document.createElement('button')
+  next.type = 'button'
+  next.textContent = '下一页 »'
+  next.disabled = page >= totalPages
+  next.addEventListener('click', () => { page += 1; render() })
+  const info = document.createElement('span')
+  info.className = 'pager-info'
+  info.textContent = `第 ${page} / ${totalPages} 页`
+  pager.append(prev, info, next)
+
+  const total = all.length
+  document.getElementById('count').textContent = total === 0
+    ? '没有匹配的插件'
+    : `显示第 ${start + 1}–${start + rows.length} 条 / 共 ${total} 条`
 }
 
-document.getElementById('search').addEventListener('input', render)
-document.getElementById('view').addEventListener('change', render)
-document.getElementById('category').addEventListener('change', render)
-document.getElementById('showExcluded').addEventListener('change', render)
+/** 筛选/排序变化时回到第一页。 */
+function resetAndRender() {
+  page = 1
+  render()
+}
+
+document.getElementById('search').addEventListener('input', resetAndRender)
+document.getElementById('view').addEventListener('change', resetAndRender)
+document.getElementById('category').addEventListener('change', resetAndRender)
+document.getElementById('showExcluded').addEventListener('change', resetAndRender)
 
 load()

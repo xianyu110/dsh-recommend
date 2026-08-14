@@ -56,6 +56,12 @@ input:focus, select:focus { border-color: var(--accent); }
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .name a:hover { color: var(--accent-soft); }
+.name .repo-addr {
+  font-size: 12.5px; font-weight: 400;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color: var(--dim); text-decoration: none;
+}
+.name .repo-addr:hover { color: var(--accent-soft); text-decoration: underline; }
 .cat { font-size: 12.5px; color: var(--dim); }
 .right { margin-left: auto; flex: 0 0 auto; display: flex; align-items: center; gap: 18px; }
 .stars { font-size: 14px; color: var(--muted); white-space: nowrap; }
@@ -92,6 +98,15 @@ input:focus, select:focus { border-color: var(--accent); }
 .act.repo { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12.5px; }
 .act.site { color: var(--accent-soft); }
 #count { margin-top: 14px; }
+.pager { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 18px; }
+.pager button {
+  font-family: inherit; font-size: 14px; color: var(--fg);
+  background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+  padding: 9px 18px; cursor: pointer;
+}
+.pager button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent-soft); }
+.pager button:disabled { opacity: .45; cursor: not-allowed; }
+.pager-info { font-size: 13.5px; color: var(--dim); }
 footer { color: var(--dim); font-size: 13px; padding-top: 30px; border-top: 1px solid var(--border); margin-top: 20px; }
 footer a { color: var(--accent-soft); }
 .footer-links { margin: 8px 0 0; }

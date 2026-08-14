@@ -24,6 +24,8 @@ const SIGNAL_LABELS: Record<string, string> = {
 
 const SIGNAL_ORDER = ['maintenance', 'popularity', 'quality', 'ecosystem'] as const
 
+const PAGE_SIZE = 50 // 每页条数
+
 /** 分数分级配色。 */
 function scoreTier(score: number): string {
   if (score >= 0.85) return 'gold'
@@ -155,6 +157,21 @@ body[data-ds-dark-theme] .dshr-wrap {
 body[data-ds-dark-theme] .dshr-act.dshr-star { color: #f5c518; background: rgba(245, 197, 24, .12); border-color: rgba(245, 197, 24, .45); }
 body[data-ds-dark-theme] .dshr-act.dshr-star:hover { color: #ffd84d; background: rgba(245, 197, 24, .2); border-color: #f5c518; }
 .dshr-act.dshr-repo { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12px; }
+.dshr-name .dshr-repo-addr {
+  font-size: 12px; font-weight: 400;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color: var(--dshr-text-tertiary); text-decoration: none;
+}
+.dshr-name .dshr-repo-addr:hover { color: var(--dshr-accent); text-decoration: underline; }
+.dshr-pager { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.dshr-pager button {
+  padding: 7px 14px; font-size: 13px; font-family: inherit; color: var(--dshr-text);
+  background: var(--dshr-surface); border: 1px solid var(--dshr-border);
+  border-radius: 9px; cursor: pointer;
+}
+.dshr-pager button:hover:not(:disabled) { border-color: var(--dshr-accent); color: var(--dshr-accent); }
+.dshr-pager button:disabled { opacity: .45; cursor: not-allowed; }
+.dshr-pager-info { font-size: 13px; color: var(--dshr-text-tertiary); }
 .dshr-note { font-size: 12.5px; color: var(--dshr-text-tertiary); }
 `
 
@@ -164,6 +181,7 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('')
   const [view, setView] = useState<'score' | 'stars' | 'updated' | 'newest'>('score')
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     let alive = true
@@ -199,7 +217,7 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
       if (view === 'newest') return (b.createdAt ?? '').localeCompare(a.createdAt ?? '')
       return b.score - a.score
     })
-    return list.slice(0, 100)
+    return list
   }, [doc, query, category, view])
 
   if (error) {
@@ -209,7 +227,11 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
     return <p role="status">正在加载插件榜单…</p>
   }
 
-  const topScore = rows[0]?.score ?? 0
+  const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE))
+  const safePage = Math.min(page, totalPages)
+  const start = (safePage - 1) * PAGE_SIZE
+  const pageRows = rows.slice(start, start + PAGE_SIZE)
+  const topScore = pageRows[0]?.score ?? 0
 
   return (
     <div className="dshr-wrap">
@@ -225,14 +247,14 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
           type="search"
           placeholder="搜索名称 / 描述 / 分类…"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => { setQuery(e.target.value); setPage(1) }}
           aria-label="搜索插件"
         />
-        <select value={category} onChange={(e) => setCategory(e.target.value)} aria-label="分类筛选">
+        <select value={category} onChange={(e) => { setCategory(e.target.value); setPage(1) }} aria-label="分类筛选">
           <option value="">全部分类</option>
           {categories.map((c) => <option key={c} value={c}>{c}</option>)}
         </select>
-        <select value={view} onChange={(e) => setView(e.target.value as typeof view)} aria-label="排序方式">
+        <select value={view} onChange={(e) => { setView(e.target.value as typeof view); setPage(1) }} aria-label="排序方式">
           <option value="score">按综合分</option>
           <option value="stars">按热度（★）</option>
           <option value="updated">按最近更新</option>
@@ -241,9 +263,9 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
       </div>
 
       <div className="dshr-list">
-        {rows.map((p, i) => {
+        {pageRows.map((p, i) => {
           const tier = scoreTier(p.score)
-          const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i + 1}`
+          const medal = start + i === 0 ? '🥇' : start + i === 1 ? '🥈' : start + i === 2 ? '🥉' : `#${start + i + 1}`
           return (
             <article className="dshr-row" key={p.fullName}>
               <div className="dshr-row-top">
@@ -251,6 +273,7 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
                 <div className="dshr-name">
                   <a href={p.url} target="_blank" rel="noreferrer" title={p.fullName}>{p.fullName}</a>
                   {p.category ? <span className="dshr-cat">{p.category}</span> : null}
+                  <a className="dshr-repo-addr" href={p.url} target="_blank" rel="noreferrer" title="仓库地址（打开即可 Star）">github.com/{p.fullName}</a>
                 </div>
                 <div className="dshr-right">
                   <span className="dshr-stars">★ {p.stars}</span>
@@ -276,7 +299,7 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
                 </span>
               </div>
 
-              {/* 仓库 / Star / 站点联动链接；被排除（占位/WIP）仓库不引导 Star */}
+              {/* Star / 站点联动链接（仓库地址已在卡片顶部展示）；被排除（占位/WIP）仓库不引导 Star */}
               {p.excluded ? null : (
                 <div className="dshr-actions">
                   <a
@@ -287,9 +310,6 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
                     title="打开仓库，点右上角 ⭐ Star 支持作者 —— 免费，却是对作者最好的感谢"
                   >
                     ⭐ Star 支持作者
-                  </a>
-                  <a className="dshr-act dshr-repo" href={p.url} target="_blank" rel="noreferrer" title="仓库地址（打开即可 Star）">
-                    github.com/{p.fullName}
                   </a>
                   {normalizeSite(p.homepage, p.url) ? (
                     <a className="dshr-act dshr-site" href={normalizeSite(p.homepage, p.url)!} target="_blank" rel="noreferrer" title="插件静态站 / 文档">
@@ -303,8 +323,14 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
         })}
       </div>
 
+      <div className="dshr-pager">
+        <button type="button" disabled={safePage <= 1} onClick={() => setPage(safePage - 1)}>« 上一页</button>
+        <span className="dshr-pager-info">第 {safePage} / {totalPages} 页</span>
+        <button type="button" disabled={safePage >= totalPages} onClick={() => setPage(safePage + 1)}>下一页 »</button>
+      </div>
+
       <p className="dshr-note">
-        显示 {rows.length} 条（截断到前 100）· 综合分 = 0.35 维护性 + 0.30 热度 + 0.20 质量 + 0.15 生态 · 收录 ≠ 安全背书
+        第 {safePage} / {totalPages} 页 · 共 {rows.length} 条 · 综合分 = 0.35 维护性 + 0.30 热度 + 0.20 质量 + 0.15 生态 · 收录 ≠ 安全背书
       </p>
     </div>
   )
