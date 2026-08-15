@@ -18,6 +18,21 @@ export interface RankingsTabInjected {
   loadHistory(): Promise<HistoryDoc>
   /** 触发一次数据刷新（POST 同源 sync 路由，拉最新 registry 覆写缓存）。 */
   refreshRankings(): Promise<{ fetchedAt: string; count: number }>
+  /** 读取已安装插件的 moduleName 列表（官方 pluginInventory Remote，M3）。 */
+  listInstalled(): Promise<string[]>
+  /** 一键安装：POST fullName 给 host 的安装路由，host 构造 spec 并执行 dsh plugin add（M3）。 */
+  installPlugin(fullName: string): Promise<InstallResult>
+}
+
+/** host 安装路由的返回结构（与 src/host/web.ts 对齐）。 */
+export interface InstallResult {
+  ok: boolean
+  message?: string
+  spec?: string
+  profile?: string
+  stdout?: string
+  stderr?: string
+  timedOut?: boolean
 }
 
 export type RankingsTabProps = PropsRuntime<'settings.plugins.tab'>
@@ -102,6 +117,22 @@ function Sparkline({ series, label }: { series: number[]; label: string }) {
   )
 }
 
+/** 一行内的安装状态机（M3）。 */
+type InstallState =
+  | { phase: 'idle' }
+  | { phase: 'running' }
+  | { phase: 'installed' }
+  | { phase: 'failed'; message: string }
+
+/**
+ * 已装匹配：installed moduleName（如 dsh-better-sidebar / @scope/pkg）与 registry
+ * fullName（omdsh-dev/DSH-better-sidebar）的 repo 短名做去分隔符小写比较，
+ * 尽力而为——匹配不到就当作未安装，不影响功能。
+ */
+function normalizeKey(name: string): string {
+  return name.split('/').pop()!.toLowerCase().replace(/[^a-z0-9]/g, '')
+}
+
 const CSS = `
 .dshr-wrap {
   --dshr-surface: #ffffff;
@@ -112,7 +143,8 @@ const CSS = `
   --dshr-border: rgba(0, 0, 0, .1);
   --dshr-border-hover: rgba(0, 0, 0, .16);
   --dshr-accent: #4176e6;
-  display: flex; flex-direction: column; gap: 16px;
+  --dshr-ok: #1a7f37;
+  display: flex; flex-direction: column; gap: 10px;
 }
 body[data-ds-dark-theme] .dshr-wrap {
   --dshr-surface: var(--dsw-alias-bg-layer-1, #232324);
@@ -123,135 +155,142 @@ body[data-ds-dark-theme] .dshr-wrap {
   --dshr-border: var(--dsw-alias-border-l2, rgba(255, 255, 255, .12));
   --dshr-border-hover: var(--dsw-alias-border-l3, rgba(255, 255, 255, .16));
   --dshr-accent: var(--dsw-alias-brand-primary-new-colorprimary-new-color, #5690fe);
+  --dshr-ok: #3fb950;
 }
-.dshr-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
-.dshr-title { margin: 0; font-size: 18px; font-weight: 700; color: var(--dshr-text); }
-.dshr-meta { font-size: 12.5px; color: var(--dshr-text-tertiary); }
-.dshr-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.dshr-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
+.dshr-title { margin: 0; font-size: 15px; font-weight: 700; color: var(--dshr-text); }
+.dshr-meta { font-size: 11.5px; color: var(--dshr-text-tertiary); }
+.dshr-controls { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .dshr-controls input[type="search"] {
-  flex: 1 1 220px; min-width: 200px;
-  padding: 9px 13px; font-size: 14px; color: var(--dshr-text);
+  flex: 1 1 200px; min-width: 180px;
+  padding: 6px 10px; font-size: 12.5px; color: var(--dshr-text);
   background: var(--dshr-surface);
-  border: 1px solid var(--dshr-border); border-radius: 9px; outline: none;
+  border: 1px solid var(--dshr-border); border-radius: 7px; outline: none;
 }
 .dshr-controls input[type="search"]:focus { border-color: var(--dshr-accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--dshr-accent) 20%, transparent); }
 .dshr-controls select {
-  padding: 9px 12px; font-size: 14px; color: var(--dshr-text);
+  padding: 6px 9px; font-size: 12.5px; color: var(--dshr-text);
   background: var(--dshr-surface);
-  border: 1px solid var(--dshr-border); border-radius: 9px; outline: none; cursor: pointer;
+  border: 1px solid var(--dshr-border); border-radius: 7px; outline: none; cursor: pointer;
 }
 .dshr-controls select:focus { border-color: var(--dshr-accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--dshr-accent) 20%, transparent); }
 .dshr-refresh {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 9px 14px; font-size: 13.5px; font-family: inherit; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 11px; font-size: 12.5px; font-family: inherit; cursor: pointer;
   color: var(--dshr-text); background: var(--dshr-surface);
-  border: 1px solid var(--dshr-border); border-radius: 9px;
+  border: 1px solid var(--dshr-border); border-radius: 7px;
   transition: border-color .15s ease, color .15s ease;
 }
 .dshr-refresh:hover:not(:disabled) { border-color: var(--dshr-accent); color: var(--dshr-accent); }
 .dshr-refresh:disabled { opacity: .55; cursor: wait; }
-.dshr-msg { font-size: 12.5px; color: var(--dshr-text-tertiary); flex-basis: 100%; }
-.dshr-list { display: flex; flex-direction: column; gap: 10px; }
+.dshr-msg { font-size: 12px; color: var(--dshr-text-tertiary); flex-basis: 100%; }
+.dshr-list { display: flex; flex-direction: column; gap: 4px; }
 .dshr-row {
-  display: flex; flex-direction: column; gap: 10px;
-  padding: 14px 16px; border: 1px solid var(--dshr-border); border-radius: 12px;
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 8px 11px; border: 1px solid var(--dshr-border); border-radius: 8px;
   background: var(--dshr-surface);
   transition: border-color .15s ease;
 }
 .dshr-row:hover { border-color: var(--dshr-border-hover); }
-.dshr-row-top { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.dshr-row-top { display: flex; align-items: center; gap: 9px; min-width: 0; }
 .dshr-rank {
-  flex: 0 0 auto; min-width: 34px; height: 30px; display: inline-flex; align-items: center; justify-content: center;
-  font-size: 15px; font-weight: 700; color: var(--dshr-text-secondary);
-  border-radius: 8px; background: var(--dshr-surface-muted);
+  flex: 0 0 auto; min-width: 30px; height: 24px; display: inline-flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: var(--dshr-text-secondary);
+  border-radius: 6px; background: var(--dshr-surface-muted);
 }
 .dshr-rank.gold { color: #f5c518; }
 .dshr-rank.accent { color: var(--dshr-accent); }
 .dshr-rank.dim { color: var(--dshr-text-tertiary); }
-.dshr-name { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.dshr-name { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .dshr-name a {
-  font-size: 15px; font-weight: 600; color: var(--dshr-text);
+  font-size: 13px; font-weight: 600; color: var(--dshr-text);
   text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .dshr-name a:hover { color: var(--dshr-accent); }
-.dshr-cat { font-size: 12px; color: var(--dshr-text-tertiary); }
-.dshr-right { margin-left: auto; flex: 0 0 auto; display: flex; align-items: center; gap: 16px; }
-.dshr-stars { font-size: 13.5px; color: var(--dshr-text-secondary); white-space: nowrap; }
-.dshr-score { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
-.dshr-score .num { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; }
+.dshr-cert { font-size: 11px; }
+.dshr-cat { font-size: 10.5px; color: var(--dshr-text-tertiary); }
+.dshr-right { margin-left: auto; flex: 0 0 auto; display: flex; align-items: center; gap: 10px; }
+.dshr-stars { font-size: 12px; color: var(--dshr-text-secondary); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.dshr-score { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.dshr-score .num { font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; }
 .dshr-score .num.gold { color: #f5c518; }
 .dshr-score .num.accent { color: var(--dshr-accent); }
 .dshr-score .num.neutral { color: var(--dshr-text-secondary); }
 .dshr-score .num.dim { color: var(--dshr-text-tertiary); }
 .dshr-desc {
-  font-size: 13.5px; line-height: 1.65; color: var(--dshr-text-secondary);
-  overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  font-size: 12px; line-height: 1.5; color: var(--dshr-text-secondary);
+  overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
 }
-.dshr-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.dshr-bar { flex: 1 1 160px; height: 6px; border-radius: 999px; background: var(--dshr-surface-muted); overflow: hidden; }
-.dshr-bar > i { display: block; height: 100%; border-radius: 999px; }
-.dshr-bar > i.gold { background: #f5c518; }
-.dshr-bar > i.accent { background: var(--dshr-accent); }
-.dshr-bar > i.neutral { background: var(--dshr-text-secondary); }
-.dshr-bar > i.dim { background: var(--dshr-text-tertiary); }
-.dshr-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.dshr-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.dshr-pills { display: flex; flex-wrap: wrap; gap: 4px; }
 .dshr-pill {
-  font-size: 12px; line-height: 1; padding: 5px 9px; border-radius: 999px;
+  font-size: 10px; line-height: 1; padding: 3px 7px; border-radius: 999px;
   color: var(--dshr-text-secondary);
   background: var(--dshr-surface-muted);
   border: 1px solid var(--dshr-border);
 }
 .dshr-pill b { font-weight: 600; color: var(--dshr-text); }
-.dshr-trend { display: flex; align-items: center; gap: 6px; color: var(--dshr-text-tertiary); }
+.dshr-trend { display: flex; align-items: center; gap: 5px; color: var(--dshr-text-tertiary); }
 .dshr-spark { color: var(--dshr-accent); flex: 0 0 auto; }
-.dshr-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.dshr-actions { display: flex; flex-wrap: wrap; gap: 6px; }
 .dshr-act {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-size: 12.5px; line-height: 1; text-decoration: none; border-radius: 999px;
-  padding: 6px 12px; border: 1px solid var(--dshr-border);
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11.5px; line-height: 1; text-decoration: none; border-radius: 999px;
+  padding: 5px 10px; border: 1px solid var(--dshr-border);
   color: var(--dshr-text-secondary); background: var(--dshr-surface);
   transition: border-color .15s ease, color .15s ease;
   font-family: inherit; cursor: pointer;
 }
-.dshr-act:hover { border-color: var(--dshr-accent); color: var(--dshr-accent); }
+.dshr-act:hover:not(:disabled) { border-color: var(--dshr-accent); color: var(--dshr-accent); }
+.dshr-act:disabled { opacity: .55; cursor: not-allowed; }
+.dshr-act.dshr-install { color: var(--dshr-accent); border-color: color-mix(in srgb, var(--dshr-accent) 45%, transparent); font-weight: 600; }
+.dshr-act.dshr-install:hover:not(:disabled) { background: color-mix(in srgb, var(--dshr-accent) 8%, transparent); }
+.dshr-act.dshr-installed { color: var(--dshr-ok); border-color: color-mix(in srgb, var(--dshr-ok) 45%, transparent); font-weight: 600; }
+.dshr-act.dshr-installing { color: var(--dshr-text-tertiary); }
+.dshr-act.dshr-failed { color: #c62828; border-color: color-mix(in srgb, #c62828 45%, transparent); }
+body[data-ds-dark-theme] .dshr-act.dshr-failed { color: #f97583; }
 .dshr-act.dshr-star { color: #b8860b; border-color: #e6c25e; background: #fffaf0; font-weight: 600; }
-.dshr-act.dshr-star:hover { color: #8a6a00; background: #fff3d6; border-color: #b8860b; }
+.dshr-act.dshr-star:hover:not(:disabled) { color: #8a6a00; background: #fff3d6; border-color: #b8860b; }
 body[data-ds-dark-theme] .dshr-act.dshr-star { color: #f5c518; background: rgba(245, 197, 24, .12); border-color: rgba(245, 197, 24, .45); }
-body[data-ds-dark-theme] .dshr-act.dshr-star:hover { color: #ffd84d; background: rgba(245, 197, 24, .2); border-color: #f5c518; }
-.dshr-act.dshr-repo { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12px; }
-.dshr-act.dshr-copy { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12px; }
+body[data-ds-dark-theme] .dshr-act.dshr-star:hover:not(:disabled) { color: #ffd84d; background: rgba(245, 197, 24, .2); border-color: #f5c518; }
+.dshr-act.dshr-repo { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 11.5px; }
+.dshr-act.dshr-copy { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 11.5px; }
 .dshr-act.dshr-copied { border-color: #2e9e5b; color: #2e9e5b; }
 body[data-ds-dark-theme] .dshr-act.dshr-copied { border-color: #4cc38a; color: #4cc38a; }
 .dshr-name .dshr-repo-addr {
-  font-size: 12px; font-weight: 400;
+  font-size: 10.5px; font-weight: 400;
   font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
   color: var(--dshr-text-tertiary); text-decoration: none;
 }
 .dshr-name .dshr-repo-addr:hover { color: var(--dshr-accent); text-decoration: underline; }
-.dshr-details { border-top: 1px dashed var(--dshr-border); padding-top: 10px; font-size: 12.5px; color: var(--dshr-text-secondary); }
-.dshr-details summary { cursor: pointer; color: var(--dshr-text-tertiary); font-size: 12.5px; user-select: none; }
+.dshr-install-msg { font-size: 11px; color: var(--dshr-text-tertiary); max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dshr-install-msg.ok { color: var(--dshr-ok); }
+.dshr-install-msg.bad { color: #c62828; }
+body[data-ds-dark-theme] .dshr-install-msg.bad { color: #f97583; }
+.dshr-details { border-top: 1px dashed var(--dshr-border); padding-top: 7px; font-size: 12px; color: var(--dshr-text-secondary); }
+.dshr-details summary { cursor: pointer; color: var(--dshr-text-tertiary); font-size: 12px; user-select: none; }
 .dshr-details summary:hover { color: var(--dshr-accent); }
-.dshr-details dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 10px 0 0; }
+.dshr-details dl { display: grid; grid-template-columns: max-content 1fr; gap: 5px 14px; margin: 8px 0 0; }
 .dshr-details dt { color: var(--dshr-text-tertiary); white-space: nowrap; }
 .dshr-details dd { margin: 0; overflow-wrap: anywhere; }
-.dshr-details .dshr-topics { display: flex; flex-wrap: wrap; gap: 5px; }
+.dshr-details .dshr-topics { display: flex; flex-wrap: wrap; gap: 4px; }
 .dshr-details .dshr-topic {
-  font-size: 11.5px; line-height: 1; padding: 4px 8px; border-radius: 999px;
+  font-size: 11px; line-height: 1; padding: 3px 7px; border-radius: 999px;
   color: var(--dshr-text-secondary); background: var(--dshr-surface-muted); border: 1px solid var(--dshr-border);
 }
-.dshr-pager { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.dshr-pager { display: flex; align-items: center; justify-content: center; gap: 8px; }
 .dshr-pager button {
-  padding: 7px 14px; font-size: 13px; font-family: inherit; color: var(--dshr-text);
+  padding: 5px 11px; font-size: 12px; font-family: inherit; color: var(--dshr-text);
   background: var(--dshr-surface); border: 1px solid var(--dshr-border);
-  border-radius: 9px; cursor: pointer;
+  border-radius: 7px; cursor: pointer;
 }
 .dshr-pager button:hover:not(:disabled) { border-color: var(--dshr-accent); color: var(--dshr-accent); }
 .dshr-pager button:disabled { opacity: .45; cursor: not-allowed; }
-.dshr-pager-info { font-size: 13px; color: var(--dshr-text-tertiary); }
-.dshr-note { font-size: 12.5px; color: var(--dshr-text-tertiary); }
+.dshr-pager-info { font-size: 12px; color: var(--dshr-text-tertiary); }
+.dshr-note { font-size: 11.5px; color: var(--dshr-text-tertiary); }
 `
 
-export function RankingsTab({ t, loadRankings, loadHistory, refreshRankings }: RankingsTabProps): JSX.Element {
+export function RankingsTab({ t, loadRankings, loadHistory, refreshRankings, listInstalled, installPlugin }: RankingsTabProps): JSX.Element {
   const [doc, setDoc] = useState<RegistryDoc | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [history, setHistory] = useState<HistoryDoc | null>(null)
@@ -262,6 +301,8 @@ export function RankingsTab({ t, loadRankings, loadHistory, refreshRankings }: R
   const [refreshing, setRefreshing] = useState(false)
   const [refreshMsg, setRefreshMsg] = useState<string | null>(null)
   const [copied, setCopied] = useState<string | null>(null)
+  const [installed, setInstalled] = useState<Set<string>>(new Set())
+  const [installState, setInstallState] = useState<Record<string, InstallState>>({})
 
   useEffect(() => {
     let alive = true
@@ -285,6 +326,18 @@ export function RankingsTab({ t, loadRankings, loadHistory, refreshRankings }: R
     style.textContent = CSS
     if (!style.parentNode) document.head.appendChild(style)
   }, [])
+
+  // 已装检测：尽力匹配，失败静默降级（不影响榜单与安装功能）
+  useEffect(() => {
+    let alive = true
+    listInstalled()
+      .then((names) => {
+        if (!alive) return
+        setInstalled(new Set(names.map(normalizeKey)))
+      })
+      .catch(() => { /* pluginInventory 不可用时静默跳过 */ })
+    return () => { alive = false }
+  }, [listInstalled])
 
   const categories = useMemo(() => {
     const set = new Set<string>()
@@ -351,6 +404,22 @@ export function RankingsTab({ t, loadRankings, loadHistory, refreshRankings }: R
     }
   }
 
+  const doInstall = async (fullName: string): Promise<void> => {
+    setInstallState((s) => ({ ...s, [fullName]: { phase: 'running' } }))
+    try {
+      const result = await installPlugin(fullName)
+      if (result.ok) {
+        setInstallState((s) => ({ ...s, [fullName]: { phase: 'installed' } }))
+        // 本会话内视为已装（重启后 pluginInventory 会确认）
+        setInstalled((prev) => new Set(prev).add(normalizeKey(fullName)))
+      } else {
+        setInstallState((s) => ({ ...s, [fullName]: { phase: 'failed', message: result.message ?? t('installFail') } }))
+      }
+    } catch (err) {
+      setInstallState((s) => ({ ...s, [fullName]: { phase: 'failed', message: err instanceof Error ? err.message : String(err) } }))
+    }
+  }
+
   if (error) {
     return (
       <div className="dshr-wrap">
@@ -369,7 +438,6 @@ export function RankingsTab({ t, loadRankings, loadHistory, refreshRankings }: R
   const safePage = Math.min(page, totalPages)
   const start = (safePage - 1) * PAGE_SIZE
   const pageRows = rows.slice(start, start + PAGE_SIZE)
-  const topScore = pageRows[0]?.score ?? 0
   const historyDays = history?.days.length ?? 0
 
   return (
@@ -425,7 +493,7 @@ export function RankingsTab({ t, loadRankings, loadHistory, refreshRankings }: R
               <div className="dshr-row-top">
                 <span className={`dshr-rank ${tier}`}>{medal}</span>
                 <div className="dshr-name">
-                  <a href={p.url} target="_blank" rel="noreferrer" title={p.fullName}>{p.fullName}</a>
+                  <a href={p.url} target="_blank" rel="noreferrer" title={p.fullName}>{p.fullName}{p.certified ? <span className="dshr-cert" title={t('certifiedTitle')}> 🏅</span> : null}</a>
                   {p.category ? <span className="dshr-cat">{p.category}</span> : null}
                   <a className="dshr-repo-addr" href={p.url} target="_blank" rel="noreferrer" title={`github.com/${p.fullName}`}>github.com/{p.fullName}</a>
                 </div>
@@ -440,7 +508,6 @@ export function RankingsTab({ t, loadRankings, loadHistory, refreshRankings }: R
               {p.description ? <p className="dshr-desc">{p.description}</p> : null}
 
               <div className="dshr-foot">
-                <span className="dshr-bar"><i className={tier} style={{ width: `${Math.round((p.score / (topScore || 1)) * 100)}%` }} /></span>
                 <span className="dshr-pills">
                   {SIGNAL_ORDER.map((k) => {
                     const v = p.signals?.[k]
@@ -458,9 +525,32 @@ export function RankingsTab({ t, loadRankings, loadHistory, refreshRankings }: R
                 ) : null}
               </div>
 
-              {/* Star / 站点 / 安装命令；被排除（占位/WIP）仓库不引导 Star */}
+              {/* Star / 站点 / 一键安装 / 复制命令；被排除（占位/WIP）仓库不引导 Star 与安装 */}
               {p.excluded ? null : (
                 <div className="dshr-actions">
+                  {(() => {
+                    const st = installState[p.fullName] ?? { phase: 'idle' }
+                    const isInstalled = installed.has(normalizeKey(p.fullName)) || st.phase === 'installed'
+                    if (st.phase === 'failed') {
+                      return <span className="dshr-install-msg bad" title={st.message}>{t('installFail')}</span>
+                    }
+                    if (st.phase === 'running') {
+                      return <span className="dshr-act dshr-installing" title={t('installingTitle')}>{t('installing')}</span>
+                    }
+                    if (isInstalled) {
+                      return <span className="dshr-act dshr-installed" title={t('installedTitle')}>✓ {t('installed')}</span>
+                    }
+                    return (
+                      <button
+                        type="button"
+                        className="dshr-act dshr-install"
+                        title={t('installTitle')}
+                        onClick={() => { void doInstall(p.fullName) }}
+                      >
+                        ⬇ {t('install')}
+                      </button>
+                    )
+                  })()}
                   <a
                     className="dshr-act dshr-star"
                     href={p.url}
@@ -478,10 +568,10 @@ export function RankingsTab({ t, loadRankings, loadHistory, refreshRankings }: R
                   <button
                     type="button"
                     className={`dshr-act dshr-copy${copied === p.fullName ? ' dshr-copied' : ''}`}
-                    title={t('installTitle')}
+                    title={t('copyTitle')}
                     onClick={() => void onCopy(p.fullName)}
                   >
-                    {copied === p.fullName ? t('copied') : t('install')}
+                    {copied === p.fullName ? t('copied') : t('copyCommand')}
                   </button>
                 </div>
               )}
@@ -537,6 +627,7 @@ export interface RegistryDoc {
     license?: string | null
     topics?: string[]
     scanStatus?: 'verified' | 'unverified' | 'skipped' | 'error' | null
+    certified?: boolean
     signals: Record<string, number>
   }>
 }

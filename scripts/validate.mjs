@@ -9,6 +9,8 @@
  *   - hub 目录信号非空（fetch 静默降级会在这里红）
  *   - awesome 精选信号有命中
  *   - 深扫一致性：unverified 条目必须被排除，rankings 不得混入
+ *   - curated.json 认证列表与 registry 一致性（M3）
+ *   - data/trends.json 结构合法（M3）
  * 任何一项失败都以非零码退出（GitHub Actions 会红）。
  *
  * 用法：node scripts/validate.mjs
@@ -17,7 +19,8 @@ import { readFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const DATA_DIR = join(dirname(dirname(fileURLToPath(import.meta.url))), 'data')
+const ROOT = dirname(dirname(fileURLToPath(import.meta.url)))
+const DATA_DIR = join(ROOT, 'data')
 
 const errors = []
 const infos = []
@@ -55,6 +58,13 @@ for (const p of registry.plugins ?? []) {
   if (p.excluded) check(typeof p.excluded === 'string', `${p.fullName} excluded 应为原因字符串`)
   if (p.category) categoryCovered += 1
   if (p.curated) curatedCount += 1
+  // M3：认证与下载量字段
+  if (p.certified) {
+    check(typeof p.certifiedAt === 'string', `${p.fullName} certified 但缺 certifiedAt`)
+  }
+  if (p.npmMonthly !== null && p.npmMonthly !== undefined) {
+    check(Number.isFinite(p.npmMonthly), `${p.fullName} npmMonthly 应为数字`)
+  }
   // 深扫一致性：unverified 必须被排除——除非被人工精选（hub/awesome）收录（人工审核优先，见 score.mjs）
   if (p.scanStatus === 'unverified' && !p.excluded && !p.curated && (p.awesomeLists ?? []).length === 0) {
     check(false, `深扫未检出插件特征但未排除: ${p.fullName}`)
@@ -72,6 +82,41 @@ for (const r of rankings.rankings ?? []) {
     r.scanStatus !== 'unverified' || r.curated || (r.awesomeLists ?? []).length > 0,
     `rankings 混入深扫未检出条目: ${r.fullName}`,
   )
+}
+
+// M3：curated.json 认证列表与 registry 的一致性。
+// 注意：curated 中的插件可能因 Search API 单日上限（单日 ≥1000 条截断）暂时
+// 抓不到，缺失仅告警；但 registry 里已有的认证插件必须带 certified 标记。
+try {
+  const curated = JSON.parse(await readFile(join(ROOT, 'scripts', 'curated.json'), 'utf8'))
+  const registryNames = new Set(registry.plugins.map((p) => p.fullName))
+  for (const c of curated.plugins ?? []) {
+    if (!registryNames.has(c.fullName)) {
+      console.warn(`[warn] curated.json 认证插件暂不在 registry（可能被 Search 上限截断）: ${c.fullName}`)
+      continue
+    }
+    const reg = registry.plugins.find((p) => p.fullName === c.fullName)
+    if (reg) check(reg.certified === true, `registry 中 ${c.fullName} 未标记 certified（应来自 curated.json）`)
+  }
+} catch (err) {
+  if (err.code === 'ENOENT') {
+    console.warn('[warn] curated.json 不存在（精选认证未启用，跳过一致性校验）')
+  } else {
+    console.warn(`[warn] curated.json 解析失败，跳过一致性校验：${err.message}`)
+  }
+}
+
+// M3：trends.json 结构（历史产物；无历史时不强制）
+try {
+  const trends = JSON.parse(await readFile(join(DATA_DIR, 'trends.json'), 'utf8'))
+  check(Array.isArray(trends.trends), 'trends.trends 缺失')
+  check(typeof trends.rankings === 'object' && trends.rankings !== null, 'trends.rankings 缺失')
+  for (const t of trends.trends ?? []) {
+    check(typeof t.fullName === 'string', 'trends 条目缺 fullName')
+    check(Array.isArray(t.sparkline), `${t.fullName} sparkline 应为数组`)
+  }
+} catch (err) {
+  if (err.code !== 'ENOENT') throw err
 }
 
 infos.push(`分类覆盖 ${categoryCovered}/${registry.plugins?.length ?? 0} · curated ${curatedCount}`)

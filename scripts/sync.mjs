@@ -2,7 +2,7 @@
  * sync.mjs — 数据管道总入口
  *
  * fetch → score(phase1, 无深扫) → scan(榜单前 N 深扫) → score(phase2, 合并深扫)
- *       → history(每日快照) → badge(徽章) → validate
+ *       → history(每日快照) → trends(趋势派生) → badge(徽章) → validate
  * CI 每 2 小时 cron 调用的就是它：
  *   node scripts/sync.mjs [--limit N] [--no-awesome] [--skip-topic] [--no-scan] [--no-badge]
  *
@@ -54,6 +54,7 @@ if (scanEnabled) {
 }
 await step('score.mjs', []) // 第二阶段：合并深扫结果（unverified → 排除出榜）
 await step('history.mjs', [])
+await step('trends.mjs', [])
 if (!noBadge) await step('badge.mjs', [])
 await step('validate.mjs', [])
 

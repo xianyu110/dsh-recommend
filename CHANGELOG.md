@@ -4,6 +4,16 @@
 
 ## [Unreleased]
 
+### 新增（精选认证 + 趋势榜 + 一键安装，M3）
+
+- **精选认证闭环**：作者提 issue（可选勾选「申请精选认证」并填 npm 包名）→ 维护者打 `approved` 标签 → [curate workflow](.github/workflows/curate.yml) 自动收录进 `scripts/curated.json` → `score.mjs` 打 `certified` 标记 → site / DSH 设置页显示 🏅 徽章。认证是展示层激励，**不改变评分**
+- **npm 下载量字段**：fetch 阶段抓 npm API 周/月下载量（`npmWeekly` / `npmMonthly`），作为「下载量最多」榜数据源
+- **发展排行榜**（`scripts/trends.mjs`）：读 `data/history.json` 派生 `data/trends.json`（7/30/90 天 stars/score/rank delta + sparkline + 方向判定 + 7 类榜：star 增长 ×3 窗口 / 排名上升 / npm 下载量 / 本周新上榜 / 精选认证）
+- **排行榜独立页**（`site/rankings.html`）：7 个 Tab 发展榜 + SVG sparkline 曲线，零构建；综合榜页顶新增导航
+- **`trend_plugins` 工具**（host 半第 5 个工具）：按榜单查询发展数据；`sync_registry` 同时拉取 registry + history + trends
+- **设置页一键安装**：每行「⬇ 安装」按钮（`POST /dsh-recommend/install` 执行 `dsh plugin add`，spec 由服务端构造 + Origin 校验防注入/CSRF）；已装检测走官方 pluginInventory Remote，已装插件显示「✓ 已安装」；原「复制安装命令」保留为「复制命令」
+- **设置页紧凑排版**：删除分数进度条、收紧留白与字号（保留详情展开 / 深扫状态 / 走势 sparkline）
+
 ### 新增（榜单可信度，评分模型 v2）
 
 - **官方本体/非插件 denylist**（`scripts/exclude-list.json`）：`deepseek-ai/deepseek-harness` 等官方本体排除出榜（仍在 registry 保留原因，可审计）

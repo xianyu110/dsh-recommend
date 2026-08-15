@@ -26,6 +26,8 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const RAW_DIR = join(ROOT, 'data', 'raw')
 /** 手动收录清单（人工验证、Search API 无法自动发现的插件，见文件内 note）。 */
 const MANUAL_FILE = join(ROOT, 'scripts', 'manual-repos.json')
+/** 精选认证列表（issue 审核通过，M3；其 npmPackage 用于下载量抓取）。 */
+const CURATED_FILE = join(ROOT, 'scripts', 'curated.json')
 
 const GITHUB_API = 'https://api.github.com'
 const token = process.env.GITHUB_TOKEN ?? ''
@@ -328,6 +330,46 @@ export async function fetchManualRepos() {
   return records
 }
 
+/**
+ * 抓取精选插件的 npm 下载量（api.npmjs.org 公开端点，无鉴权，M3）。
+ * 读取 scripts/curated.json 中声明了 npmPackage 的条目，按包名抓 last-week /
+ * last-month 下载量，写入 data/raw/npm.json（score 阶段消费）。失败单包跳过
+ * （npm 包可能未发布/改名），不影响主流程。
+ * @returns {{ downloads: Record<string, {weekly: number|null, monthly: number|null}> }}
+ */
+export async function fetchNpmDownloads() {
+  let curated = []
+  try {
+    curated = JSON.parse(await readFile(CURATED_FILE, 'utf8')).plugins ?? []
+  } catch (err) {
+    if (err.code !== 'ENOENT') console.warn(`curated.json 读取失败：${err.message}`)
+    return { downloads: {} }
+  }
+  const packages = curated.map((e) => e.npmPackage).filter((p) => typeof p === 'string' && p.length > 0)
+  const downloads = {}
+  for (const pkg of packages) {
+    try {
+      const [weekly, monthly] = await Promise.all([
+        npmPoint(`https://api.npmjs.org/downloads/point/last-week/${encodeURIComponent(pkg)}`),
+        npmPoint(`https://api.npmjs.org/downloads/point/last-month/${encodeURIComponent(pkg)}`),
+      ])
+      downloads[pkg] = { weekly: weekly?.downloads ?? null, monthly: monthly?.downloads ?? null }
+      console.log(`npm ${pkg}: weekly=${downloads[pkg].weekly} monthly=${downloads[pkg].monthly}`)
+    } catch (err) {
+      console.warn(`npm 下载量抓取失败，跳过：${pkg}（${err.message}）`)
+      downloads[pkg] = { weekly: null, monthly: null }
+    }
+  }
+  return { downloads }
+}
+
+/** npm 下载量点查询（公开 JSON 端点）。 */
+async function npmPoint(url) {
+  const res = await fetch(url)
+  if (!res.ok) throw new Error(`npm API ${res.status}: ${url}`)
+  return res.json()
+}
+
 const argv = process.argv.slice(2)
 const out = argv.includes('--dry') ? null : RAW_DIR
 const limitIndex = argv.indexOf('--limit')
@@ -357,19 +399,23 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const merged = new Map(manual.map((r) => [r.fullName, r]))
   for (const r of topicRecords) if (!merged.has(r.fullName)) merged.set(r.fullName, r)
   const topicRepos = [...merged.values()]
+  const npm = await fetchNpmDownloads()
   const payload = {
     fetchedAt: new Date().toISOString(),
     topicRepos,
     hubCatalog: catalog,
     awesomeLists: awesome,
+    npm,
   }
   if (out) {
     await mkdir(out, { recursive: true })
     await writeFile(join(out, 'repos.json'), JSON.stringify(payload, null, 2))
+    await writeFile(join(out, 'npm.json'), JSON.stringify(npm, null, 2))
     console.log(
       `已写入 ${join(out, 'repos.json')}（topic 仓库 ${topicRecords.length} 个` +
         `${manual.length ? ` + 手动收录 ${manual.length} 个` : ''} = ${topicRepos.length} 个；` +
-        `hub 目录 ${catalog.entries.length} 条${catalog.error ? `（抓取失败: ${catalog.error}）` : ''}）`,
+        `hub 目录 ${catalog.entries.length} 条${catalog.error ? `（抓取失败: ${catalog.error}）` : ''}；` +
+        `npm 下载量 ${Object.keys(npm.downloads).length} 个包）`,
     )
   } else {
     console.log(JSON.stringify(payload, null, 2))

@@ -1,11 +1,21 @@
 /**
  * dsh-recommend web 半：把本地缓存的 registry.json / history.json 以同源路由供给浏览器，
- * 并提供 POST /dsh-recommend/sync 供设置页「刷新数据」按钮触发更新。
+ * 提供 POST /dsh-recommend/sync 供设置页「刷新数据」按钮触发更新，
+ * 并提供 POST /dsh-recommend/install 供设置页「一键安装」按钮触发 `dsh plugin add`（M3）。
  *
  * 独立成行（而非并入 host 工具半）是因为 cordis 的 inject 是强依赖：
  * webServer 只在 web profile 存在，headless 下挂载本行会永远 PENDING。
  * 所以 tools 半（main）不带 webServer，本半（./web）带，由 patch 分两行挂载。
+ *
+ * 安装安全边界：
+ *   1. 客户端只能按 fullName 安装，spec 由服务端从缓存 registry 构造
+ *      （`github:owner/repo`），绝不接受客户端传来的任意字符串 —— 防注入；
+ *   2. Origin 校验：仅接受同源（或空 Origin，如 curl 本机）请求 —— 防 CSRF
+ *      （恶意网页让本地 DSH 装任意插件）；
+ *   3. 安装命令交给官方 `dsh plugin --profile <name> add <spec>`，由它完成
+ *      profile 初始化、pnpm 安装与 bundles 对账，本行只转发输出。
  */
+import { spawn } from 'node:child_process'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname } from 'node:path'
 import type { Context } from '@deepseek-ai/cordis'
@@ -21,7 +31,12 @@ export interface Config {
   dataUrl: string
   /** 可选：历史数据缓存路径（默认 cachePath 同级 history.json）。 */
   historyPath?: string
+  /** 可选：安装目标 profile 名；缺省为 web（浏览器半所在的 profile）。 */
+  installProfile?: string
 }
+
+/** 安装超时：pnpm 拉取 git 依赖可能很慢，给足 10 分钟。 */
+const INSTALL_TIMEOUT_MS = 10 * 60 * 1000
 
 export function apply(ctx: Context, config: Config): void {
   const historyPath = config.historyPath ?? config.cachePath.replace(/registry\.json$/, 'history.json')
@@ -95,4 +110,85 @@ export function apply(ctx: Context, config: Config): void {
       }
     },
   }), 'dsh-recommend: sync route')
+
+  // 一键安装：body = { fullName: 'owner/repo' }；spec 由服务端从缓存 registry 构造
+  ctx.effect(() => ctx.webServer.register({
+    kind: 'exact',
+    path: '/dsh-recommend/install',
+    async handler(req, res) {
+      const json = (code: number, body: unknown): void => {
+        res.writeHead(code, { 'content-type': 'application/json; charset=utf-8' })
+        res.end(JSON.stringify(body))
+      }
+      try {
+        if (req.method !== 'POST') return json(405, { ok: false, error: 'method not allowed' })
+
+        // 防 CSRF：Origin 非空且非同源时拒绝（同源请求的 Origin 为空或匹配 Host）
+        const origin = req.headers.origin
+        if (origin && origin !== `http://${req.headers.host}`) {
+          return json(403, { ok: false, error: 'cross-origin install rejected' })
+        }
+
+        // 读取并校验 body
+        const chunks: Buffer[] = []
+        for await (const chunk of req) chunks.push(chunk as Buffer)
+        const body = JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}') as { fullName?: unknown }
+        const fullName = typeof body.fullName === 'string' ? body.fullName.trim() : ''
+        if (!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(fullName)) {
+          return json(400, { ok: false, error: `illegal fullName: ${fullName}` })
+        }
+
+        // 服务端从缓存 registry 构造 spec：fullName 必须真实存在且未被排除
+        let registry: { plugins?: Array<{ fullName: string; excluded: string | null }> }
+        try {
+          registry = JSON.parse(await readFile(config.cachePath, 'utf8'))
+        } catch {
+          return json(409, { ok: false, error: 'registry cache missing — run sync_registry first' })
+        }
+        const entry = registry.plugins?.find((p) => p.fullName === fullName)
+        if (!entry) return json(404, { ok: false, error: `not in registry: ${fullName}` })
+        if (entry.excluded) return json(400, { ok: false, error: `excluded plugin: ${fullName}（${entry.excluded}）` })
+
+        const spec = `github:${fullName}`
+        const result = await runInstall(config.installProfile ?? 'web', spec)
+        json(200, { ok: result.exitCode === 0, spec, profile: config.installProfile ?? 'web', ...result })
+      } catch (err) {
+        json(500, { ok: false, error: err instanceof Error ? err.message : String(err) })
+      }
+    },
+  }), 'dsh-recommend: install route')
+}
+
+/** 执行 `dsh plugin --profile <p> add <spec>`，收集输出，超时杀进程。 */
+function runInstall(profile: string, spec: string): Promise<{
+  exitCode: number
+  stdout: string
+  stderr: string
+  timedOut: boolean
+}> {
+  return new Promise((resolve, reject) => {
+    // Windows 下 dsh 是 .cmd shim，spawn 需 shell（与官方 CLI spawn pnpm 同处理）
+    const child = spawn('dsh', ['plugin', '--profile', profile, 'add', spec], {
+      shell: process.platform === 'win32',
+      windowsHide: true,
+    })
+    let stdout = ''
+    let stderr = ''
+    child.stdout?.on('data', (d: Buffer) => { stdout += d.toString() })
+    child.stderr?.on('data', (d: Buffer) => { stderr += d.toString() })
+
+    const timer = setTimeout(() => {
+      child.kill()
+      resolve({ exitCode: -1, stdout, stderr: `${stderr}\n[dsh-recommend] 安装超时（${INSTALL_TIMEOUT_MS / 60000} 分钟），已终止`, timedOut: true })
+    }, INSTALL_TIMEOUT_MS)
+
+    child.on('error', (err) => {
+      clearTimeout(timer)
+      reject(err)
+    })
+    child.on('close', (code) => {
+      clearTimeout(timer)
+      resolve({ exitCode: code ?? 1, stdout, stderr, timedOut: false })
+    })
+  })
 }

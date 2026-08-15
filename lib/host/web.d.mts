@@ -9,6 +9,8 @@ interface Config {
   dataUrl: string;
   /** 可选：历史数据缓存路径（默认 cachePath 同级 history.json）。 */
   historyPath?: string;
+  /** 可选：安装目标 profile 名；缺省为 web（浏览器半所在的 profile）。 */
+  installProfile?: string;
 }
 declare function apply(ctx: Context, config: Config): void;
 //#endregion

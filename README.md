@@ -25,7 +25,9 @@
 
 ### 1️⃣ 网页版排行（不用安装）
 
-👉 打开 **https://zp-home.github.io/dsh-recommend/site/** —— 卡片式排行榜：前三名奖牌、分数条、四维信号徽章，支持搜索 / 分类筛选 / 四种排序（综合分 / 热度 / 最近更新 / 最新发布）、分页浏览、详情展开（主题标签 / 许可证 / 发布时间 / 深扫状态）、近 N 天**综合分走势图**、一键复制**安装命令**与 **README 徽章**链接。
+👉 打开 **https://zp-home.github.io/dsh-recommend/site/** —— 卡片式排行榜：前三名奖牌、四维信号徽章、🏅 精选认证，支持搜索 / 分类筛选 / 四种排序（综合分 / 热度 / 最近更新 / 最新发布）、分页浏览、详情展开（主题标签 / 许可证 / 发布时间 / 深扫状态）、近 N 天**综合分走势图**、一键复制**安装命令**与 **README 徽章**链接。
+
+🏆 **发展排行榜**（独立页面）：**https://zp-home.github.io/dsh-recommend/site/rankings.html** —— star 增长最快（7/30/90 天）、排名上升最快、npm 下载量最多、本周新上榜、精选认证，每条带增长曲线 sparkline。
 
 **📸 效果预览：**
 
@@ -33,7 +35,7 @@
 
 ![排行榜静态站 2](docs/images/site-2.png)
 
-也可以直接看原始数据：[`data/rankings.json`](data/rankings.json)（每 2 小时自动更新）、[`data/history.json`](data/history.json)（每日趋势快照）。
+也可以直接看原始数据：[`data/rankings.json`](data/rankings.json)（每 2 小时自动更新）、[`data/history.json`](data/history.json)（每日趋势快照）、[`data/trends.json`](data/trends.json)（派生发展榜）。
 
 ### 2️⃣ 在 DSH 里安装插件（✅ 已真机验证）
 
@@ -64,8 +66,8 @@ dsh plugin --profile web add D:\路径\dsh-recommend
 
 | 面 | 内容 |
 |---|---|
-| 模型工具 ×4 | `rank_plugins` 榜单查询（可过滤分类/维度）· `search_plugins` 检索 · `recommend_plugins` 按目标推荐（中英同义词扩展，支持 `keywords` 参数）· `sync_registry` 刷新本地数据（含历史趋势，报告 hub/深扫健康度） |
-| 设置页标签 | 设置 → 插件 → 「**插件排行**」：完整排行榜（搜索/分类/排序/分页）+ 一键刷新 + 安装命令复制 + 详情展开 + 趋势走势图，随 DSH 亮/暗主题自动适配，zh/en 双语 |
+| 模型工具 ×5 | `rank_plugins` 榜单查询（可过滤分类/维度）· `search_plugins` 检索 · `recommend_plugins` 按目标推荐（中英同义词扩展，支持 `keywords` 参数）· `trend_plugins` 发展榜（star 增长/排名上升/下载量/新上榜/精选）· `sync_registry` 刷新本地数据（含历史与趋势，报告 hub/深扫健康度） |
+| 设置页标签 | 设置 → 插件 → 「**插件排行**」：紧凑排行榜（搜索/分类/排序/分页）+ 一键刷新 + **一键安装**（⬇ 安装 / ✓ 已安装）+ 安装命令复制 + 详情展开 + 🏅 认证徽章 + 趋势走势图，随 DSH 亮/暗主题自动适配，zh/en 双语 |
 
 > 仓库根目录即插件包（`dsh.bundle` + `dsh.client` 双声明，构建产物 `lib/` 随库提交，git 安装无需构建）。
 
@@ -73,7 +75,7 @@ dsh plugin --profile web add D:\路径\dsh-recommend
 
 ```sh
 # 需要 Node 18+（深扫需 GITHUB_TOKEN，CI 自动注入）
-node scripts/sync.mjs            # fetch → score → scan（深扫）→ score → history → badge → validate
+node scripts/sync.mjs            # fetch → score → scan（深扫）→ score → history → trends → badge → validate
 node scripts/validate.mjs        # 只校验
 node scripts/smoke.mjs           # 管道纯函数冒烟测试
 ```
@@ -87,6 +89,15 @@ node scripts/smoke.mjs           # 管道纯函数冒烟测试
 ```md
 [![dsh score](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fzp-home%2Fdsh-recommend%2Fmain%2Fdata%2Fbadges%2F<owner>__<name>.json)](https://github.com/zp-home/dsh-recommend)
 ```
+
+## 🏅 精选认证（给优质插件作者的激励）
+
+想让你的插件获得官方「🏅 精选认证」？两步：
+
+1. 提交 [收录/认证 Issue](https://github.com/zp-home/dsh-recommend/issues/new?template=submit-plugin.yml)，勾选「申请精选认证」，可选填 npm 包名（用于下载量榜）；
+2. 审核通过后，你的插件在榜单与设置页显示 🏅，并进入精选认证榜。
+
+认证是**展示层激励，不改变评分**（评分公式始终保持透明可复算）。审核标准：可正常安装（dsh.bundle 或 repository-plugin）、有实际功能、README 完善、维护活跃。
 
 ## 📊 当前数据
 

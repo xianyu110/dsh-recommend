@@ -23,6 +23,10 @@ export interface Config {
   historyUrl?: string
   /** 可选：历史数据缓存路径（默认 cachePath 同级 history.json）。 */
   historyPath?: string
+  /** 可选：趋势数据 URL（默认由 dataUrl 推导：registry.json → trends.json，M3）。 */
+  trendsUrl?: string
+  /** 可选：趋势数据缓存路径（默认 cachePath 同级 trends.json）。 */
+  trendsPath?: string
 }
 
 /** ISO 时间戳 → 本地可读格式，如 2026-08-14 05:27（UTC+8）。解析失败原样返回，缺省显示 —。 */
@@ -45,6 +49,8 @@ export function apply(ctx: Context, config: Config) {
   const cachePath = config.cachePath
   const historyPath = config.historyPath ?? config.cachePath.replace(/registry\.json$/, 'history.json')
   const historyUrl = config.historyUrl ?? config.dataUrl.replace(/registry\.json$/, 'history.json')
+  const trendsPath = config.trendsPath ?? config.cachePath.replace(/registry\.json$/, 'trends.json')
+  const trendsUrl = config.trendsUrl ?? config.dataUrl.replace(/registry\.json$/, 'trends.json')
 
   /** 读缓存；缺失/损坏时返回 null（工具层提示先 sync）。 */
   async function loadRegistry(): Promise<RegistryDoc | null> {
@@ -52,6 +58,18 @@ export function apply(ctx: Context, config: Config) {
       const raw = await readFile(cachePath, 'utf8')
       const doc: RegistryDoc = JSON.parse(raw)
       if (!Array.isArray(doc.plugins)) throw new Error('registry 结构异常')
+      return doc
+    } catch {
+      return null
+    }
+  }
+
+  /** 读趋势缓存；缺失/损坏时返回 null（trend_plugins 提示先 sync）。 */
+  async function loadTrends(): Promise<TrendsDoc | null> {
+    try {
+      const raw = await readFile(trendsPath, 'utf8')
+      const doc: TrendsDoc = JSON.parse(raw)
+      if (!Array.isArray(doc.trends) || typeof doc.rankings !== 'object') throw new Error('trends 结构异常')
       return doc
     } catch {
       return null
@@ -105,9 +123,10 @@ export function apply(ctx: Context, config: Config) {
       },
     },
     async execute() {
-      const [regRes, hisRes] = await Promise.all([
+      const [regRes, hisRes, trendRes] = await Promise.all([
         fetch(config.dataUrl),
         fetch(historyUrl),
+        fetch(trendsUrl),
       ])
       if (!regRes.ok) throw new Error(`下载 registry 失败: ${regRes.status}`)
       const text = await regRes.text()
@@ -125,6 +144,16 @@ export function apply(ctx: Context, config: Config) {
             historyDays = his.days.length
           }
         } catch { /* history 可选，解析失败仅警告 */ }
+      }
+      // 趋势数据：拉取失败不阻断主流程（trend_plugins 会提示缺失）
+      if (trendRes.ok) {
+        const tText = await trendRes.text()
+        try {
+          const tDoc = JSON.parse(tText)
+          if (Array.isArray(tDoc.trends)) {
+            await writeFile(trendsPath, tText, 'utf8')
+          }
+        } catch { /* trends 可选，解析失败仅警告 */ }
       }
       const meta = doc.meta as RegistryDoc['meta']
       return {
@@ -352,6 +381,94 @@ export function apply(ctx: Context, config: Config) {
       }
     },
   }))
+
+  ctx.tools.register(defineTool({
+    name: 'trend_plugins',
+    description: '查询插件发展趋势榜：star 增长最快 / 排名上升最快 / 下载量最多 / 本周新上榜 / 精选认证。数据来自每日历史快照。',
+    parameters: {
+      board: {
+        type: 'string',
+        required: true,
+        enum: ['starsGain7d', 'starsGain30d', 'starsGain90d', 'rankGain30d', 'downloads30d', 'newlyListed', 'certified'],
+        description: '榜单：starsGain7d/30d/90d 各窗口 star 增长；rankGain30d 排名上升；downloads30d npm 月下载量；newlyListed 本周新上榜；certified 精选认证',
+      },
+      limit: { type: 'number', description: '返回条数，默认 10，最大 50' },
+    },
+    output: {
+      schema: {
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          board: { type: 'string' },
+          historyDays: { type: 'number' },
+          items: {
+            type: 'array',
+            items: {
+              type: 'object',
+              additionalProperties: false,
+              properties: {
+                fullName: { type: 'string' },
+                stars: { type: 'number' },
+                score: { type: 'number' },
+                delta: { oneOf: [{ type: 'number' }, { type: 'null' }], description: '该榜的排序指标（star 增量 / 排名上升 / 下载量等）' },
+                note: { type: 'string', description: '人话解释这一条为什么上榜' },
+                certified: { type: 'boolean' },
+              },
+            },
+          },
+        },
+      },
+      render: (_args, value) => {
+        const items = value.items ?? []
+        return [{
+          type: 'text',
+          text: items.length === 0
+            ? `「${value.board}」暂无数据（历史快照需积累数天）`
+            : `「${value.board}」Top ${items.length}（历史 ${value.historyDays} 天）\n` +
+              items.map((r, i) => `${i + 1}. ${r.fullName}${r.certified ? ' 🏅' : ''} — ${r.note}`).join('\n'),
+        }]
+      },
+    },
+    async execute(args) {
+      const doc = await loadTrends()
+      if (!doc) throw new Error('趋势数据缺失，请先调用 sync_registry（若仍失败，说明数据仓库还未积累历史快照）')
+      const list = doc.rankings?.[args.board] ?? []
+      const limit = Math.min(args.limit ?? 10, 50)
+      const items = list.slice(0, limit).map((t) => describeTrend(t, args.board))
+      return { board: args.board, historyDays: doc.meta?.historyDays ?? 0, items }
+    },
+  }))
+}
+
+/** 把一条趋势记录翻译成人话（按榜单类型解释上榜理由）。 */
+function describeTrend(t: TrendEntry, board: string) {
+  const base = { fullName: t.fullName, certified: t.current?.certified ?? false }
+  switch (board) {
+    case 'starsGain7d':
+    case 'starsGain30d':
+    case 'starsGain90d': {
+      const w = board.replace('starsGain', '')
+      const delta = t.deltas?.[`${w}d`]?.stars
+      return { ...base, stars: t.current?.stars ?? 0, score: t.current?.score ?? 0, delta: delta ?? null, note: `${w} 天 star ${delta != null ? `+${delta}` : '—'}（现 ${t.current?.stars ?? '—'} ★）` }
+    }
+    case 'rankGain30d': {
+      const delta = t.deltas?.['30d']?.rank
+      return { ...base, stars: t.current?.stars ?? 0, score: t.current?.score ?? 0, delta: delta ?? null, note: `30 天排名上升 ${delta ?? '—'} 名（现第 ${t.current?.rank ?? '—'} 名）` }
+    }
+    case 'downloads30d':
+      return { ...base, stars: t.current?.stars ?? 0, score: t.current?.score ?? 0, delta: t.current?.npmMonthly ?? null, note: `npm 月下载 ${fmtNum(t.current?.npmMonthly)} 次（周 ${fmtNum(t.current?.npmWeekly)}）` }
+    case 'newlyListed':
+      return { ...base, stars: t.current?.stars ?? 0, score: t.current?.score ?? 0, delta: t.current?.stars ?? null, note: `上榜于 ${t.firstSeen}（现第 ${t.current?.rank ?? '—'} 名）` }
+    case 'certified':
+      return { ...base, stars: t.current?.stars ?? 0, score: t.current?.score ?? 0, delta: t.current?.score ?? null, note: `精选认证 · 综合分 ${t.current?.score ?? '—'}` }
+    default:
+      return { ...base, stars: t.current?.stars ?? 0, score: t.current?.score ?? 0, delta: null, note: t.fullName }
+  }
+}
+
+function fmtNum(n: number | null | undefined): string {
+  if (n === null || n === undefined) return '—'
+  return Number(n).toLocaleString('en-US')
 }
 
 /**
@@ -417,4 +534,27 @@ interface RegistryDoc {
     pushedAt: string | null
     signals: Record<string, number>
   }>
+}
+
+interface TrendsDoc {
+  meta: { generatedAt?: string; historyDays?: number; historyStart?: string | null }
+  trends: TrendEntry[]
+  rankings: Record<string, TrendEntry[]>
+}
+
+interface TrendEntry {
+  fullName: string
+  firstSeen: string
+  lastSeen?: string
+  current: {
+    stars?: number | null
+    score?: number | null
+    rank?: number | null
+    certified?: boolean
+    npmWeekly?: number | null
+    npmMonthly?: number | null
+  } | null
+  deltas?: Record<string, { stars?: number | null; score?: number | null; rank?: number | null }>
+  direction?: string
+  sparkline?: number[]
 }

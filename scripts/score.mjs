@@ -14,6 +14,12 @@
  *   score       = 0.35*maintenance + 0.30*popularity
  *               + 0.20*quality + 0.15*ecosystem
  *
+ * 认证与下载量（展示层，不进评分公式，M3）：
+ *   - certified：来自 scripts/curated.json（issue 审核通过的精选认证），
+ *     打 `certified: true` + `certifiedAt` 标记，site/插件端展示 🏅 徽章；
+ *   - npmWeekly/npmMonthly：来自 data/raw/npm.json（fetch 阶段抓取的 npm 下载量），
+ *     仅对 curated 列表里声明了 npmPackage 的插件存在。
+ *
  * 排除规则（进 registry，不进 rankings，附 reason）：
  *   - fork 或 archived
  *   - 占位/空仓库：sizeKb == 0 或描述命中占位特征
@@ -103,11 +109,45 @@ export async function loadDeepScan() {
   }
 }
 
+/** 读取 scripts/curated.json 精选认证列表；返回 fullName -> { issue, approvedAt, npmPackage }。 */
+export async function loadCurated() {
+  try {
+    const curated = JSON.parse(await readFile(join(ROOT(), 'scripts', 'curated.json'), 'utf8'))
+    const map = new Map()
+    for (const e of Array.isArray(curated?.plugins) ? curated.plugins : []) {
+      if (typeof e?.fullName === 'string') {
+        map.set(e.fullName, { issue: e.issue ?? null, approvedAt: e.approvedAt ?? null, npmPackage: e.npmPackage ?? null })
+      }
+    }
+    return map
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      console.warn('curated.json 不存在（精选认证未启用）')
+    } else {
+      console.warn(`curated.json 解析失败，按空列表处理：${err.message}`)
+    }
+    return new Map()
+  }
+}
+
+/** 读取 data/raw/npm.json npm 下载量；返回 pkg -> { weekly, monthly }。不存在时为空 Map。 */
+export async function loadNpmDownloads() {
+  try {
+    const npm = JSON.parse(await readFile(join(ROOT(), 'data', 'raw', 'npm.json'), 'utf8'))
+    return new Map(Object.entries(npm.downloads ?? {}))
+  } catch (err) {
+    if (err.code !== 'ENOENT') console.warn(`npm.json 读取失败：${err.message}`)
+    return new Map()
+  }
+}
+
 /** 主入口：读取 raw，写出 registry/rankings/meta。noScan=true 时忽略深扫结果（sync 第一阶段）。 */
 export async function runScore(rawDir = join(ROOT(), 'data', 'raw'), outDir = join(ROOT(), 'data'), { noScan = false } = {}) {
   const raw = JSON.parse(await readFile(join(rawDir, 'repos.json'), 'utf8'))
   const denylist = await loadDenylist()
   const { map: scanMap, summary: scanSummary } = noScan ? { map: new Map(), summary: null } : await loadDeepScan()
+  const certifiedBy = await loadCurated()
+  const npmByPackage = await loadNpmDownloads()
 
   // 构建精选集合。注意：hub 目录的 URL 大多是 dsh-external/<name> 镜像地址，
   // 而真实仓库在作者命名空间下（dsh-external/<name> 重定向到 <author>/<name>），
@@ -152,6 +192,8 @@ export async function runScore(rawDir = join(ROOT(), 'data', 'raw'), outDir = jo
     }
 
     if (reason) excluded += 1
+    const certified = certifiedBy.get(repo.fullName) ?? null
+    const npm = certified?.npmPackage ? npmByPackage.get(certified.npmPackage) : null
     registry.push({
       ...repo,
       category: hubCategories.get(nameKey) ?? null,
@@ -163,6 +205,14 @@ export async function runScore(rawDir = join(ROOT(), 'data', 'raw'), outDir = jo
       excluded: reason,
       scanStatus,
       scanSignals,
+      // 精选认证（展示层，不进评分；M3）
+      certified: Boolean(certified),
+      certifiedAt: certified?.approvedAt ?? null,
+      curatedIssue: certified?.issue ?? null,
+      // npm 下载量（仅精选且声明了包名的插件）
+      npmPackage: certified?.npmPackage ?? null,
+      npmWeekly: npm?.weekly ?? null,
+      npmMonthly: npm?.monthly ?? null,
     })
   }
 

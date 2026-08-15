@@ -11,6 +11,10 @@ interface Config {
   historyUrl?: string;
   /** 可选：历史数据缓存路径（默认 cachePath 同级 history.json）。 */
   historyPath?: string;
+  /** 可选：趋势数据 URL（默认由 dataUrl 推导：registry.json → trends.json，M3）。 */
+  trendsUrl?: string;
+  /** 可选：趋势数据缓存路径（默认 cachePath 同级 trends.json）。 */
+  trendsPath?: string;
 }
 declare function apply(ctx: Context, config: Config): void;
 /**

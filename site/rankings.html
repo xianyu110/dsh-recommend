@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>排行榜 · dsh-recommend</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header>
+    <h1>🏆 dsh-recommend <span class="tag">发展排行榜</span></h1>
+    <p class="meta" id="meta">加载中…</p>
+    <nav class="nav">
+      <a href="./index.html">← 综合榜</a>
+      <a href="./rankings.html" class="active">发展排行榜</a>
+      <a href="https://github.com/zp-home/dsh-recommend/issues/new?template=submit-plugin.yml" target="_blank" rel="noopener">申请精选认证 🏅</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="tabs">
+      <button type="button" class="tab active" data-panel="stars7">⭐ Star 增长最快（7 天）</button>
+      <button type="button" class="tab" data-panel="stars30">⭐ Star 增长最快（30 天）</button>
+      <button type="button" class="tab" data-panel="stars90">⭐ Star 增长最快（90 天）</button>
+      <button type="button" class="tab" data-panel="rank30">📈 排名上升最快（30 天）</button>
+      <button type="button" class="tab" data-panel="downloads">📦 下载量最多（30 天）</button>
+      <button type="button" class="tab" data-panel="new">🆕 本周新上榜</button>
+      <button type="button" class="tab" data-panel="certified">🏅 精选认证</button>
+    </section>
+
+    <div id="panels">
+      <div class="panel" data-panel="stars7"></div>
+      <div class="panel" data-panel="stars30"></div>
+      <div class="panel" data-panel="stars90"></div>
+      <div class="panel" data-panel="rank30"></div>
+      <div class="panel" data-panel="downloads"></div>
+      <div class="panel" data-panel="new"></div>
+      <div class="panel" data-panel="certified"></div>
+    </div>
+
+    <p class="meta" id="count"></p>
+  </main>
+
+  <footer>
+    <p>发展数据由每日历史快照（<code>data/history.json</code>）自动派生，趋势口径公开（<a href="../docs/trends.md">趋势模型</a>）。收录 ≠ 安全背书，安装前请自行审查源码。</p>
+    <p class="meta footer-links">数据与源码：<a href="https://github.com/zp-home/dsh-recommend" target="_blank" rel="noopener">github.com/zp-home/dsh-recommend</a> · 觉得有用就点个 ⭐</p>
+  </footer>
+
+  <script src="./rankings.js"></script>
+</body>
+</html>

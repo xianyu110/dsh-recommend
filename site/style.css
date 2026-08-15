@@ -127,3 +127,30 @@ footer { color: var(--dim); font-size: 13px; padding-top: 30px; border-top: 1px 
 footer a { color: var(--accent-soft); }
 .footer-links { margin: 8px 0 0; }
 .footer-links a { font-weight: 600; }
+
+/* 导航（综合榜 / 发展排行榜 / 申请认证） */
+.nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; }
+.nav a {
+  font-size: 13px; text-decoration: none; color: var(--muted);
+  border: 1px solid var(--border); border-radius: 999px; padding: 5px 13px; background: var(--panel);
+  transition: border-color .15s ease, color .15s ease;
+}
+.nav a:hover { border-color: var(--accent); color: var(--accent-soft); }
+.nav a.active { border-color: var(--accent); color: var(--accent-soft); font-weight: 600; }
+
+/* 精选认证徽章 */
+.badge-cert { display: inline-block; margin-left: 6px; font-size: 15px; vertical-align: -1px; }
+
+/* 排行榜页 */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 18px; }
+.tab {
+  font-family: inherit; font-size: 13px; color: var(--muted); cursor: pointer;
+  background: var(--panel); border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px;
+  transition: border-color .15s ease, color .15s ease, background .15s ease;
+}
+.tab:hover { border-color: var(--accent); color: var(--accent-soft); }
+.tab.active { border-color: var(--accent); color: #fff; background: var(--accent); }
+.panel { display: block; }
+.spark-cell { flex: 0 0 auto; color: var(--accent-soft); }
+.spark { display: block; }
+.gain { font-size: 15px; font-weight: 700; color: var(--accent-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
