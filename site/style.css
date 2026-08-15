@@ -97,6 +97,22 @@ input:focus, select:focus { border-color: var(--accent); }
 .act.star:hover { background: #fff3d6; border-color: var(--gold); color: #8a6a00; }
 .act.repo { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12.5px; }
 .act.site { color: var(--accent-soft); }
+.act.copy, .act.badge { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12.5px; cursor: pointer; }
+.act.copied { border-color: #2e9e5b; color: #2e9e5b; }
+.trend { display: inline-flex; align-items: center; color: var(--accent); }
+.spark { display: block; }
+.details { border-top: 1px dashed var(--border); padding-top: 10px; font-size: 13px; color: var(--muted); }
+.details summary { cursor: pointer; color: var(--dim); font-size: 12.5px; user-select: none; }
+.details summary:hover { color: var(--accent-soft); }
+.details dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 10px 0 0; }
+.details dt { color: var(--dim); white-space: nowrap; }
+.details dd { margin: 0; overflow-wrap: anywhere; }
+.details .topics { display: flex; flex-wrap: wrap; gap: 5px; }
+.details .topic {
+  font-size: 11.5px; line-height: 1; padding: 4px 8px; border-radius: 999px;
+  color: var(--muted); background: var(--panel-2); border: 1px solid var(--border);
+}
+.details dd a { color: var(--accent-soft); }
 #count { margin-top: 14px; }
 .pager { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 18px; }
 .pager button {

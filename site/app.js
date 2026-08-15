@@ -1,7 +1,8 @@
-/* dsh-recommend 静态站：零构建，直接消费 data/rankings.json + data/registry.json */
+/* dsh-recommend 静态站：零构建，直接消费 data/registry.json + data/history.json + data/badges/index.json */
 
 const SIGNAL_LABELS = { maintenance: '维护性', popularity: '热度', quality: '质量', ecosystem: '生态' }
 const SIGNAL_ORDER = ['maintenance', 'popularity', 'quality', 'ecosystem']
+const SCAN_LABELS = { verified: '检出 DSH 插件特征', unverified: '未检出插件特征（已排除出榜）', skipped: '未深扫', error: '深扫失败' }
 
 /** ISO 时间戳 → 本地可读格式，如 2026-08-14 05:27（UTC+8）。解析失败原样返回，缺省显示 —。 */
 function formatTime(iso) {
@@ -15,6 +16,9 @@ function formatTime(iso) {
 }
 
 let doc = null // { meta, plugins }（registry）
+let history = null // { days: [...] }（每日快照）
+let badges = null // { entries: { [fullName]: { file, message, color } } }
+let badgeBase = 'https://img.shields.io/endpoint?url='
 
 const PAGE_SIZE = 50 // 每页条数
 let page = 1 // 当前页（1 起）
@@ -40,6 +44,47 @@ function siteLink(p) {
   return `<a class="act site" href="${esc(url)}" target="_blank" rel="noopener" title="插件静态站 / 文档">🌐 站点</a>`
 }
 
+/** 安装命令。 */
+function installCmd(p) {
+  return `dsh plugin --profile web add github:${p.fullName}`
+}
+
+/** 徽章 URL（README 可挂）。 */
+function badgeUrl(p) {
+  if (!badges?.entries?.[p.fullName]) return null
+  return badgeBase + encodeURIComponent(
+    `https://raw.githubusercontent.com/zp-home/dsh-recommend/main/data/badges/${badges.entries[p.fullName].file}`,
+  )
+}
+
+/** 近 N 天综合分序列（按日期升序）。 */
+function trendSeries(fullName) {
+  if (!history?.days) return []
+  const days = [...history.days].sort((a, b) => a.date.localeCompare(b.date))
+  const out = []
+  for (const day of days) {
+    const hit = day.top.find((x) => x.fullName.toLowerCase() === fullName.toLowerCase())
+    if (hit) out.push(hit.score)
+  }
+  return out
+}
+
+/** 迷你走势图 SVG。 */
+function sparkline(series) {
+  if (series.length < 2) return ''
+  const w = 120, h = 26, pad = 3
+  const min = Math.min(...series), max = Math.max(...series)
+  const span = max - min || 1
+  const step = (w - 2 * pad) / (series.length - 1)
+  const pts = series.map((v, i) => {
+    const x = pad + i * step
+    const y = h - pad - ((v - min) / span) * (h - 2 * pad)
+    return `${x.toFixed(1)},${y.toFixed(1)}`
+  })
+  const [lx, ly] = pts[pts.length - 1].split(',')
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="近 ${series.length} 天综合分走势"><polyline points="${pts.join(' ')}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${lx}" cy="${ly}" r="2.4" fill="currentColor"/></svg>`
+}
+
 async function load() {
   try {
     const reg = await fetch('../data/registry.json').then((r) => r.json())
@@ -53,12 +98,20 @@ async function load() {
       sel.append(opt)
     }
     const exc = doc.plugins.filter((p) => p.excluded).length
+    const hub = reg.meta?.signals?.hubCatalog
     document.getElementById('meta').textContent =
-      `数据 ${formatTime(reg.meta.generatedAt)} · 全量 ${reg.meta.counts.topicRepos} · 上榜 ${reg.meta.counts.ranked} · 排除 ${exc} · 评分模型 v${reg.meta.scoringVersion}`
-    render()
+      `数据 ${formatTime(reg.meta.generatedAt)} · 全量 ${reg.meta.counts.topicRepos} · 上榜 ${reg.meta.counts.ranked} · 排除 ${exc} · 分类 ${hub ? `${hub.entries} 条 / ${hub.categories} 类` : '—'} · 评分模型 v${reg.meta.scoringVersion}`
   } catch (err) {
     document.getElementById('meta').textContent = `加载失败：${err.message}（先跑 node scripts/sync.mjs 生成数据）`
   }
+  // 历史趋势与徽章索引：可选，失败不阻塞榜单
+  try {
+    history = await fetch('../data/history.json').then((r) => r.json())
+  } catch { history = null }
+  try {
+    badges = await fetch('../data/badges/index.json').then((r) => r.json())
+  } catch { badges = null }
+  render()
 }
 
 function currentRows() {
@@ -80,6 +133,25 @@ function currentRows() {
   return rows
 }
 
+async function copyText(text, btn) {
+  try {
+    await navigator.clipboard.writeText(text)
+  } catch {
+    const ta = document.createElement('textarea')
+    ta.value = text
+    ta.style.position = 'fixed'
+    ta.style.opacity = '0'
+    document.body.appendChild(ta)
+    ta.select()
+    document.execCommand('copy')
+    ta.remove()
+  }
+  const prev = btn.textContent
+  btn.textContent = '已复制 ✓'
+  btn.classList.add('copied')
+  setTimeout(() => { btn.textContent = prev; btn.classList.remove('copied') }, 1600)
+}
+
 function render() {
   const all = currentRows()
   const totalPages = Math.max(1, Math.ceil(all.length / PAGE_SIZE))
@@ -99,14 +171,35 @@ function render() {
       .filter((k) => p.signals?.[k] !== undefined)
       .map((k) => `<span class="pill">${SIGNAL_LABELS[k]} <b>${p.signals[k].toFixed(2)}</b></span>`)
       .join('')
+    const series = trendSeries(p.fullName)
+    const trend = series.length >= 2
+      ? `<span class="trend" title="近 ${series.length} 天综合分走势">${sparkline(series)}</span>`
+      : ''
     const repoLabel = `github.com/${esc(p.fullName)}`
     const site = siteLink(p)
-    // 被排除（占位/WIP）仓库不引导 Star，避免把用户导去空仓库
+    const badge = badgeUrl(p)
+    // 被排除（占位/WIP）仓库不引导 Star / 安装 / 徽章，避免把用户导去空仓库
     const actions = p.excluded ? '' : `
       <div class="actions">
         <a class="act star" href="${esc(p.url)}" target="_blank" rel="noopener" title="打开仓库，点右上角 ⭐ Star 支持作者 —— 免费，却是对作者最好的感谢">⭐ Star 支持作者</a>
         ${site}
+        <button type="button" class="act copy" data-cmd="${esc(installCmd(p))}" title="复制安装命令：dsh plugin --profile web add github:${esc(p.fullName)}">复制安装命令</button>
+        ${badge ? `<button type="button" class="act badge" data-badge="${esc(badge)}" title="复制 README 徽章链接">复制徽章</button>` : ''}
       </div>`
+    const details = `
+      <details class="details">
+        <summary>展开详情</summary>
+        <dl>
+          ${p.category ? `<dt>分类</dt><dd>${esc(p.category)}</dd>` : ''}
+          ${Array.isArray(p.topics) && p.topics.length ? `<dt>主题标签</dt><dd><span class="topics">${p.topics.map((x) => `<span class="topic">${esc(x)}</span>`).join('')}</span></dd>` : ''}
+          ${p.license ? `<dt>许可证</dt><dd>${esc(p.license)}</dd>` : ''}
+          ${p.createdAt ? `<dt>首次发布</dt><dd>${formatTime(p.createdAt)}</dd>` : ''}
+          ${p.pushedAt ? `<dt>最近更新</dt><dd>${formatTime(p.pushedAt)}</dd>` : ''}
+          ${p.homepage && site ? `<dt>站点</dt><dd><a href="${esc(site)}" target="_blank" rel="noopener">${esc(site)}</a></dd>` : ''}
+          <dt>深扫验证</dt><dd>${SCAN_LABELS[p.scanStatus] ?? '未深扫'}</dd>
+          ${p.excluded ? `<dt>排除原因</dt><dd class="reason">${esc(p.excluded)}</dd>` : ''}
+        </dl>
+      </details>`
     el.innerHTML = `
       <div class="row-top">
         <span class="rank ${tier}">${medal}</span>
@@ -124,10 +217,20 @@ function render() {
       <div class="foot">
         <span class="bar"><i class="${tier}" style="width:${Math.round((p.score / (topScore || 1)) * 100)}%"></i></span>
         <span class="pills">${pills}</span>
+        ${trend}
       </div>
-      ${actions}`
+      ${actions}
+      ${details}`
     list.append(el)
   }
+
+  // 复制按钮事件（安装命令 / 徽章链接）
+  list.querySelectorAll('button.copy').forEach((btn) => {
+    btn.addEventListener('click', () => { void copyText(btn.dataset.cmd, btn) })
+  })
+  list.querySelectorAll('button.badge').forEach((btn) => {
+    btn.addEventListener('click', () => { void copyText(btn.dataset.badge, btn) })
+  })
 
   // 分页控制
   const pager = document.getElementById('pager')

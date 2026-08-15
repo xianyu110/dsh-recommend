@@ -4,9 +4,9 @@
  * 把 data/raw/repos.json 加工为：
  *   data/registry.json   全量仓库 + 每个信号 + 分数 + 排除原因
  *   data/rankings.json   可上榜仓库按分数降序（含分数构成）
- *   data/meta.json       生成时间/数量/评分版本/公式（与 docs/scoring.md 保持一致）
+ *   data/meta.json       生成时间/数量/评分版本/公式/信号源健康度
  *
- * 评分模型 v1（权威定义见 docs/scoring.md，改权重必须先改文档）：
+ * 评分模型 v2（权威定义见 docs/scoring.md，改权重必须先改文档）：
  *   maintenance = exp(-daysSincePush / 180)                  # 维护性：半衰期 180 天
  *   popularity  = min(1, log10(stars + 1) / 3)               # 热度：1000 stars 封顶
  *   quality     = 0.4*hasLicense + 0.3*richDescription + 0.3*hasContent
@@ -18,12 +18,17 @@
  *   - fork 或 archived
  *   - 占位/空仓库：sizeKb == 0 或描述命中占位特征
  *   - 描述为空
+ *   - 官方本体/非插件 denylist（scripts/exclude-list.json）
+ *   - 深扫未检出插件特征（scripts/scan.mjs 对榜单前 N 名的验证结果；未深扫的仓库不排除）
+ *
+ * 深扫：data/raw/deep-scan.json（scan.mjs 产物）存在时自动合并；
+ * --no-scan 强制忽略（sync.mjs 第一阶段用，避免读入昨天的旧结果）。
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
-export const SCORING_VERSION = 1
+export const SCORING_VERSION = 2
 
 const WEIGHTS = { maintenance: 0.35, popularity: 0.3, quality: 0.2, ecosystem: 0.15 }
 
@@ -56,7 +61,7 @@ export function scoreRepo(repo, ecosystem) {
   return { signals, score, daysSincePush }
 }
 
-/** 判定一个仓库是否应排除出榜单。返回 null 或排除原因。 */
+/** 判定一个仓库是否应排除出榜单（不含 denylist / 深扫，二者在 runScore 中处理）。返回 null 或排除原因。 */
 export function exclusionReason(repo) {
   if (repo.fork) return 'fork 仓库'
   if (repo.archived) return '已归档'
@@ -66,23 +71,59 @@ export function exclusionReason(repo) {
   return null
 }
 
-/** 主入口：读取 raw，写出 registry/rankings/meta。 */
-export async function runScore(rawDir = join(ROOT(), 'data', 'raw'), outDir = join(ROOT(), 'data')) {
+/** 读取 scripts/exclude-list.json denylist，返回 fullName(小写) -> reason。文件缺失/损坏时为空清单。 */
+export async function loadDenylist() {
+  try {
+    const list = JSON.parse(await readFile(join(ROOT(), 'scripts', 'exclude-list.json'), 'utf8'))
+    const map = new Map()
+    for (const e of Array.isArray(list?.entries) ? list.entries : []) {
+      if (typeof e?.fullName === 'string' && typeof e?.reason === 'string') {
+        map.set(e.fullName.toLowerCase(), e.reason)
+      }
+    }
+    return map
+  } catch (err) {
+    if (err.code !== 'ENOENT') console.warn(`exclude-list.json 解析失败：${err.message}`)
+    return new Map()
+  }
+}
+
+/** 读取深扫结果 data/raw/deep-scan.json；返回 fullName(小写) -> { status, signals }。不存在时为空 Map。 */
+export async function loadDeepScan() {
+  try {
+    const scan = JSON.parse(await readFile(join(ROOT(), 'data', 'raw', 'deep-scan.json'), 'utf8'))
+    const map = new Map()
+    for (const [fullName, info] of Object.entries(scan.results ?? {})) {
+      map.set(fullName.toLowerCase(), { status: info?.status, signals: info?.signals ?? null })
+    }
+    return { map, summary: scan.summary ?? null }
+  } catch (err) {
+    if (err.code !== 'ENOENT') console.warn(`deep-scan.json 读取失败：${err.message}`)
+    return { map: new Map(), summary: null }
+  }
+}
+
+/** 主入口：读取 raw，写出 registry/rankings/meta。noScan=true 时忽略深扫结果（sync 第一阶段）。 */
+export async function runScore(rawDir = join(ROOT(), 'data', 'raw'), outDir = join(ROOT(), 'data'), { noScan = false } = {}) {
   const raw = JSON.parse(await readFile(join(rawDir, 'repos.json'), 'utf8'))
+  const denylist = await loadDenylist()
+  const { map: scanMap, summary: scanSummary } = noScan ? { map: new Map(), summary: null } : await loadDeepScan()
 
   // 构建精选集合。注意：hub 目录的 URL 大多是 dsh-external/<name> 镜像地址，
   // 而真实仓库在作者命名空间下（dsh-external/<name> 重定向到 <author>/<name>），
   // 因此 curated 判定按「仓库名（不区分大小写）」匹配，URL 匹配作补充。
-  const hubNames = new Set((raw.hubCatalog?.entries ?? []).map((e) => e.name.toLowerCase()))
-  const hubUrls = new Set((raw.hubCatalog?.entries ?? []).map((e) => e.url.toLowerCase()))
+  const hubEntries = raw.hubCatalog?.entries ?? []
+  const hubNames = new Set(hubEntries.map((e) => e.name.toLowerCase()))
+  const hubUrls = new Set(hubEntries.map((e) => e.url.toLowerCase()))
   const hubCategories = new Map()
-  for (const e of raw.hubCatalog?.entries ?? []) {
+  for (const e of hubEntries) {
     hubCategories.set(e.name.toLowerCase(), e.category)
   }
   const awesomeRepos = raw.awesomeLists ?? {}
 
   const registry = []
   let excluded = 0
+  let scanCounts = { scanned: 0, verified: 0, unverified: 0, error: 0, skipped: 0 }
   for (const repo of raw.topicRepos ?? []) {
     const nameKey = repo.name.toLowerCase()
     const urlKey = repo.url.toLowerCase()
@@ -90,7 +131,21 @@ export async function runScore(rawDir = join(ROOT(), 'data', 'raw'), outDir = jo
     const awesomeListNames = awesomeRepos[repo.fullName.toLowerCase()] ?? []
     const ecosystem = curated || awesomeListNames.length > 0 ? 1.0 : 0.2
     const { signals, score, daysSincePush } = scoreRepo(repo, ecosystem)
-    const reason = exclusionReason(repo)
+
+    // 深扫信息（无结果时 skipped）
+    const scanInfo = scanMap.get(repo.fullName.toLowerCase())
+    const scanStatus = scanInfo?.status ?? 'skipped'
+    const scanSignals = scanInfo?.signals ?? null
+    scanCounts[scanStatus] = (scanCounts[scanStatus] ?? 0) + 1
+
+    // 排除原因优先级：denylist（人工权威）> 深扫未检出 > 基础规则
+    let reason = exclusionReason(repo)
+    if (!reason) {
+      const denyReason = denylist.get(repo.fullName.toLowerCase())
+      if (denyReason) reason = denyReason
+    }
+    if (!reason && scanStatus === 'unverified') reason = '未检出插件特征（深扫）'
+
     if (reason) excluded += 1
     registry.push({
       ...repo,
@@ -101,6 +156,8 @@ export async function runScore(rawDir = join(ROOT(), 'data', 'raw'), outDir = jo
       signals,
       score: Math.round(score * 10000) / 10000,
       excluded: reason,
+      scanStatus,
+      scanSignals,
     })
   }
 
@@ -109,6 +166,7 @@ export async function runScore(rawDir = join(ROOT(), 'data', 'raw'), outDir = jo
     .sort((a, b) => b.score - a.score || b.stars - a.stars)
     .map((r, i) => ({ rank: i + 1, ...r }))
 
+  const hub = raw.hubCatalog ?? {}
   const meta = {
     scoringVersion: SCORING_VERSION,
     weights: WEIGHTS,
@@ -118,6 +176,26 @@ export async function runScore(rawDir = join(ROOT(), 'data', 'raw'), outDir = jo
       topicRepos: registry.length,
       excluded,
       ranked: ranked.length,
+    },
+    signals: {
+      hubCatalog: {
+        fetchedAt: hub.fetchedAt ?? null,
+        entries: hub.entries?.length ?? 0,
+        categories: hub.categories?.length ?? 0,
+        error: hub.error ?? null,
+      },
+      awesome: {
+        hitRepos: Object.values(awesomeRepos).filter((v) => Array.isArray(v) && v.length > 0).length,
+      },
+      deepScan: scanSummary ?? {
+        at: null,
+        top: 0,
+        scanned: 0,
+        verified: 0,
+        unverified: 0,
+        error: 0,
+      },
+      scanCounts,
     },
     formula: {
       maintenance: 'exp(-daysSincePush / 180)',
@@ -140,8 +218,12 @@ function ROOT() {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const meta = await runScore()
+  const noScan = process.argv.includes('--no-scan')
+  const meta = await runScore(undefined, undefined, { noScan })
   console.log(
-    `registry=${meta.counts.topicRepos} 排除=${meta.counts.excluded} 上榜=${meta.counts.ranked} `,
+    `registry=${meta.counts.topicRepos} 排除=${meta.counts.excluded} 上榜=${meta.counts.ranked} ` +
+      `hub=${meta.signals.hubCatalog.entries}/${meta.signals.hubCatalog.categories}` +
+      `${meta.signals.hubCatalog.error ? '（hub 抓取失败!）' : ''} ` +
+      `深扫=${meta.signals.scanCounts.verified}✓/${meta.signals.scanCounts.unverified}✗/${meta.signals.scanCounts.error}err`,
   )
 }

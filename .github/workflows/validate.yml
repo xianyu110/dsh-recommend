@@ -1,4 +1,4 @@
-# PR 校验：任何 PR（尤其改评分/管道的）先过数据门禁。评分变更的 PR 描述必须附新旧 Top20 对比（见 CONTRIBUTING.md）。
+# PR 校验：任何 PR（尤其改评分/管道的）先过数据门禁 + 冒烟测试。评分变更的 PR 描述必须附新旧 Top20 对比（见 CONTRIBUTING.md）。
 name: validate
 on:
   pull_request:
@@ -13,9 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: 冒烟：管道纯函数测试（评分/排除/链接提取/徽章）
+        run: node scripts/smoke.mjs
       - name: 冒烟：抓取链路可用
-        run: node scripts/sync.mjs --limit 1
-      - name: 数据完整性校验
+        run: node scripts/sync.mjs --limit 1 --no-scan --no-badge
+      - name: 数据完整性校验（含 hub/awesome 信号源健康度门禁）
         run: node scripts/validate.mjs
       - name: 打印当前评分版本
         run: |

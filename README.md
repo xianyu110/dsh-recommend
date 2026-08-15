@@ -9,7 +9,7 @@
   <a href="https://zp-home.github.io/dsh-recommend/site/"><img src="https://img.shields.io/website?url=https%3A%2F%2Fzp-home.github.io%2Fdsh-recommend%2Fsite%2F&style=flat-square&label=leaderboard" alt="leaderboard site"></a>
   <a href="https://github.com/topics/dsh-plugin"><img src="https://img.shields.io/badge/topic-dsh--plugin-4D6BFE?style=flat-square" alt="dsh-plugin topic"></a>
   <a href="https://awesome-dsh-plugin.com"><img src="https://awesome-dsh-plugin.com/badge.svg" alt="awesome · DSH 插件"></a>
-  <img src="https://img.shields.io/badge/version-0.2.0-4D6BFE?style=flat-square" alt="version">
+  <img src="https://img.shields.io/badge/version-0.3.0-4D6BFE?style=flat-square" alt="version">
 </p>
 
 [设计文档](docs/DESIGN.md) · [评分模型](docs/scoring.md) · [路线图](docs/roadmap.md) · [数据](data/rankings.json) · [中文](README.zh.md)
@@ -17,14 +17,15 @@
 ## ✨ 特性
 
 - **透明**：评分公式、权重、全部原始数据都公开在这个仓库里，任何人 `clone` 后跑一遍 `node scripts/sync.mjs` 即可复算——这是排行类项目信任的基石
-- **自动化**：GitHub Actions 每 2 小时全量重算并提交 `data/`，数据永不人工维护
-- **一份数据，三个消费端**：`data/registry.json` 是唯一事实源，静态排行站、DSH 插件（模型工具 + 设置页标签）、外部工具共用
+- **可信**：官方本体/非插件 denylist（`scripts/exclude-list.json`）+ 榜单前 200 名**深扫插件性验证**（`scripts/scan.mjs` 检测 `dsh` 声明 / `@deepseek-ai/*` 依赖 / cordis 配置 / skills 特征），未检出特征的仓库排除出榜并透明标注；hub 目录抓取失败会让 CI 红，信号源健康度随时可见
+- **自动化**：GitHub Actions 每 2 小时全量重算并提交 `data/`（含深扫、历史快照、徽章、月度报告），数据永不人工维护
+- **一份数据，多个消费端**：`data/registry.json` 是唯一事实源，静态排行站、DSH 插件（模型工具 + 设置页标签）、外部工具共用；`data/history.json` 提供每日趋势
 
 ## 🚀 快速开始
 
 ### 1️⃣ 网页版排行（不用安装）
 
-👉 打开 **https://zp-home.github.io/dsh-recommend/site/** —— 卡片式排行榜：前三名奖牌、分数条、四维信号徽章，支持搜索 / 分类筛选 / 四种排序（综合分 / 热度 / 最近更新 / 最新发布）。
+👉 打开 **https://zp-home.github.io/dsh-recommend/site/** —— 卡片式排行榜：前三名奖牌、分数条、四维信号徽章，支持搜索 / 分类筛选 / 四种排序（综合分 / 热度 / 最近更新 / 最新发布）、分页浏览、详情展开（主题标签 / 许可证 / 发布时间 / 深扫状态）、近 N 天**综合分走势图**、一键复制**安装命令**与 **README 徽章**链接。
 
 **📸 效果预览：**
 
@@ -32,7 +33,7 @@
 
 ![排行榜静态站 2](docs/images/site-2.png)
 
-也可以直接看原始数据：[`data/rankings.json`](data/rankings.json)（每 2 小时自动更新）。
+也可以直接看原始数据：[`data/rankings.json`](data/rankings.json)（每 2 小时自动更新）、[`data/history.json`](data/history.json)（每日趋势快照）。
 
 ### 2️⃣ 在 DSH 里安装插件（✅ 已真机验证）
 
@@ -63,37 +64,46 @@ dsh plugin --profile web add D:\路径\dsh-recommend
 
 | 面 | 内容 |
 |---|---|
-| 模型工具 ×4 | `rank_plugins` 榜单查询 · `search_plugins` 检索 · `recommend_plugins` 按目标推荐 · `sync_registry` 刷新本地数据 |
-| 设置页标签 | 设置 → 插件 → 「**插件排行**」：完整排行榜，随 DSH 亮/暗主题自动适配 |
+| 模型工具 ×4 | `rank_plugins` 榜单查询（可过滤分类/维度）· `search_plugins` 检索 · `recommend_plugins` 按目标推荐（中英同义词扩展，支持 `keywords` 参数）· `sync_registry` 刷新本地数据（含历史趋势，报告 hub/深扫健康度） |
+| 设置页标签 | 设置 → 插件 → 「**插件排行**」：完整排行榜（搜索/分类/排序/分页）+ 一键刷新 + 安装命令复制 + 详情展开 + 趋势走势图，随 DSH 亮/暗主题自动适配，zh/en 双语 |
 
 > 仓库根目录即插件包（`dsh.bundle` + `dsh.client` 双声明，构建产物 `lib/` 随库提交，git 安装无需构建）。
 
 ### 3️⃣ 自己重跑数据管道
 
 ```sh
-# 需要 Node 18+
-node scripts/sync.mjs            # fetch（采集）→ score（过滤+评分）→ validate（门禁）
+# 需要 Node 18+（深扫需 GITHUB_TOKEN，CI 自动注入）
+node scripts/sync.mjs            # fetch → score → scan（深扫）→ score → history → badge → validate
 node scripts/validate.mjs        # 只校验
+node scripts/smoke.mjs           # 管道纯函数冒烟测试
 ```
 
-未设置 `GITHUB_TOKEN` 时使用未认证限额（够跑一轮）；CI 中自动注入 token。
+未设置 `GITHUB_TOKEN` 时使用未认证限额（够跑一轮，自动跳过深扫）；CI 中自动注入 token。
+
+## 🛡 插件作者：挂一个分数徽章
+
+榜单前 200 名每 2 小时自动生成 shields 徽章（`data/badges/<owner>__<name>.json`）。在你的 README 里放一行（静态站/设置页有「复制徽章」按钮可直接拿链接）：
+
+```md
+[![dsh score](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fzp-home%2Fdsh-recommend%2Fmain%2Fdata%2Fbadges%2F<owner>__<name>.json)](https://github.com/zp-home/dsh-recommend)
+```
 
 ## 📊 当前数据
 
-- 全量抓取 **~700** 个 `dsh-plugin` 话题仓库；排除占位/空仓库/WIP 后 **~600** 个上榜
+- 全量抓取 **2200+** 个 `dsh-plugin` 话题仓库；排除占位/空仓库/官方本体/非插件后 **1900+** 个上榜（具体见 `data/meta.json`）
 - 评分 = **0.35×维护性 + 0.30×热度 + 0.20×质量 + 0.15×生态**（公式与权重全公开，改版走评审，详见 [docs/scoring.md](docs/scoring.md)）
-- 排除条目保留在 `data/registry.json` 并附原因（fork / 已归档 / 空仓库 / 无描述 / 占位特征）
+- 排除条目保留在 `data/registry.json` 并附原因（fork / 已归档 / 空仓库 / 无描述 / 占位特征 / 官方本体 / 深扫未检出插件特征）
 
 ## 📁 仓库结构
 
 ```
-data/           每 2 小时生成的 registry.json / rankings.json / meta.json（Git 即数据库）
-scripts/        fetch（采集）→ score（过滤+评分）→ validate（门禁）→ sync（总入口）
+data/           每 2 小时生成的 registry.json / rankings.json / meta.json / history.json / badges/（Git 即数据库）
+scripts/        fetch（采集）→ score（过滤+评分）→ scan（深扫）→ history（快照）→ badge（徽章）→ report（月报）→ validate（门禁）→ sync（总入口）
 src/            插件源码（host 工具半 + web 数据路由半 + browser 设置页半）
 lib/            构建产物（随库提交，git 安装免构建）
 cordis.patch.yml 插件配置层（bundle patch）
-site/           静态排行站（零构建，直接吃 data/registry.json）
-docs/           设计 / 评分模型 / 路线图 / 决策记录
+site/           静态排行站（零构建，直接吃 data/registry.json + history.json）
+docs/           设计 / 评分模型 / 路线图 / 决策记录 / 月度报告
 .github/        Actions（每 2 小时 cron + PR 校验）与提交插件表单
 ```
 
@@ -104,6 +114,7 @@ docs/           设计 / 评分模型 / 路线图 / 决策记录
 | GitHub Search API `topic:dsh-plugin` | 全部公开仓库 + stars/更新时间/license/size 等 | 主数据源 |
 | [hub 目录公开镜像](https://github.com/0xsline/awesome-deepseek-harness) | 官方精选目录与分类（hub 组织仓库私有，经每日镜像） | 分类映射 + 生态信号 |
 | 三个 awesome 列表 | 社区人工精选 | 生态信号 |
+| GitHub Contents API（深扫） | 榜单前 200 名的根目录 / package.json | 插件性验证（排除非插件） |
 | npm registry（规划中） | 下载量 | 真实使用量信号 |
 
 ## 🧩 插件架构（简要）
@@ -130,9 +141,10 @@ npm run sync       # 重跑数据管道
 | 阶段 | 状态 |
 |---|---|
 | M1 数据管道 + 静态排行站 | ✅ |
+| M1.5 深扫与信号增强（插件性验证 / denylist / 历史 / 徽章） | ✅ |
 | M2 DSH 插件（工具 + 设置页标签） | ✅ 真机验证通过 |
-| M3 推荐逻辑升级 + 人工精选层 | 🔨 规划中 |
-| M4 生态运营（徽章 / 月度报告 / 安装量遥测） | ⏳ |
+| M3 推荐逻辑升级 + 人工精选层 | 🔨 进行中（同义词推荐已落地） |
+| M4 生态运营（徽章 / 月度报告 已落地；安装量遥测 ⏳） | 🔨 |
 
 ## 社区与贡献
 

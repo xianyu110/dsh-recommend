@@ -174,16 +174,17 @@ export async function fetchTopicRepos(maxPages = MAX_PAGES_DEFAULT) {
  * `## <emoji> <分类名>（N）` 小节 + `| [name](url) | 描述 |` 表格行。
  * 注意：hub 组织仓库本身是私有的（需 org 权限），不要直接抓 dsh-external/hub。
  * 「公开插件 Topic」小节是话题原始转储而非人工精选，不计入 curated 信号。
- * 返回 [{ name, url, category, description }]，并附带分类名集合。
+ * 返回 { entries, categories, fetchedAt, error }：抓取失败时 entries/categories 为空，
+ * 但 **error 与 fetchedAt 一并返回并写进 raw**——降级不再无声（validate.mjs 会据此红）。
  */
 export async function fetchHubCatalog() {
   const url = 'https://raw.githubusercontent.com/0xsline/awesome-deepseek-harness/main/CATALOG.md'
   let md
   try {
     md = await text(url)
-  } catch {
-    console.warn('hub 目录镜像抓取失败，跳过（生态信号将只来自 awesome 列表）')
-    return { entries: [], categories: [] }
+  } catch (err) {
+    console.error(`⚠ hub 目录镜像抓取失败（生态精选/分类信号缺失，validate 将红）：${err.message}`)
+    return { entries: [], categories: [], fetchedAt: null, error: String(err.message) }
   }
   const entries = []
   const categories = []
@@ -202,23 +203,45 @@ export async function fetchHubCatalog() {
       entries.push({ name: row[1], url: row[2], category, description: row[3] })
     }
   }
-  return { entries, categories }
+  return { entries, categories, fetchedAt: new Date().toISOString(), error: null }
 }
 
-/** 抓取三个 awesome 精选列表，提取其中出现的 GitHub 仓库（owner/repo）。 */
+/** github.com 链接中不能当作仓库解析的路径段（topic/头像/动作等）。 */
+const NON_REPO_SEGMENTS = new Set([
+  'topics', 'avatars', 'actions', 'orgs', 'marketplace', 'sponsors', 'settings',
+  'notifications', 'features', 'collections', 'events', 'explore', 'pulls', 'issues',
+])
+
+/**
+ * 从 markdown 中提取形如 github.com/owner/repo 的仓库引用（纯函数，可单测）。
+ * 排除 topic 链接（github.com/topics/xxx）、徽章/动作等非仓库 URL，键统一小写
+ * （score.mjs 按小写 fullName 匹配，原实现大小写不一致会漏掉精选信号）。
+ */
+export function extractRepoRefs(md) {
+  const refs = new Set()
+  for (const m of md.matchAll(/github\.com\/([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)/g)) {
+    const owner = m[1].toLowerCase()
+    const name = m[2].toLowerCase().replace(/[)#.,;]/g, '')
+    if (NON_REPO_SEGMENTS.has(owner)) continue
+    if (!owner || !name) continue
+    refs.add(`${owner}/${name}`)
+  }
+  return [...refs]
+}
+
+/** 抓取三个 awesome 精选列表，提取其中出现的 GitHub 仓库（owner/repo，键小写）。 */
 export async function fetchAwesomeLists() {
   const urls = [
     'https://raw.githubusercontent.com/0xsline/awesome-deepseek-harness/main/README.md',
     'https://raw.githubusercontent.com/awesome-dsh-plugin/awesome-dsh-plugin/main/README.md',
     'https://raw.githubusercontent.com/Alex-Yanggg/awesome-DSH-plugin/main/README.md',
   ]
-  const mentioned = new Map() // 'owner/repo' -> Set<listName>
+  const mentioned = new Map() // 'owner/repo'(小写) -> Set<listName>
   for (const url of urls) {
     const listName = new URL(url).pathname.split('/')[1]
     try {
       const md = await text(url)
-      for (const m of md.matchAll(/github\.com\/([A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+)/g)) {
-        const full = m[1].replace(/[)#]/g, '')
+      for (const full of extractRepoRefs(md)) {
         if (!mentioned.has(full)) mentioned.set(full, new Set())
         mentioned.get(full).add(listName)
       }
@@ -288,15 +311,27 @@ const argv = process.argv.slice(2)
 const out = argv.includes('--dry') ? null : RAW_DIR
 const limitIndex = argv.indexOf('--limit')
 const maxPages = limitIndex >= 0 ? Number(argv[limitIndex + 1]) || MAX_PAGES_DEFAULT : MAX_PAGES_DEFAULT
+/** --skip-topic：复用现有 data/raw/repos.json 的 topicRepos，只刷新 hub 目录/awesome/手动清单（本地快速重建，省掉百级 Search 请求）。 */
+const skipTopic = argv.includes('--skip-topic')
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const repos = await fetchTopicRepos(maxPages)
+  let repos = []
+  if (skipTopic) {
+    try {
+      const prev = JSON.parse(await readFile(join(RAW_DIR, 'repos.json'), 'utf8'))
+      repos = Array.isArray(prev.topicRepos) ? prev.topicRepos : []
+      console.log(`--skip-topic：复用现有 topic 数据 ${repos.length} 个（仅刷新目录/awesome/手动清单）`)
+    } catch (err) {
+      console.error(`--skip-topic 但 data/raw/repos.json 不可用（${err.message}），回退为全量抓取`)
+    }
+  }
+  if (repos.length === 0 && !skipTopic) repos = await fetchTopicRepos(maxPages)
   const catalog = await fetchHubCatalog()
   const awesome = await fetchAwesomeLists()
   // 手动收录清单与 topic 结果按 full_name 合并去重（手动条目优先，它是人工验证过的）
   const manual = await fetchManualRepos()
   const merged = new Map(manual.map((r) => [r.fullName, r]))
-  for (const r of repos.map(toRepoRecord)) if (!merged.has(r.fullName)) merged.set(r.fullName, r)
+  for (const r of repos) if (!merged.has(r.fullName)) merged.set(r.fullName, r)
   const topicRepos = [...merged.values()]
   const payload = {
     fetchedAt: new Date().toISOString(),
@@ -309,7 +344,8 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     await writeFile(join(out, 'repos.json'), JSON.stringify(payload, null, 2))
     console.log(
       `已写入 ${join(out, 'repos.json')}（topic 仓库 ${repos.length} 个` +
-        `${manual.length ? ` + 手动收录 ${manual.length} 个` : ''} = ${topicRepos.length} 个）`,
+        `${manual.length ? ` + 手动收录 ${manual.length} 个` : ''} = ${topicRepos.length} 个；` +
+        `hub 目录 ${catalog.entries.length} 条${catalog.error ? `（抓取失败: ${catalog.error}）` : ''}）`,
     )
   } else {
     console.log(JSON.stringify(payload, null, 2))

@@ -1,11 +1,16 @@
 /**
  * sync.mjs — 数据管道总入口
  *
- * fetch → score → validate，一次跑完，输出汇总。CI 每日 cron 调用的就是它：
- *   node scripts/sync.mjs [--limit N] [--no-awesome]
+ * fetch → score(phase1, 无深扫) → scan(榜单前 N 深扫) → score(phase2, 合并深扫)
+ *       → history(每日快照) → badge(徽章) → validate
+ * CI 每 2 小时 cron 调用的就是它：
+ *   node scripts/sync.mjs [--limit N] [--no-awesome] [--skip-topic] [--no-scan] [--no-badge]
  *
  * --limit N      只抓取 GitHub Search 前 N 页（本地快速调试用）
  * --no-awesome   跳过 awesome 列表抓取（离线调试）
+ * --skip-topic   复用现有 raw 的 topic 数据，只刷新目录/awesome（本地快速重建）
+ * --no-scan      跳过深扫（默认：有 GITHUB_TOKEN 才跑，无 token 时自动跳过）
+ * --no-badge     跳过徽章生成（本地调试提速）
  *
  * 退出码：管道任意一步失败即非零（GitHub Actions 红）。
  */
@@ -23,7 +28,7 @@ async function step(name, args) {
     const { stdout, stderr } = await run(process.execPath, [join(SCRIPTS, name), ...args], {
       encoding: 'utf8',
     })
-    console.log(`[ok] ${name} (${Date.now() - started}ms)`)
+    console.log(`[ok] ${name} ${args.join(' ') || ''} (${Date.now() - started}ms)`)
     for (const line of stdout.trim().split('\n')) console.log(`     ${line}`)
     if (stderr.trim()) for (const line of stderr.trim().split('\n')) console.log(`     [warn] ${line}`)
   } catch (err) {
@@ -34,8 +39,22 @@ async function step(name, args) {
   }
 }
 
-await step('fetch.mjs', process.argv.slice(2))
-await step('score.mjs', [])
+const args = process.argv.slice(2)
+const noScan = args.includes('--no-scan')
+const noBadge = args.includes('--no-badge')
+// 深扫默认只在有 token 时执行（core API 无 token 限额 60/小时，撑不起 200 仓库）
+const scanEnabled = !noScan && Boolean(process.env.GITHUB_TOKEN)
+
+await step('fetch.mjs', args)
+await step('score.mjs', ['--no-scan']) // 第一阶段：先出初步榜单供深扫定位 top N
+if (scanEnabled) {
+  await step('scan.mjs', ['--top', '200'])
+} else {
+  console.log(`[skip] scan.mjs（${noScan ? '--no-scan 指定' : '未设置 GITHUB_TOKEN'}，深扫留待 CI）`)
+}
+await step('score.mjs', []) // 第二阶段：合并深扫结果（unverified → 排除出榜）
+await step('history.mjs', [])
+if (!noBadge) await step('badge.mjs', [])
 await step('validate.mjs', [])
 
 console.log('✓ 数据管道完成')

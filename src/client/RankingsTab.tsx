@@ -1,25 +1,34 @@
 /**
- * 排行标签组件（M2）：从 host 半的同源路由加载 registry 并渲染排行榜。
- * 数据路径：GET /dsh-recommend/registry.json（由 dsh-recommend-web 行供给）。
+ * 排行标签组件（M2+）：从 host 半的同源路由加载 registry + history 并渲染排行榜。
+ * 数据路径：GET /dsh-recommend/registry.json、GET /dsh-recommend/history.json
+ *          （由 dsh-recommend-web 行供给）；刷新走 POST /dsh-recommend/sync。
  *
- * 视觉：卡片式榜单列表（注入一段 scoped CSS），描述占整行、文字正常换行，
- * 字号与留白按「正经排行榜页」的体量设计（比紧凑表格大一号）。
+ * 功能：卡片式榜单（分数条 + 四维信号徽章）、搜索 / 分类 / 四种排序 / 分页、
+ *       ⭐ Star 引导、站点链接、安装命令复制、详情展开（主题/许可证/时间/深扫状态）、
+ *       近 N 天综合分走势 sparkline、一键刷新数据。
+ * 视觉：注入一段 scoped CSS，适配 DSH 亮/暗主题。
  */
 import { useEffect, useMemo, useState } from 'react'
-import type { PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
+import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 
 export interface RankingsTabInjected {
   /** 读取榜单数据（默认走同源路由，可被注入覆盖以便测试）。 */
   loadRankings(): Promise<RegistryDoc>
+  /** 读取历史趋势数据（默认走同源路由；缓存缺失时 reject，调用方降级为无趋势）。 */
+  loadHistory(): Promise<HistoryDoc>
+  /** 触发一次数据刷新（POST 同源 sync 路由，拉最新 registry 覆写缓存）。 */
+  refreshRankings(): Promise<{ fetchedAt: string; count: number }>
 }
 
-export type RankingsTabProps = PropsRuntime<'settings.plugins.tab'> & RankingsTabInjected
+export type RankingsTabProps = PropsRuntime<'settings.plugins.tab'>
+  & PropsLocale<'dshRecommend'>
+  & RankingsTabInjected
 
 const SIGNAL_LABELS: Record<string, string> = {
-  maintenance: '维护性',
-  popularity: '热度',
-  quality: '质量',
-  ecosystem: '生态',
+  maintenance: 'signalMaintenance',
+  popularity: 'signalPopularity',
+  quality: 'signalQuality',
+  ecosystem: 'signalEcosystem',
 }
 
 const SIGNAL_ORDER = ['maintenance', 'popularity', 'quality', 'ecosystem'] as const
@@ -51,6 +60,46 @@ function formatTime(iso?: string): string {
   const off = -d.getTimezoneOffset() / 60
   const tz = off === 0 ? 'UTC' : `UTC${off > 0 ? '+' : ''}${off}`
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}（${tz}）`
+}
+
+/** 复制文本到剪贴板（clipboard API 不可用时降级 textarea）。 */
+async function copyText(text: string): Promise<void> {
+  try {
+    await navigator.clipboard.writeText(text)
+  } catch {
+    const ta = document.createElement('textarea')
+    ta.value = text
+    ta.style.position = 'fixed'
+    ta.style.opacity = '0'
+    document.body.appendChild(ta)
+    ta.select()
+    document.execCommand('copy')
+    ta.remove()
+  }
+}
+
+/** 迷你走势图：近 N 天综合分 polyline。 */
+function Sparkline({ series, label }: { series: number[]; label: string }) {
+  if (series.length < 2) return null
+  const w = 120
+  const h = 26
+  const pad = 3
+  const min = Math.min(...series)
+  const max = Math.max(...series)
+  const span = max - min || 1
+  const step = (w - 2 * pad) / (series.length - 1)
+  const pts = series.map((v, i) => {
+    const x = pad + i * step
+    const y = h - pad - ((v - min) / span) * (h - 2 * pad)
+    return `${x.toFixed(1)},${y.toFixed(1)}`
+  })
+  const [lastX, lastY] = pts[pts.length - 1]!.split(',')
+  return (
+    <svg className="dshr-spark" width={w} height={h} viewBox={`0 0 ${w} ${h}`} role="img" aria-label={label}>
+      <polyline points={pts.join(' ')} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" />
+      <circle cx={lastX} cy={lastY} r="2.4" fill="currentColor" />
+    </svg>
+  )
 }
 
 const CSS = `
@@ -92,6 +141,16 @@ body[data-ds-dark-theme] .dshr-wrap {
   border: 1px solid var(--dshr-border); border-radius: 9px; outline: none; cursor: pointer;
 }
 .dshr-controls select:focus { border-color: var(--dshr-accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--dshr-accent) 20%, transparent); }
+.dshr-refresh {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 14px; font-size: 13.5px; font-family: inherit; cursor: pointer;
+  color: var(--dshr-text); background: var(--dshr-surface);
+  border: 1px solid var(--dshr-border); border-radius: 9px;
+  transition: border-color .15s ease, color .15s ease;
+}
+.dshr-refresh:hover:not(:disabled) { border-color: var(--dshr-accent); color: var(--dshr-accent); }
+.dshr-refresh:disabled { opacity: .55; cursor: wait; }
+.dshr-msg { font-size: 12.5px; color: var(--dshr-text-tertiary); flex-basis: 100%; }
 .dshr-list { display: flex; flex-direction: column; gap: 10px; }
 .dshr-row {
   display: flex; flex-direction: column; gap: 10px;
@@ -143,6 +202,8 @@ body[data-ds-dark-theme] .dshr-wrap {
   border: 1px solid var(--dshr-border);
 }
 .dshr-pill b { font-weight: 600; color: var(--dshr-text); }
+.dshr-trend { display: flex; align-items: center; gap: 6px; color: var(--dshr-text-tertiary); }
+.dshr-spark { color: var(--dshr-accent); flex: 0 0 auto; }
 .dshr-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .dshr-act {
   display: inline-flex; align-items: center; gap: 5px;
@@ -150,6 +211,7 @@ body[data-ds-dark-theme] .dshr-wrap {
   padding: 6px 12px; border: 1px solid var(--dshr-border);
   color: var(--dshr-text-secondary); background: var(--dshr-surface);
   transition: border-color .15s ease, color .15s ease;
+  font-family: inherit; cursor: pointer;
 }
 .dshr-act:hover { border-color: var(--dshr-accent); color: var(--dshr-accent); }
 .dshr-act.dshr-star { color: #b8860b; border-color: #e6c25e; background: #fffaf0; font-weight: 600; }
@@ -157,12 +219,26 @@ body[data-ds-dark-theme] .dshr-wrap {
 body[data-ds-dark-theme] .dshr-act.dshr-star { color: #f5c518; background: rgba(245, 197, 24, .12); border-color: rgba(245, 197, 24, .45); }
 body[data-ds-dark-theme] .dshr-act.dshr-star:hover { color: #ffd84d; background: rgba(245, 197, 24, .2); border-color: #f5c518; }
 .dshr-act.dshr-repo { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12px; }
+.dshr-act.dshr-copy { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12px; }
+.dshr-act.dshr-copied { border-color: #2e9e5b; color: #2e9e5b; }
+body[data-ds-dark-theme] .dshr-act.dshr-copied { border-color: #4cc38a; color: #4cc38a; }
 .dshr-name .dshr-repo-addr {
   font-size: 12px; font-weight: 400;
   font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
   color: var(--dshr-text-tertiary); text-decoration: none;
 }
 .dshr-name .dshr-repo-addr:hover { color: var(--dshr-accent); text-decoration: underline; }
+.dshr-details { border-top: 1px dashed var(--dshr-border); padding-top: 10px; font-size: 12.5px; color: var(--dshr-text-secondary); }
+.dshr-details summary { cursor: pointer; color: var(--dshr-text-tertiary); font-size: 12.5px; user-select: none; }
+.dshr-details summary:hover { color: var(--dshr-accent); }
+.dshr-details dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 10px 0 0; }
+.dshr-details dt { color: var(--dshr-text-tertiary); white-space: nowrap; }
+.dshr-details dd { margin: 0; overflow-wrap: anywhere; }
+.dshr-details .dshr-topics { display: flex; flex-wrap: wrap; gap: 5px; }
+.dshr-details .dshr-topic {
+  font-size: 11.5px; line-height: 1; padding: 4px 8px; border-radius: 999px;
+  color: var(--dshr-text-secondary); background: var(--dshr-surface-muted); border: 1px solid var(--dshr-border);
+}
 .dshr-pager { display: flex; align-items: center; justify-content: center; gap: 10px; }
 .dshr-pager button {
   padding: 7px 14px; font-size: 13px; font-family: inherit; color: var(--dshr-text);
@@ -175,13 +251,17 @@ body[data-ds-dark-theme] .dshr-act.dshr-star:hover { color: #ffd84d; background:
 .dshr-note { font-size: 12.5px; color: var(--dshr-text-tertiary); }
 `
 
-export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
+export function RankingsTab({ t, loadRankings, loadHistory, refreshRankings }: RankingsTabProps): JSX.Element {
   const [doc, setDoc] = useState<RegistryDoc | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [history, setHistory] = useState<HistoryDoc | null>(null)
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('')
   const [view, setView] = useState<'score' | 'stars' | 'updated' | 'newest'>('score')
   const [page, setPage] = useState(1)
+  const [refreshing, setRefreshing] = useState(false)
+  const [refreshMsg, setRefreshMsg] = useState<string | null>(null)
+  const [copied, setCopied] = useState<string | null>(null)
 
   useEffect(() => {
     let alive = true
@@ -190,6 +270,14 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
       .catch((err: unknown) => { if (alive) setError(err instanceof Error ? err.message : String(err)) })
     return () => { alive = false }
   }, [loadRankings])
+
+  useEffect(() => {
+    let alive = true
+    loadHistory()
+      .then((h) => { if (alive) setHistory(h) })
+      .catch(() => { if (alive) setHistory(null) }) // 历史缓存缺失 → 无趋势，不影响榜单
+    return () => { alive = false }
+  }, [loadHistory])
 
   useEffect(() => {
     const style = document.getElementById('dshr-rankings-css') ?? document.createElement('style')
@@ -220,11 +308,61 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
     return list
   }, [doc, query, category, view])
 
+  /** fullName(小写) -> 每日分数序列（按日期升序）。 */
+  const trendSeries = useMemo(() => {
+    const map = new Map<string, number[]>()
+    if (!history) return map
+    const days = [...history.days].sort((a, b) => a.date.localeCompare(b.date))
+    for (const day of days) {
+      for (const entry of day.top) {
+        const key = entry.fullName.toLowerCase()
+        const list = map.get(key) ?? []
+        list.push(entry.score)
+        map.set(key, list)
+      }
+    }
+    return map
+  }, [history])
+
+  const onRefresh = async () => {
+    setRefreshing(true)
+    setRefreshMsg(null)
+    try {
+      const r = await refreshRankings()
+      const fresh = await loadRankings()
+      setDoc(fresh)
+      setError(null)
+      setRefreshMsg(t('refreshDone', { time: formatTime(r.fetchedAt) }))
+    } catch (err) {
+      setRefreshMsg(t('refreshFail', { message: err instanceof Error ? err.message : String(err) }))
+    } finally {
+      setRefreshing(false)
+    }
+  }
+
+  const onCopy = async (fullName: string) => {
+    const cmd = `dsh plugin --profile web add github:${fullName}`
+    try {
+      await copyText(cmd)
+      setCopied(fullName)
+      window.setTimeout(() => setCopied((cur) => (cur === fullName ? null : cur)), 1800)
+    } catch {
+      setRefreshMsg(t('copyFail'))
+    }
+  }
+
   if (error) {
-    return <p role="alert">榜单数据加载失败：{error}（先调用 sync_registry 工具，或确认 web 行已挂载）</p>
+    return (
+      <div className="dshr-wrap">
+        <p role="alert">{t('loadError', { message: error })}</p>
+        <button type="button" className="dshr-refresh" onClick={onRefresh} disabled={refreshing}>
+          {refreshing ? t('refreshing') : t('refresh')}
+        </button>
+      </div>
+    )
   }
   if (!doc) {
-    return <p role="status">正在加载插件榜单…</p>
+    return <p role="status">{t('loading')}</p>
   }
 
   const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE))
@@ -232,40 +370,56 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
   const start = (safePage - 1) * PAGE_SIZE
   const pageRows = rows.slice(start, start + PAGE_SIZE)
   const topScore = pageRows[0]?.score ?? 0
+  const historyDays = history?.days.length ?? 0
 
   return (
     <div className="dshr-wrap">
       <div className="dshr-head">
-        <h2 className="dshr-title">插件排行</h2>
+        <h2 className="dshr-title">{t('tab')}</h2>
         <span className="dshr-meta">
-          共 {doc.plugins.filter((p) => !p.excluded).length} 个插件 · 数据 {formatTime(doc.meta.generatedAt)} · 评分模型 v{doc.meta.scoringVersion ?? '?'}
+          {t('meta', {
+            count: String(doc.plugins.filter((p) => !p.excluded).length),
+            time: formatTime(doc.meta.generatedAt),
+            version: String(doc.meta.scoringVersion ?? '?'),
+          })}
+          {historyDays > 0 ? t('historyMeta', { days: String(historyDays) }) : null}
         </span>
       </div>
 
       <div className="dshr-controls">
         <input
           type="search"
-          placeholder="搜索名称 / 描述 / 分类…"
+          placeholder={t('searchPlaceholder')}
           value={query}
           onChange={(e) => { setQuery(e.target.value); setPage(1) }}
-          aria-label="搜索插件"
+          aria-label={t('searchPlaceholder')}
         />
-        <select value={category} onChange={(e) => { setCategory(e.target.value); setPage(1) }} aria-label="分类筛选">
-          <option value="">全部分类</option>
+        <select value={category} onChange={(e) => { setCategory(e.target.value); setPage(1) }} aria-label={t('allCategories')}>
+          <option value="">{t('allCategories')}</option>
           {categories.map((c) => <option key={c} value={c}>{c}</option>)}
         </select>
-        <select value={view} onChange={(e) => { setView(e.target.value as typeof view); setPage(1) }} aria-label="排序方式">
-          <option value="score">按综合分</option>
-          <option value="stars">按热度（★）</option>
-          <option value="updated">按最近更新</option>
-          <option value="newest">按最新发布</option>
+        <select value={view} onChange={(e) => { setView(e.target.value as typeof view); setPage(1) }} aria-label={t('sortScore')}>
+          <option value="score">{t('sortScore')}</option>
+          <option value="stars">{t('sortStars')}</option>
+          <option value="updated">{t('sortUpdated')}</option>
+          <option value="newest">{t('sortNewest')}</option>
         </select>
+        <button type="button" className="dshr-refresh" onClick={onRefresh} disabled={refreshing}>
+          {refreshing ? t('refreshing') : t('refresh')}
+        </button>
       </div>
+      {refreshMsg ? <p className="dshr-msg" role="status">{refreshMsg}</p> : null}
 
       <div className="dshr-list">
         {pageRows.map((p, i) => {
           const tier = scoreTier(p.score)
           const medal = start + i === 0 ? '🥇' : start + i === 1 ? '🥈' : start + i === 2 ? '🥉' : `#${start + i + 1}`
+          const series = trendSeries.get(p.fullName.toLowerCase())
+          const site = normalizeSite(p.homepage, p.url)
+          const scanLabel = !p.scanStatus || p.scanStatus === 'skipped'
+            ? t('scanSkipped')
+            : p.scanStatus === 'verified' ? t('scanVerified')
+            : p.scanStatus === 'unverified' ? t('scanUnverified') : t('scanError')
           return (
             <article className="dshr-row" key={p.fullName}>
               <div className="dshr-row-top">
@@ -273,7 +427,7 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
                 <div className="dshr-name">
                   <a href={p.url} target="_blank" rel="noreferrer" title={p.fullName}>{p.fullName}</a>
                   {p.category ? <span className="dshr-cat">{p.category}</span> : null}
-                  <a className="dshr-repo-addr" href={p.url} target="_blank" rel="noreferrer" title="仓库地址（打开即可 Star）">github.com/{p.fullName}</a>
+                  <a className="dshr-repo-addr" href={p.url} target="_blank" rel="noreferrer" title={`github.com/${p.fullName}`}>github.com/{p.fullName}</a>
                 </div>
                 <div className="dshr-right">
                   <span className="dshr-stars">★ {p.stars}</span>
@@ -292,14 +446,19 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
                     const v = p.signals?.[k]
                     return v === undefined ? null : (
                       <span className="dshr-pill" key={k}>
-                        {SIGNAL_LABELS[k]} <b>{v.toFixed(2)}</b>
+                        {t(SIGNAL_LABELS[k] as Parameters<typeof t>[0])} <b>{v.toFixed(2)}</b>
                       </span>
                     )
                   })}
                 </span>
+                {series && series.length >= 2 ? (
+                  <span className="dshr-trend" title={t('trendTitle', { days: String(series.length) })}>
+                    <Sparkline series={series} label={t('trendTitle', { days: String(series.length) })} />
+                  </span>
+                ) : null}
               </div>
 
-              {/* Star / 站点联动链接（仓库地址已在卡片顶部展示）；被排除（占位/WIP）仓库不引导 Star */}
+              {/* Star / 站点 / 安装命令；被排除（占位/WIP）仓库不引导 Star */}
               {p.excluded ? null : (
                 <div className="dshr-actions">
                   <a
@@ -307,30 +466,56 @@ export function RankingsTab({ loadRankings }: RankingsTabProps): JSX.Element {
                     href={p.url}
                     target="_blank"
                     rel="noreferrer"
-                    title="打开仓库，点右上角 ⭐ Star 支持作者 —— 免费，却是对作者最好的感谢"
+                    title={t('starTitle')}
                   >
-                    ⭐ Star 支持作者
+                    {t('starSupport')}
                   </a>
-                  {normalizeSite(p.homepage, p.url) ? (
-                    <a className="dshr-act dshr-site" href={normalizeSite(p.homepage, p.url)!} target="_blank" rel="noreferrer" title="插件静态站 / 文档">
-                      🌐 站点
+                  {site ? (
+                    <a className="dshr-act dshr-site" href={site} target="_blank" rel="noreferrer" title={t('siteTitle')}>
+                      {t('site')}
                     </a>
                   ) : null}
+                  <button
+                    type="button"
+                    className={`dshr-act dshr-copy${copied === p.fullName ? ' dshr-copied' : ''}`}
+                    title={t('installTitle')}
+                    onClick={() => void onCopy(p.fullName)}
+                  >
+                    {copied === p.fullName ? t('copied') : t('install')}
+                  </button>
                 </div>
               )}
+
+              <details className="dshr-details">
+                <summary>{t('details')}</summary>
+                <dl>
+                  {p.category ? (
+                    <><dt>{t('fieldCategory')}</dt><dd>{p.category}</dd></>
+                  ) : null}
+                  {Array.isArray(p.topics) && p.topics.length > 0 ? (
+                    <><dt>{t('fieldTopics')}</dt><dd><span className="dshr-topics">{p.topics.map((tp) => <span className="dshr-topic" key={tp}>{tp}</span>)}</span></dd></>
+                  ) : null}
+                  {p.license ? <><dt>{t('fieldLicense')}</dt><dd>{p.license}</dd></> : null}
+                  {p.createdAt ? <><dt>{t('fieldCreated')}</dt><dd>{formatTime(p.createdAt)}</dd></> : null}
+                  {p.pushedAt ? <><dt>{t('fieldPushed')}</dt><dd>{formatTime(p.pushedAt)}</dd></> : null}
+                  {site ? <><dt>{t('fieldHomepage')}</dt><dd>{site}</dd></> : null}
+                  <><dt>{t('fieldScan')}</dt><dd>{scanLabel}</dd></>
+                  {p.excluded ? <><dt>{t('excludedReason')}</dt><dd>{p.excluded}</dd></> : null}
+                </dl>
+              </details>
             </article>
           )
         })}
       </div>
 
       <div className="dshr-pager">
-        <button type="button" disabled={safePage <= 1} onClick={() => setPage(safePage - 1)}>« 上一页</button>
-        <span className="dshr-pager-info">第 {safePage} / {totalPages} 页</span>
-        <button type="button" disabled={safePage >= totalPages} onClick={() => setPage(safePage + 1)}>下一页 »</button>
+        <button type="button" disabled={safePage <= 1} onClick={() => setPage(safePage - 1)}>{t('prevPage')}</button>
+        <span className="dshr-pager-info">{t('pageInfo', { page: String(safePage), totalPages: String(totalPages) })}</span>
+        <button type="button" disabled={safePage >= totalPages} onClick={() => setPage(safePage + 1)}>{t('nextPage')}</button>
       </div>
 
       <p className="dshr-note">
-        第 {safePage} / {totalPages} 页 · 共 {rows.length} 条 · 综合分 = 0.35 维护性 + 0.30 热度 + 0.20 质量 + 0.15 生态 · 收录 ≠ 安全背书
+        {t('scoreNote', { page: String(safePage), totalPages: String(totalPages), count: String(rows.length) })}
       </p>
     </div>
   )
@@ -349,6 +534,20 @@ export interface RegistryDoc {
     pushedAt: string | null
     createdAt: string | null
     homepage?: string | null
+    license?: string | null
+    topics?: string[]
+    scanStatus?: 'verified' | 'unverified' | 'skipped' | 'error' | null
     signals: Record<string, number>
+  }>
+}
+
+export interface HistoryDoc {
+  meta?: { updatedAt?: string }
+  days: Array<{
+    date: string
+    total: number
+    ranked: number
+    excluded: number
+    top: Array<{ fullName: string; rank: number; score: number; stars: number; category: string | null }>
   }>
 }

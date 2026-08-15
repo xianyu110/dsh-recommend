@@ -1,16 +1,17 @@
 /**
- * dsh-recommend browser 半：设置页「插件排行」标签（M2 已接入数据供给）。
+ * dsh-recommend browser 半：设置页「插件排行」标签（M2 已接入数据供给，M3 增加
+ * 历史趋势 + 一键刷新）。
  *
  * 装载链（M2 实测结论，回填 ADR-0003）：第三方 bundle 声明 dsh.client 后，
  * 官方 client-modules 的 node 半扫描 loader 条目中的 dsh.client 声明，把
  * exports["./client"] 的构建产物以 /plugins/<id>/client.js 动态供给浏览器；
- * 数据经 host 半注册的同源路由 /dsh-recommend/registry.json 拉取（无跨域、
- * 无 Remote 白名单依赖）。
+ * 数据经 host 半注册的同源路由拉取（registry.json / history.json，无跨域、
+ * 无 Remote 白名单依赖）；「刷新数据」走同源 POST /dsh-recommend/sync。
  */
 import type {} from '@deepseek-ai/dsh-client-locale/client'
 import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client'
 import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import { RankingsTab, type RankingsTabInjected, type RegistryDoc } from './RankingsTab.tsx'
+import { RankingsTab, type HistoryDoc, type RankingsTabInjected, type RegistryDoc } from './RankingsTab.tsx'
 import { en, zh, type RankingsLocaleKey } from './locales.ts'
 
 export type { RankingsTabInjected, RankingsTabProps } from './RankingsTab.tsx'
@@ -41,6 +42,21 @@ export function apply(ctx: ClientContext): void {
         throw new Error(`registry 路由 ${res.status}（先调用 sync_registry）`)
       }
       return res.json()
+    },
+    loadHistory: async (): Promise<HistoryDoc> => {
+      const res = await fetch('/dsh-recommend/history.json', { cache: 'no-store' })
+      if (!res.ok) {
+        throw new Error(`history 路由 ${res.status}`)
+      }
+      return res.json()
+    },
+    refreshRankings: async (): Promise<{ fetchedAt: string; count: number }> => {
+      const res = await fetch('/dsh-recommend/sync', { method: 'POST' })
+      const body = await res.json().catch(() => null)
+      if (!res.ok || !body?.ok) {
+        throw new Error(body?.error ?? `sync 路由 ${res.status}`)
+      }
+      return { fetchedAt: body.fetchedAt, count: body.count }
     },
   })
 

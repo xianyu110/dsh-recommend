@@ -4,7 +4,20 @@
 
 ## [Unreleased]
 
-### 新增
+### 新增（榜单可信度，评分模型 v2）
+
+- **官方本体/非插件 denylist**（`scripts/exclude-list.json`）：`deepseek-ai/deepseek-harness` 等官方本体排除出榜（仍在 registry 保留原因，可审计）
+- **深扫插件性验证**（`scripts/scan.mjs`）：对榜单前 200 名逐仓检测 `dsh` 声明 / `@deepseek-ai/*` 依赖 / cordis 配置 / skills 特征，未检出 → 排除出榜（`未检出插件特征（深扫）`）；`sync.mjs` 升级为两阶段评分（初步榜单 → 深扫 → 合并）
+- **hub 目录健康度可见化**：抓取失败不再静默降级——`meta.signals.hubCatalog` 记录 `fetchedAt/error`，`validate.mjs` 对空目录 / 0 awesome 命中直接红（修复了分类筛选与 curated 精选信号长期静默失效的问题：目录恢复 271 条/9 类，curated 0 → 245）
+- **历史快照**（`scripts/history.mjs`）：每日 `data/history.json`（top 100 + 总量，同天幂等，保留 366 天），设置页与静态站新增**综合分走势 sparkline**
+- **README 徽章**（`scripts/badge.mjs`）：为榜单前 200 生成 shields endpoint 徽章 `data/badges/<owner>__<name>.json`，插件作者可挂 README；静态站/设置页可一键复制徽章链接
+- **月度生态报告**（`scripts/report.mjs`）：新秀榜 / 涨幅榜 / 排名下滑榜 / Top10 变动，sync.yml 每次同步自动生成 `docs/reports/<YYYY-MM>.md`
+- **设置页体验**：一键「刷新数据」（web 半新增 `POST /dsh-recommend/sync`）、「复制安装命令」（`dsh plugin --profile web add github:...`）、详情展开（主题标签 / 许可证 / 发布时间 / 深扫状态 / 排除原因）、全量 i18n（zh/en，此前仅标签名翻译）
+- **模型工具升级**：`recommend_plugins` 增加中英同义词组扩展与 `keywords` 参数（公式：0.6×匹配度 + 0.4×综合分，文档化）；`rank_plugins` / `search_plugins` / `recommend_plugins` 输出附安装命令；`sync_registry` 输出 hub 目录 / 深扫健康度并同时下载历史数据
+- **零依赖冒烟测试**（`scripts/smoke.mjs`）：评分公式 / 排除规则 / awesome 链接提取 / 徽章颜色，挂入 validate.yml
+- **awesome 链接提取修复**：不再把 `github.com/topics/...` 等非仓库链接误当仓库（键统一小写，修复大小写不一致导致的精选信号漏匹配）
+
+### 新增（此前已记录）
 
 - 排行榜新增「按最新发布」排序视图（静态站 + 设置页排行标签），按仓库创建时间倒序
 - 榜单卡片新增联动链接（静态站 + 设置页排行标签）：**⭐ Star 支持作者** 引导按钮（打开仓库点 Star 感谢作者）、**仓库地址** 链接（`github.com/owner/name`），有主页/静态站的插件额外显示 **🌐 站点** 链接；静态站页脚新增本仓库源码链接（含 Star 引导）
@@ -18,6 +31,7 @@
 
 - 静态站默认主题改为浅色（原为深色底）
 - 数据自动同步频率：每日 03:17 UTC → 每 2 小时（cron `17 */2 * * *`）
+- 评分模型 v1 → v2：排除规则扩展（denylist + 深扫验证），四维权重不变
 
 ### 修复
 

@@ -1,4 +1,5 @@
-# 定期数据同步：全量重算（fetch → score → validate），数据变化直接提交回 main（Git 即数据库）。
+# 定期数据同步：全量重算（fetch → score×2 → scan → history → badge → validate），
+# 数据变化直接提交回 main（Git 即数据库）；月末自动生成月度生态报告。
 name: sync
 on:
   schedule:
@@ -13,14 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: 数据管道全量重算
+      - name: 数据管道全量重算（含深扫验证）
         run: node scripts/sync.mjs
         env:
           GITHUB_TOKEN: ${{ github.token }}
+      - name: 生成/更新月度生态报告
+        run: node scripts/report.mjs --out docs/reports
       - name: 提交数据变更
         run: |
           git config user.name "dsh-recommend bot"
           git config user.email "actions@github.com"
-          git add data/ CHANGELOG.md
+          git add data/ CHANGELOG.md docs/reports/
           git diff --cached --quiet && echo "无数据变化" || git commit -m "data: 生态同步 $(date -u +%Y-%m-%dT%H:%M)Z"
           git push

@@ -1,0 +1,9 @@
+{
+  "note": "排除清单（denylist）：官方本体 / 明确非插件的仓库。加入后由 score.mjs 排除出榜单（仍在 registry.json 中保留并附原因，可审计）。与 scripts/manual-repos.json 的手动收录不同——这里是排除而非收录。深扫验证（scripts/scan.mjs）抓不到 DSH 特征的仓库会自动按「未检出插件特征」排除，无需手动登记；本清单用于深扫覆盖不到的边界（官方本体、单日溢出区未深扫等）。",
+  "entries": [
+    {
+      "fullName": "deepseek-ai/deepseek-harness",
+      "reason": "官方仓库本体（平台而非插件）"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "name": "dsh-recommend",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "DSH 插件透明排行与推荐：每日自动抓取 dsh-plugin 话题生态 + 公开评分模型 + rank/recommend/search 工具 + 设置页排行标签",
   "repository": {
     "type": "git",
@@ -59,6 +59,11 @@
     "sync": "node scripts/sync.mjs",
     "fetch": "node scripts/fetch.mjs",
     "score": "node scripts/score.mjs",
+    "scan": "node scripts/scan.mjs",
+    "history": "node scripts/history.mjs",
+    "badge": "node scripts/badge.mjs",
+    "report": "node scripts/report.mjs",
+    "smoke": "node scripts/smoke.mjs",
     "validate": "node scripts/validate.mjs",
     "bundle": "tsdown",
     "watch": "tsdown --watch",

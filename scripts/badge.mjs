@@ -1,0 +1,58 @@
+/**
+ * badge.mjs — shields.io endpoint 徽章生成（插件作者挂 README 用）
+ *
+ * 为榜单前 N 名（默认 200）生成 data/badges/<owner>__<name>.json（shields endpoint
+ * badge schema），并输出索引 data/badges/index.json。
+ *
+ * 作者用法（README 里放一行）：
+ *   [![dsh score](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fzp-home%2Fdsh-recommend%2Fmain%2Fdata%2Fbadges%2F<owner>__<name>.json)](https://github.com/zp-home/dsh-recommend)
+ *
+ * 颜色按分数档位与站点视觉一致：>=0.85 金 / >=0.65 蓝 / >=0.5 灰蓝 / 其余浅灰。
+ * 用法：node scripts/badge.mjs [--top 200]
+ */
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { dirname, join } from 'node:path'
+import { fileURLToPath, pathToFileURL } from 'node:url'
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
+const DATA_DIR = join(ROOT, 'data')
+const BADGE_DIR = join(DATA_DIR, 'badges')
+
+const argv = process.argv.slice(2)
+const topIndex = argv.indexOf('--top')
+const TOP = topIndex >= 0 ? Number(argv[topIndex + 1]) || 200 : 200
+
+/** 分数档 → shields 颜色（6 位 hex，无 #）。 */
+export function badgeColor(score) {
+  if (score >= 0.85) return 'f5c518'
+  if (score >= 0.65) return '4176e6'
+  if (score >= 0.5) return '81858c'
+  return '9ca3af'
+}
+
+export async function runBadge(outDir = DATA_DIR, top = TOP) {
+  const rankings = JSON.parse(await readFile(join(outDir, 'rankings.json'), 'utf8'))
+  const index = { generatedAt: new Date().toISOString(), scoringVersion: rankings.meta.scoringVersion, entries: {} }
+  const badgeDir = join(outDir, 'badges')
+  await mkdir(badgeDir, { recursive: true })
+  let written = 0
+  for (const r of (rankings.rankings ?? []).slice(0, top)) {
+    const file = r.fullName.replace(/\//g, '__') + '.json'
+    const badge = {
+      schemaVersion: 1,
+      label: 'dsh score',
+      message: r.score.toFixed(2),
+      color: badgeColor(r.score),
+    }
+    await writeFile(join(badgeDir, file), JSON.stringify(badge))
+    index.entries[r.fullName] = { file, message: badge.message, color: badge.color, rank: r.rank }
+    written += 1
+  }
+  await writeFile(join(outDir, 'badges', 'index.json'), JSON.stringify(index, null, 2))
+  return { written, top }
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  const r = await runBadge()
+  console.log(`已生成 ${r.written} 个徽章到 ${join(BADGE_DIR, '<owner>__<name>.json')}（top ${r.top}）`)
+}

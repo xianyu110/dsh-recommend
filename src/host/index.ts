@@ -2,9 +2,9 @@
  * dsh-recommend host 半：四个模型可用工具。
  *
  * 契约：@deepseek-ai/dsh-tools 的 defineTool（官方 cookbook：adding-a-tool）。
- * 数据：只读 registry.json（config.dataUrl 指向的数据仓库产物），本地缓存于
- * config.cachePath（默认 $DSH_HOME/dsh-recommend/registry.json）。
- * 本插件从不执行任何被收录插件的代码（见 SECURITY.md）。
+ * 数据：只读 registry.json + history.json（config.dataUrl/historyUrl 指向数据仓库产物），
+ * 本地缓存于 config.cachePath / config.historyPath（默认 $DSH_HOME/dsh-recommend/ 下），
+ * sync_registry 负责更新两者。本插件从不执行任何被收录插件的代码（见 SECURITY.md）。
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname } from 'node:path'
@@ -19,6 +19,10 @@ export interface Config {
   dataUrl: string
   /** 本地缓存路径；不存在时由 sync_registry 拉取。 */
   cachePath: string
+  /** 可选：历史数据 URL（默认由 dataUrl 推导：registry.json → history.json）。 */
+  historyUrl?: string
+  /** 可选：历史数据缓存路径（默认 cachePath 同级 history.json）。 */
+  historyPath?: string
 }
 
 /** ISO 时间戳 → 本地可读格式，如 2026-08-14 05:27（UTC+8）。解析失败原样返回，缺省显示 —。 */
@@ -32,8 +36,15 @@ function formatTime(iso: string | null | undefined): string {
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}（${tz}）`
 }
 
+/** 安装命令（DSH 官方插件安装语法）。 */
+function installCommand(fullName: string): string {
+  return `dsh plugin --profile web add github:${fullName}`
+}
+
 export function apply(ctx: Context, config: Config) {
   const cachePath = config.cachePath
+  const historyPath = config.historyPath ?? config.cachePath.replace(/registry\.json$/, 'history.json')
+  const historyUrl = config.historyUrl ?? config.dataUrl.replace(/registry\.json$/, 'history.json')
 
   /** 读缓存；缺失/损坏时返回 null（工具层提示先 sync）。 */
   async function loadRegistry(): Promise<RegistryDoc | null> {
@@ -49,7 +60,7 @@ export function apply(ctx: Context, config: Config) {
 
   ctx.tools.register(defineTool({
     name: 'sync_registry',
-    description: '下载最新插件 registry 到本地缓存。数据源：dsh-recommend 数据仓库（每日自动重算）。',
+    description: '下载最新插件 registry（含历史趋势数据）到本地缓存，并报告数据源健康度。数据源：dsh-recommend 数据仓库（每 2 小时自动重算）。',
     parameters: {},
     output: {
       schema: {
@@ -59,25 +70,70 @@ export function apply(ctx: Context, config: Config) {
           fetchedAt: { type: 'string' },
           count: { type: 'number' },
           excluded: { type: 'number' },
+          hubCatalog: {
+            type: 'object',
+            additionalProperties: false,
+            properties: {
+              entries: { type: 'number' },
+              categories: { type: 'number' },
+              error: { oneOf: [{ type: 'string' }, { type: 'null' }] },
+            },
+          },
+          deepScan: {
+            type: 'object',
+            additionalProperties: false,
+            properties: {
+              verified: { type: 'number' },
+              unverified: { type: 'number' },
+              error: { type: 'number' },
+            },
+          },
+          historyDays: { type: 'number' },
         },
       },
-      render: (_args, value) => [{
-        type: 'text',
-        text: `registry 已更新：${value.count} 个仓库（${formatTime(value.fetchedAt)}）`,
-      }],
+      render: (_args, value) => {
+        const hub = value.hubCatalog
+        const hubLine = hub
+          ? (hub.error ? `⚠ hub 目录缺失（${hub.error}）` : `hub 目录 ${hub.entries} 条 / ${hub.categories} 类`)
+          : 'hub 目录信息未知'
+        const scan = value.deepScan
+        const scanLine = scan ? `深扫 ${scan.verified}✓/${scan.unverified}✗/${scan.error}err` : '深扫未运行'
+        return [{
+          type: 'text',
+          text: `registry 已更新：${value.count} 个仓库（${formatTime(value.fetchedAt)}）· ${hubLine} · ${scanLine} · 历史 ${value.historyDays ?? 0} 天`,
+        }]
+      },
     },
     async execute() {
-      const res = await fetch(config.dataUrl)
-      if (!res.ok) throw new Error(`下载 registry 失败: ${res.status}`)
-      const text = await res.text()
+      const [regRes, hisRes] = await Promise.all([
+        fetch(config.dataUrl),
+        fetch(historyUrl),
+      ])
+      if (!regRes.ok) throw new Error(`下载 registry 失败: ${regRes.status}`)
+      const text = await regRes.text()
       const doc: RegistryDoc = JSON.parse(text)
       if (!Array.isArray(doc.plugins)) throw new Error('下载的 registry 结构异常')
       await mkdir(dirname(cachePath), { recursive: true })
       await writeFile(cachePath, text, 'utf8')
+      let historyDays = 0
+      if (hisRes.ok) {
+        const hisText = await hisRes.text()
+        try {
+          const his = JSON.parse(hisText)
+          if (Array.isArray(his.days)) {
+            await writeFile(historyPath, hisText, 'utf8')
+            historyDays = his.days.length
+          }
+        } catch { /* history 可选，解析失败仅警告 */ }
+      }
+      const meta = doc.meta as RegistryDoc['meta']
       return {
-        fetchedAt: doc.meta.generatedAt,
+        fetchedAt: meta.generatedAt,
         count: doc.plugins.length,
         excluded: doc.plugins.filter((p) => p.excluded).length,
+        hubCatalog: meta.signals?.hubCatalog ?? undefined,
+        deepScan: meta.signals?.scanCounts ?? undefined,
+        historyDays,
       }
     },
   }))
@@ -87,9 +143,9 @@ export function apply(ctx: Context, config: Config) {
     description: '查询 DSH 插件榜单：按综合分排序，可过滤分类/维度，返回 top N。',
     parameters: {
       limit: { type: 'number', description: '返回条数，默认 10，最大 50' },
-      category: { type: 'string', description: '按 hub 分类过滤，如「UI 增强」' },
+      category: { type: 'string', description: '按 hub 分类过滤，如「UI 增强」「技能」' },
       sortBy: { type: 'string', enum: ['score', 'stars', 'updated'], description: '排序维度，默认 score' },
-      includeExcluded: { type: 'boolean', description: '是否包含被排除（占位/空仓库）条目，默认 false' },
+      includeExcluded: { type: 'boolean', description: '是否包含被排除（占位/空仓库/非插件）条目，默认 false' },
     },
     output: {
       schema: {
@@ -105,6 +161,7 @@ export function apply(ctx: Context, config: Config) {
                 rank: { type: 'number' },
                 fullName: { type: 'string' },
                 url: { type: 'string' },
+                install: { type: 'string' },
                 description: { type: 'string' },
                 stars: { type: 'number' },
                 score: { type: 'number' },
@@ -128,7 +185,7 @@ export function apply(ctx: Context, config: Config) {
       render: (_args, value) => [{
         type: 'text',
         text: (value.rankings ?? [])
-          .map((r) => `#${r.rank} ${r.fullName}（score ${r.score}，★${r.stars}）${r.excluded ? ` [${r.excluded}]` : ''}\n  ${r.description}`)
+          .map((r) => `#${r.rank} ${r.fullName}（score ${r.score}，★${r.stars}）${r.excluded ? ` [${r.excluded}]` : ''}\n  ${r.description}\n  安装：${r.install}`)
           .join('\n'),
       }],
     },
@@ -143,6 +200,7 @@ export function apply(ctx: Context, config: Config) {
           rank: 0,
           fullName: p.fullName,
           url: p.url,
+          install: installCommand(p.fullName),
           description: p.description,
           stars: p.stars,
           score: p.score,
@@ -180,6 +238,7 @@ export function apply(ctx: Context, config: Config) {
               properties: {
                 fullName: { type: 'string' },
                 url: { type: 'string' },
+                install: { type: 'string' },
                 description: { type: 'string' },
                 stars: { type: 'number' },
                 score: { type: 'number' },
@@ -193,7 +252,7 @@ export function apply(ctx: Context, config: Config) {
         type: 'text',
         text: (value.results ?? []).length === 0
           ? '无匹配结果'
-          : (value.results ?? []).map((r) => `${r.fullName}（score ${r.score}，★${r.stars}）${r.excluded ? ` [${r.excluded}]` : ''}\n  ${r.description}`).join('\n'),
+          : (value.results ?? []).map((r) => `${r.fullName}（score ${r.score}，★${r.stars}）${r.excluded ? ` [${r.excluded}]` : ''}\n  ${r.description}\n  安装：${r.install}`).join('\n'),
       }],
     },
     async execute(args) {
@@ -204,16 +263,17 @@ export function apply(ctx: Context, config: Config) {
         .filter((p) => (p.fullName + ' ' + (p.description ?? '') + ' ' + (p.category ?? '')).toLowerCase().includes(q))
         .sort((a, b) => b.score - a.score)
         .slice(0, Math.min(args.limit ?? 10, 50))
-        .map((p) => ({ fullName: p.fullName, url: p.url, description: p.description, stars: p.stars, score: p.score, excluded: p.excluded }))
+        .map((p) => ({ fullName: p.fullName, url: p.url, install: installCommand(p.fullName), description: p.description, stars: p.stars, score: p.score, excluded: p.excluded }))
       return { results }
     },
   }))
 
   ctx.tools.register(defineTool({
     name: 'recommend_plugins',
-    description: '按用户目标描述推荐插件（v0 关键词匹配，M3 升级为打分推荐）。',
+    description: '按用户目标描述推荐插件。公式：relevance = 0.6×匹配度 + 0.4×综合分，其中匹配度 = 0.5×直接关键词命中率 + 0.5×同义扩展命中率（内置中英同义词组：记忆/搜索/UI/技能/MCP/工具/TUI/通知/自动化/数据/视觉/语音/研究/翻译/代码/Git/会话/安全/浏览器/游戏 等）。可传 keywords 显式补充检索词。',
     parameters: {
       goal: { type: 'string', required: true, description: '用户想做的事，如「给 Web 界面加侧边栏」' },
+      keywords: { type: 'array', items: { type: 'string' }, description: '可选：显式补充检索关键词（中英均可），与 goal 一起参与匹配' },
       limit: { type: 'number', description: '返回条数，默认 5，最大 20' },
     },
     output: {
@@ -229,6 +289,7 @@ export function apply(ctx: Context, config: Config) {
               properties: {
                 fullName: { type: 'string' },
                 url: { type: 'string' },
+                install: { type: 'string' },
                 description: { type: 'string' },
                 score: { type: 'number' },
                 reason: { type: 'string' },
@@ -240,39 +301,86 @@ export function apply(ctx: Context, config: Config) {
       render: (_args, value) => [{
         type: 'text',
         text: (value.recommendations ?? []).length === 0
-          ? '没有找到明显匹配的插件，试试 search_plugins 换关键词'
-          : (value.recommendations ?? []).map((r) => `${r.fullName}（score ${r.score}）\n  理由：${r.reason}\n  ${r.description}`).join('\n'),
+          ? '没有找到明显匹配的插件，试试 search_plugins 换关键词，或加 keywords 参数'
+          : (value.recommendations ?? []).map((r) => `${r.fullName}（score ${r.score}）\n  理由：${r.reason}\n  ${r.description}\n  安装：${r.install}`).join('\n'),
       }],
     },
     async execute(args) {
       const doc = await loadRegistry()
       if (!doc) throw new Error('本地缓存缺失，请先调用 sync_registry')
-      // v0 规则式：分词（CJK 按字符二元组 + 英文词），对 name/description/category 打分
-      const tokens = tokenize(args.goal)
+      const tokens = [...tokenize(args.goal), ...(args.keywords ?? []).map((k) => k.toLowerCase())]
+      if (tokens.length === 0) return { recommendations: [] }
+
+      // 同义扩展：goal/keywords 命中哪个组，就把该组全部同义词加入检索
+      const touchedGroups = new Set<string>()
+      const tokenGroupHits = new Map<string, string[]>() // token -> 命中的组
+      for (const t of tokens) {
+        const groups: string[] = []
+        for (const [gid, syns] of Object.entries(SYNONYM_GROUPS)) {
+          if (syns.some((s) => t.includes(s) || s.includes(t))) groups.push(gid)
+        }
+        tokenGroupHits.set(t, groups)
+        for (const g of groups) touchedGroups.add(g)
+      }
+      const expanded = new Set<string>()
+      for (const g of touchedGroups) for (const s of SYNONYM_GROUPS[g] ?? []) expanded.add(s)
+
       const scored = doc.plugins
         .filter((p) => !p.excluded)
         .map((p) => {
           const haystack = `${p.fullName} ${p.description ?? ''} ${p.category ?? ''}`.toLowerCase()
-          let hits = 0
-          for (const t of tokens) if (haystack.includes(t)) hits += 1
-          const ratio = tokens.length === 0 ? 0 : hits / tokens.length
-          const relevance = Math.min(1, ratio) * 0.6 + p.score * 0.4
-          return { p, relevance, hits }
+          const directHits = tokens.filter((t) => haystack.includes(t)).length
+          const groupMatched = [...touchedGroups].filter((g) => (SYNONYM_GROUPS[g] ?? []).some((s) => haystack.includes(s))).length
+          const ratioDirect = tokens.length === 0 ? 0 : directHits / tokens.length
+          const ratioGroup = touchedGroups.size === 0 ? 0 : groupMatched / touchedGroups.size
+          const matchedRatio = 0.5 * ratioDirect + 0.5 * ratioGroup
+          const relevance = Math.min(1, matchedRatio) * 0.6 + p.score * 0.4
+          return { p, relevance, directHits, groupMatched, expandedHits: [...expanded].filter((s) => haystack.includes(s)).length }
         })
-        .filter((x) => x.hits > 0)
-        .sort((a, b) => b.relevance - a.relevance)
+        .filter((x) => x.directHits > 0 || x.groupMatched > 0)
+        .sort((a, b) => b.relevance - a.relevance || b.p.score - a.p.score)
         .slice(0, Math.min(args.limit ?? 5, 20))
       return {
-        recommendations: scored.map(({ p, hits }) => ({
+        recommendations: scored.map(({ p, directHits, groupMatched, expandedHits }) => ({
           fullName: p.fullName,
           url: p.url,
+          install: installCommand(p.fullName),
           description: p.description,
           score: p.score,
-          reason: `命中 ${hits}/${tokens.length} 个关键词；综合分 ${p.score}`,
+          reason: `命中关键词 ${directHits}/${tokens.length}、同义组 ${groupMatched}/${touchedGroups.size}（扩展命中 ${expandedHits} 词）；综合分 ${p.score}`,
         })),
       }
     },
   }))
+}
+
+/**
+ * 同义扩展组：goal 里的词命中某组任一同义词时，整组同义词参与检索。
+ * 覆盖 DSH 插件生态的高频语义（中英 + 常见别名）。
+ */
+export const SYNONYM_GROUPS: Record<string, string[]> = {
+  memory: ['记忆', 'memory', '回忆', '长期记忆', 'claude-mem', 'mem0', '知识库', 'knowledge'],
+  search: ['搜索', 'search', '检索', '查询', 'workspace search'],
+  ui: ['界面', 'ui', '皮肤', 'theme', '主题', '侧边栏', 'sidebar', '输入框', '布局', '组件', '样式'],
+  skill: ['技能', 'skill', 'skills', '提示词', 'prompt', '模板', 'prompt 库'],
+  mcp: ['mcp', '模型上下文', '上下文协议', 'server'],
+  tool: ['工具', 'tool', 'tools', '工具集', '工具箱'],
+  tui: ['tui', '终端', 'terminal', '命令行', 'cli'],
+  notify: ['通知', 'notification', '推送', '提醒', '消息', 'webhook'],
+  automate: ['自动化', 'automation', '工作流', 'workflow', 'ci', '定时', 'schedule', 'pipeline'],
+  data: ['数据', 'data', '表格', 'excel', 'csv', '数据库', 'database', '分析'],
+  vision: ['视觉', 'vision', '图像', '图片', 'ocr', '截图', 'screenshot'],
+  voice: ['语音', 'voice', '语音输入', 'asr', '录音'],
+  research: ['研究', 'research', '深度研究', 'deep-research', 'deep research', '报告'],
+  translate: ['翻译', 'translate', 'translation', '本地化', 'i18n', '多语言'],
+  code: ['代码', 'code', '编码', '编程', 'ide', '编辑器', 'diff', '重构'],
+  git: ['git', '版本控制', '提交', 'commit', '分支'],
+  session: ['会话', 'session', '对话', '历史', '聊天记录'],
+  security: ['安全', 'security', '审计', 'audit', '供应链', '风险'],
+  browser: ['浏览器', 'browser', '网页', 'web', '抓取'],
+  game: ['游戏', 'game', '小游戏', '娱乐'],
+  pet: ['宠物', 'pet', '桌宠', '陪伴'],
+  chat: ['聊天', 'chat', '对话增强', '回复'],
 }
 
 /** v0 分词：英文词 + CJK 字符二元组。 */
@@ -290,7 +398,14 @@ function tokenize(input: string): string[] {
 }
 
 interface RegistryDoc {
-  meta: { generatedAt: string; scoringVersion: number }
+  meta: {
+    generatedAt: string
+    scoringVersion: number
+    signals?: {
+      hubCatalog?: { entries: number; categories: number; error: string | null }
+      scanCounts?: { scanned: number; verified: number; unverified: number; error: number; skipped: number }
+    }
+  }
   plugins: Array<{
     fullName: string
     url: string
