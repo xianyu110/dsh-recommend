@@ -1,4 +1,17 @@
 {
   "note": "精选认证列表（🏅）：由 GitHub Issue 提交 → 维护者审核 → 打 approved 标签后由 CI 自动追加。被认证的仓库在 registry 中获得 certified 标记，site 展示 🏅 徽章，且该插件可挂 README 认证徽章。此文件由 .github/workflows/curate.yml 自动维护，请勿手改（手改会被下次同步覆盖）。",
-  "plugins": []
+  "plugins": [
+    {
+      "fullName": "ysr666/dsh-vision-router",
+      "issue": 4,
+      "approvedAt": "2026-08-15",
+      "npmPackage": "dsh-vision-router"
+    },
+    {
+      "fullName": "zp-home/dsh-recommend",
+      "issue": 5,
+      "approvedAt": "2026-08-15",
+      "npmPackage": "dsh-recommend"
+    }
+  ]
 }

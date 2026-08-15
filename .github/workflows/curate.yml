@@ -1,0 +1,40 @@
+# 精选认证：issue 打上 approved 标签 → 自动收录进 scripts/curated.json。
+# 触发条件：任意 issue 被标记 approved（维护者审核通过后手动打的标签）。
+# 收录结果在下次 sync（每 2 小时）时被 score.mjs 读取，插件获得 certified 标记与 🏅 徽章。
+name: curate
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+
+jobs:
+  curate:
+    if: github.event.label.name == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 从 issue body 提取仓库地址与 npm 包名并收录
+        run: |
+          BODY="${{ github.event.issue.body }}"
+          # 仓库地址：issue 模板的 GitHub 仓库地址输入框
+          REPO=$(echo "$BODY" | grep -oE 'github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+' | head -1 | sed 's|github.com/||')
+          # npm 包名：issue 模板的 npm 包名输入框（可能为空）
+          NPM=$(echo "$BODY" | grep -oE '(npm 包名|npm package)[^`\n]*`[^`]+`' | head -1 | sed -E 's/.*`([^`]+)`.*/\1/')
+          if [ -z "$REPO" ]; then
+            echo "未在 issue body 中找到仓库地址，跳过" >&2
+            exit 0
+          fi
+          if [ -n "$NPM" ]; then
+            node scripts/curate.mjs --repo "$REPO" --issue "${{ github.event.issue.number }}" --npm "$NPM"
+          else
+            node scripts/curate.mjs --repo "$REPO" --issue "${{ github.event.issue.number }}"
+          fi
+      - name: 提交变更
+        run: |
+          git config user.name "dsh-recommend bot"
+          git config user.email "actions@github.com"
+          git add scripts/curated.json
+          git diff --cached --quiet && echo "无变化" || git commit -m "data: 精选认证 issue #${{ github.event.issue.number }}"
+          git push
