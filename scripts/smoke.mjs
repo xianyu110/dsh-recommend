@@ -18,7 +18,9 @@ function t(name, fn) {
 
 t('评分：维护性半衰期', () => {
   const { signals } = scoreRepo({ pushedAt: new Date(Date.now() - 180 * 86_400_000).toISOString(), stars: 0, description: 'x'.repeat(40), license: 'MIT', sizeKb: 10 }, 0.2)
-  ok(Math.abs(signals.maintenance - Math.exp(-1)) < 1e-9, '180 天未更新应 ≈ e^-1')
+  // 阈值 1e-6：toISOString() 会截断毫秒（亚毫秒误差），经 exp 放大后在 Linux runner
+  // 上会突破 1e-9 的旧阈值，导致 flaky 失败。1e-6 对 float64 维护性计算绰绰有余。
+  ok(Math.abs(signals.maintenance - Math.exp(-1)) < 1e-6, '180 天未更新应 ≈ e^-1')
 })
 
 t('评分：popularity 对数压缩封顶', () => {
