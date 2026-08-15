@@ -6,12 +6,12 @@
     "quality": 0.2,
     "ecosystem": 0.15
   },
-  "generatedAt": "2026-08-14T22:46:11.837Z",
-  "rawFetchedAt": "2026-08-14T22:46:11.756Z",
+  "generatedAt": "2026-08-15T01:56:00.356Z",
+  "rawFetchedAt": "2026-08-15T01:56:00.276Z",
   "counts": {
-    "topicRepos": 1900,
-    "excluded": 207,
-    "ranked": 1693
+    "topicRepos": 1952,
+    "excluded": 228,
+    "ranked": 1724
   },
   "formula": {
     "maintenance": "exp(-daysSincePush / 180)",
