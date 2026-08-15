@@ -6,8 +6,11 @@
   <a href="https://github.com/zp-home/dsh-recommend"><img src="https://img.shields.io/github/stars/zp-home/dsh-recommend?style=flat-square" alt="stars"></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/zp-home/dsh-recommend?style=flat-square" alt="license"></a>
   <a href="https://github.com/zp-home/dsh-recommend/actions/workflows/sync.yml"><img src="https://img.shields.io/github/actions/workflow/status/zp-home/dsh-recommend/sync.yml?style=flat-square&label=data%20sync" alt="data sync"></a>
+  <a href="https://github.com/zp-home/dsh-recommend/actions/workflows/validate.yml"><img src="https://img.shields.io/github/actions/workflow/status/zp-home/dsh-recommend/validate.yml?style=flat-square&label=validate" alt="validate"></a>
   <a href="https://zp-home.github.io/dsh-recommend/site/"><img src="https://img.shields.io/website?url=https%3A%2F%2Fzp-home.github.io%2Fdsh-recommend%2Fsite%2F&style=flat-square&label=leaderboard" alt="leaderboard site"></a>
+  <a href="https://zp-home.github.io/dsh-recommend/site/rankings.html"><img src="https://img.shields.io/website?url=https%3A%2F%2Fzp-home.github.io%2Fdsh-recommend%2Fsite%2Frankings.html&style=flat-square&label=trends" alt="trends"></a>
   <a href="https://github.com/topics/dsh-plugin"><img src="https://img.shields.io/badge/topic-dsh--plugin-4D6BFE?style=flat-square" alt="dsh-plugin topic"></a>
+  <a href="https://github.com/zp-home/dsh-recommend/blob/main/docs/trends.md"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fzp-home%2Fdsh-recommend%2Fmain%2Fdata%2Fbadges%2Fzp-home__dsh-recommend.certified.json&style=flat-square" alt="🏅 精选认证"></a>
   <a href="https://awesome-dsh-plugin.com"><img src="https://awesome-dsh-plugin.com/badge.svg" alt="awesome · DSH 插件"></a>
   <img src="https://img.shields.io/badge/version-0.3.0-4D6BFE?style=flat-square" alt="version">
 </p>

@@ -1,11 +1,13 @@
 /**
  * badge.mjs — shields.io endpoint 徽章生成（插件作者挂 README 用）
  *
- * 为榜单前 N 名（默认 200）生成 data/badges/<owner>__<name>.json（shields endpoint
- * badge schema），并输出索引 data/badges/index.json。
+ * 1) 分数徽章：为榜单前 N 名（默认 200）生成 data/badges/<owner>__<name>.json；
+ * 2) 精选认证徽章：为 scripts/curated.json 中通过 issue 审核的插件生成
+ *    data/badges/<owner>__<name>.certified.json（金色「🏅 精选认证」）。
  *
  * 作者用法（README 里放一行）：
  *   [![dsh score](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fzp-home%2Fdsh-recommend%2Fmain%2Fdata%2Fbadges%2F<owner>__<name>.json)](https://github.com/zp-home/dsh-recommend)
+ *   [![certified](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fzp-home%2Fdsh-recommend%2Fmain%2Fdata%2Fbadges%2F<owner>__<name>.certified.json)](https://github.com/zp-home/dsh-recommend)
  *
  * 颜色按分数档位与站点视觉一致：>=0.85 金 / >=0.65 蓝 / >=0.5 灰蓝 / 其余浅灰。
  * 用法：node scripts/badge.mjs [--top 200]
@@ -17,6 +19,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const DATA_DIR = join(ROOT, 'data')
 const BADGE_DIR = join(DATA_DIR, 'badges')
+const CURATED_FILE = join(ROOT, 'scripts', 'curated.json')
 
 const argv = process.argv.slice(2)
 const topIndex = argv.indexOf('--top')
@@ -28,6 +31,16 @@ export function badgeColor(score) {
   if (score >= 0.65) return '4176e6'
   if (score >= 0.5) return '81858c'
   return '9ca3af'
+}
+
+/** 读取精选认证列表（issue 审核通过）。 */
+export async function loadCurated() {
+  try {
+    return JSON.parse(await readFile(CURATED_FILE, 'utf8')).plugins ?? []
+  } catch (err) {
+    if (err.code !== 'ENOENT') console.warn(`curated.json 读取失败：${err.message}`)
+    return []
+  }
 }
 
 export async function runBadge(outDir = DATA_DIR, top = TOP) {
@@ -48,11 +61,34 @@ export async function runBadge(outDir = DATA_DIR, top = TOP) {
     index.entries[r.fullName] = { file, message: badge.message, color: badge.color, rank: r.rank }
     written += 1
   }
+
+  // 精选认证徽章（M3）：为 issue 审核通过的插件生成金色认证徽章
+  const curated = await loadCurated()
+  let certifiedWritten = 0
+  for (const c of curated) {
+    const file = c.fullName.replace(/\//g, '__') + '.certified.json'
+    await writeFile(join(badgeDir, file), JSON.stringify({
+      schemaVersion: 1,
+      label: 'dsh-recommend',
+      message: '🏅 精选认证',
+      color: 'c08a00',
+    }))
+    certifiedWritten += 1
+  }
+  if (certifiedWritten > 0) {
+    await writeFile(join(badgeDir, 'certified.json'), JSON.stringify({
+      schemaVersion: 1,
+      label: 'dsh-recommend',
+      message: `🏅 精选认证 ×${certifiedWritten}`,
+      color: 'c08a00',
+    }))
+  }
+
   await writeFile(join(outDir, 'badges', 'index.json'), JSON.stringify(index, null, 2))
-  return { written, top }
+  return { written, top, certifiedWritten }
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const r = await runBadge()
-  console.log(`已生成 ${r.written} 个徽章到 ${join(BADGE_DIR, '<owner>__<name>.json')}（top ${r.top}）`)
+  console.log(`已生成 ${r.written} 个分数徽章 + ${r.certifiedWritten} 个认证徽章到 ${join(BADGE_DIR, '<owner>__<name>.json')}（top ${r.top}）`)
 }
