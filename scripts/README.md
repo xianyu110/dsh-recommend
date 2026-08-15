@@ -28,7 +28,8 @@ GITHUB_TOKEN=xxx node scripts/sync.mjs   # 带 token：30 次/分，快很多
 - **主入口检测**：`import.meta.url === pathToFileURL(process.argv[1]).href`（Windows 路径安全）
 - **改评分 = 三处同步**：`docs/scoring.md` → `score.mjs`（`SCORING_VERSION`/`WEIGHTS`）→ 重新生成 `data/`
 - **数据源白名单**：见 `fetch.mjs` 头部注释；新增源先走 ADR
-- **失败策略**：主数据源（GitHub Search）失败即红；辅助源（目录镜像/awesome）降级警告
+- **手动收录清单**：`scripts/manual-repos.json` 兜底 Search API 永远取不到的仓库（单日仓库数 ≥1000 的溢出区，如 2026-08-14 有 1474 个、单日上限 1000）；按 `owner/repo` 填写，fetch 用 `/repos` 接口抓取合并，不改变 registry 结构
+- **失败策略**：主数据源（GitHub Search）失败即红；辅助源（目录镜像/awesome/手动清单单仓）降级警告
 - **限额**：未认证 Search 10 次/分（页间已加 6.5s 退避 + 403/429 Retry-After 重试 ×3）
 
 ## 已踩过的坑（2026-08 实测）

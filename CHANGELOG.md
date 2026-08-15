@@ -12,6 +12,7 @@
 - 榜单分页：每页 50 条（静态站 + 设置页排行标签），全部插件可翻页浏览；搜索 / 分类 / 排序变化自动回到第 1 页；排名与奖牌按全局位置连续显示
 - 仓库地址链接上移到卡片顶部（插件名下方等宽字体展示），底部操作行只保留 ⭐ Star 支持作者 与 🌐 站点
 - npm 发布（`dsh-recommend@0.2.0`）：新增 npm 安装方式（国内可走 npmmirror 镜像）；package.json 补齐 repository/homepage/keywords/author 元数据；README 增加三种安装方式与国内数据源（jsDelivr）提示
+- 手动收录清单（`scripts/manual-repos.json`）：兜底 Search API 永远取不到的仓库（单日仓库数 ≥1000 的溢出区），按 `owner/repo` 填写后由 `/repos` 接口抓取合并，不改变 registry 结构
 
 ### 变更
 

@@ -6,7 +6,8 @@
  *      pushed_at/license/size/描述等，一次请求内返回，无需逐仓再查）。
  *      注意：Search API 单个查询最多返回 1000 条（10 页 × 100），第 11 页起恒为空，
  *      且 repository 搜索不支持按 created 排序；全量通过 created 日期区间分桶 +
- *      递归拆分实现（见 fetchTopicRepos）。
+ *      递归拆分实现（见 fetchTopicRepos）。单日仓库数 ≥1000 时溢出部分 Search 永远
+ *      取不到，由 scripts/manual-repos.json 手动收录清单兜底（/repos 接口单独抓取）。
  *   2. dsh-external/hub 精选目录的公开镜像（0xsline/awesome-deepseek-harness 的
  *      CATALOG.md）：官方精选目录（分类映射 + 精选信号）。
  *   3. 三个 awesome 精选列表：人工精选信号（被收录 = 生态信号加分）。
@@ -17,12 +18,14 @@
  *
  * 用法：node scripts/fetch.mjs [--out data/raw]
  */
-import { mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const RAW_DIR = join(ROOT, 'data', 'raw')
+/** 手动收录清单（人工验证、Search API 无法自动发现的插件，见文件内 note）。 */
+const MANUAL_FILE = join(ROOT, 'scripts', 'manual-repos.json')
 
 const GITHUB_API = 'https://api.github.com'
 const token = process.env.GITHUB_TOKEN ?? ''
@@ -250,6 +253,37 @@ export function toRepoRecord(repo) {
   }
 }
 
+/**
+ * 读取 scripts/manual-repos.json 手动收录清单，用 /repos 接口逐仓抓取。
+ * 用于兜底 Search API 永远取不到的仓库（单日仓库数 ≥1000 的溢出区）；
+ * /repos 是 core API（无单查询 1000 上限），返回结构与 search items 同构，
+ * 直接 toRepoRecord。清单缺失/仓库不存在时降级跳过，不影响主流程。
+ */
+export async function fetchManualRepos() {
+  let list
+  try {
+    list = JSON.parse(await readFile(MANUAL_FILE, 'utf8'))
+  } catch (err) {
+    if (err.code !== 'ENOENT') console.warn(`manual-repos.json 解析失败：${err.message}`)
+    return []
+  }
+  const fullNames = Array.isArray(list?.repos) ? list.repos : []
+  const records = []
+  for (const fullName of fullNames) {
+    if (typeof fullName !== 'string' || !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(fullName)) {
+      console.warn(`manual-repos.json 非法条目，跳过：${JSON.stringify(fullName)}`)
+      continue
+    }
+    try {
+      const repo = await gh(`${GITHUB_API}/repos/${fullName}`)
+      records.push(toRepoRecord(repo))
+    } catch (err) {
+      console.warn(`手动收录仓库抓取失败，跳过：${fullName}（${err.message}）`)
+    }
+  }
+  return records
+}
+
 const argv = process.argv.slice(2)
 const out = argv.includes('--dry') ? null : RAW_DIR
 const limitIndex = argv.indexOf('--limit')
@@ -259,16 +293,24 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const repos = await fetchTopicRepos(maxPages)
   const catalog = await fetchHubCatalog()
   const awesome = await fetchAwesomeLists()
+  // 手动收录清单与 topic 结果按 full_name 合并去重（手动条目优先，它是人工验证过的）
+  const manual = await fetchManualRepos()
+  const merged = new Map(manual.map((r) => [r.fullName, r]))
+  for (const r of repos.map(toRepoRecord)) if (!merged.has(r.fullName)) merged.set(r.fullName, r)
+  const topicRepos = [...merged.values()]
   const payload = {
     fetchedAt: new Date().toISOString(),
-    topicRepos: repos.map(toRepoRecord),
+    topicRepos,
     hubCatalog: catalog,
     awesomeLists: awesome,
   }
   if (out) {
     await mkdir(out, { recursive: true })
     await writeFile(join(out, 'repos.json'), JSON.stringify(payload, null, 2))
-    console.log(`已写入 ${join(out, 'repos.json')}（topic 仓库 ${repos.length} 个）`)
+    console.log(
+      `已写入 ${join(out, 'repos.json')}（topic 仓库 ${repos.length} 个` +
+        `${manual.length ? ` + 手动收录 ${manual.length} 个` : ''} = ${topicRepos.length} 个）`,
+    )
   } else {
     console.log(JSON.stringify(payload, null, 2))
   }
