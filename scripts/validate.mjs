@@ -55,8 +55,8 @@ for (const p of registry.plugins ?? []) {
   if (p.excluded) check(typeof p.excluded === 'string', `${p.fullName} excluded 应为原因字符串`)
   if (p.category) categoryCovered += 1
   if (p.curated) curatedCount += 1
-  // 深扫一致性：unverified 必须被排除
-  if (p.scanStatus === 'unverified' && !p.excluded) {
+  // 深扫一致性：unverified 必须被排除——除非被人工精选（hub/awesome）收录（人工审核优先，见 score.mjs）
+  if (p.scanStatus === 'unverified' && !p.excluded && !p.curated && (p.awesomeLists ?? []).length === 0) {
     check(false, `深扫未检出插件特征但未排除: ${p.fullName}`)
   }
 }
@@ -67,7 +67,11 @@ for (const r of rankings.rankings ?? []) {
   check(r.score <= prev, `排名未降序: rank=${r.rank} ${r.fullName}`)
   prev = r.score
   check(r.rank > 0, 'rank 应从 1 开始')
-  check(r.scanStatus !== 'unverified', `rankings 混入深扫未检出条目: ${r.fullName}`)
+  // 深扫未检出但被人工精选保留的条目允许上榜（与 registry 循环规则一致）
+  check(
+    r.scanStatus !== 'unverified' || r.curated || (r.awesomeLists ?? []).length > 0,
+    `rankings 混入深扫未检出条目: ${r.fullName}`,
+  )
 }
 
 infos.push(`分类覆盖 ${categoryCovered}/${registry.plugins?.length ?? 0} · curated ${curatedCount}`)

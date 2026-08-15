@@ -61,7 +61,17 @@ function addDays(dateStr, days) {
 }
 
 async function gh(url, retries = 3) {
-  const res = await fetch(url, { headers })
+  let res
+  try {
+    res = await fetch(url, { headers })
+  } catch (err) {
+    // 网络层错误（ECONNRESET / ETIMEDOUT / ENOTFOUND 等）：指数退避重试
+    if (retries <= 0) throw err
+    const wait = 3000 * (4 - retries)
+    console.warn(`网络错误（${err.message}），${wait / 1000}s 后重试（剩余 ${retries} 次）: ${url}`)
+    await new Promise((r) => setTimeout(r, wait))
+    return gh(url, retries - 1)
+  }
   if (res.status === 403 || res.status === 429) {
     if (retries <= 0) throw new Error(`GitHub API ${res.status} ${res.statusText}（重试耗尽）: ${url}`)
     const retryAfter = Number(res.headers.get('retry-after')) || 10
@@ -76,9 +86,20 @@ async function gh(url, retries = 3) {
 }
 
 async function text(url) {
-  const res = await fetch(url, { headers: { 'User-Agent': 'dsh-recommend' } })
-  if (!res.ok) throw new Error(`GET ${res.status}: ${url}`)
-  return res.text()
+  // raw.githubusercontent 等辅助源：网络层错误同样重试，避免瞬时抖动把 hub/awesome 信号打成「抓取失败」
+  for (let attempt = 0; ; attempt += 1) {
+    let res
+    try {
+      res = await fetch(url, { headers: { 'User-Agent': 'dsh-recommend' } })
+    } catch (err) {
+      if (attempt >= 2) throw err
+      console.warn(`网络错误（${err.message}），3s 后重试（第 ${attempt + 1} 次）: ${url}`)
+      await new Promise((r) => setTimeout(r, 3000))
+      continue
+    }
+    if (!res.ok) throw new Error(`GET ${res.status}: ${url}`)
+    return res.text()
+  }
 }
 
 /**
@@ -328,10 +349,13 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   if (repos.length === 0 && !skipTopic) repos = await fetchTopicRepos(maxPages)
   const catalog = await fetchHubCatalog()
   const awesome = await fetchAwesomeLists()
-  // 手动收录清单与 topic 结果按 full_name 合并去重（手动条目优先，它是人工验证过的）
+  // 手动收录清单与 topic 结果按 full_name 合并去重（手动条目优先，它是人工验证过的）。
+  // 注意：全量抓取返回的是原始 API item（full_name），须经 toRepoRecord 归一化；
+  // skip-topic 复用已有 raw（已是 record 结构）则无需再转换。
   const manual = await fetchManualRepos()
+  const topicRecords = skipTopic ? repos : repos.map(toRepoRecord)
   const merged = new Map(manual.map((r) => [r.fullName, r]))
-  for (const r of repos) if (!merged.has(r.fullName)) merged.set(r.fullName, r)
+  for (const r of topicRecords) if (!merged.has(r.fullName)) merged.set(r.fullName, r)
   const topicRepos = [...merged.values()]
   const payload = {
     fetchedAt: new Date().toISOString(),
@@ -343,7 +367,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     await mkdir(out, { recursive: true })
     await writeFile(join(out, 'repos.json'), JSON.stringify(payload, null, 2))
     console.log(
-      `已写入 ${join(out, 'repos.json')}（topic 仓库 ${repos.length} 个` +
+      `已写入 ${join(out, 'repos.json')}（topic 仓库 ${topicRecords.length} 个` +
         `${manual.length ? ` + 手动收录 ${manual.length} 个` : ''} = ${topicRepos.length} 个；` +
         `hub 目录 ${catalog.entries.length} 条${catalog.error ? `（抓取失败: ${catalog.error}）` : ''}）`,
     )

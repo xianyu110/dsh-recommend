@@ -16,6 +16,10 @@
 - **模型工具升级**：`recommend_plugins` 增加中英同义词组扩展与 `keywords` 参数（公式：0.6×匹配度 + 0.4×综合分，文档化）；`rank_plugins` / `search_plugins` / `recommend_plugins` 输出附安装命令；`sync_registry` 输出 hub 目录 / 深扫健康度并同时下载历史数据
 - **零依赖冒烟测试**（`scripts/smoke.mjs`）：评分公式 / 排除规则 / awesome 链接提取 / 徽章颜色，挂入 validate.yml
 - **awesome 链接提取修复**：不再把 `github.com/topics/...` 等非仓库链接误当仓库（键统一小写，修复大小写不一致导致的精选信号漏匹配）
+- **fetch 网络重试**：`gh()`/`text()` 对 ECONNRESET/超时等网络层错误退避重试（此前只重试 403/429，瞬时断连会让整个管道红）
+- **深扫误杀修复**：被 hub 目录 / awesome 列表人工收录的仓库即使深扫未检出特征也保留上榜（人工审核优先，避免 dsh-web-ui 等真插件被误杀）
+- **cordis.patch.yml 修复**：`dsh-recommend-web` 行补充 `dataUrl`（新 web 半「刷新数据」路由依赖它，缺失会导致 `fetch(undefined)` 报错）
+- **全量 fetch 回归修复**：skip-topic 改造时丢失 `toRepoRecord` 归一化，raw item（`full_name`）被当 record 合并导致数据损坏——已恢复
 
 ### 新增（此前已记录）
 

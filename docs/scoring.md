@@ -16,7 +16,7 @@
 | 描述为空 | `无描述` | 无法判断用途 |
 | 描述命中占位特征 | `占位/WIP 特征` | 匹配 `/占位|待填充|placeholder|description pending|empty repo|wip|coming soon|预留/i` |
 | 官方本体/非插件 denylist | 自定义原因 | `scripts/exclude-list.json` 人工清单（如 `deepseek-ai/deepseek-harness` 官方仓库本体）。清单可扩展，排除原因透明展示 |
-| 深扫未检出插件特征 | `未检出插件特征（深扫）` | `scripts/scan.mjs` 对榜单前 N 名逐仓验证（package.json 的 `dsh` 声明 / `@deepseek-ai/*` 依赖 / cordis 配置 / dsh 配置 / skills 目录 / SKILL.md），全无特征则排除。未深扫的仓库不排除（保守），深扫失败标记 error 也不排除 |
+| 深扫未检出插件特征 | `未检出插件特征（深扫）` | `scripts/scan.mjs` 对榜单前 N 名逐仓验证（package.json 的 `dsh` 声明 / `@deepseek-ai/*` 依赖 / cordis 配置 / dsh 配置 / skills 目录 / SKILL.md），全无特征则排除。**被 hub 目录或任一 awesome 列表人工收录的仓库不排除**——人工审核比文件特征更可信，避免误杀结构特殊的真插件（如 dsh-web-ui）；未深扫的仓库不排除（保守），深扫失败标记 error 也不排除 |
 
 被排除条目保留在 `registry.json`（含原因与 `scanStatus`），方便审计与申诉。
 

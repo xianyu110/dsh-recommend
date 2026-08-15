@@ -138,13 +138,18 @@ export async function runScore(rawDir = join(ROOT(), 'data', 'raw'), outDir = jo
     const scanSignals = scanInfo?.signals ?? null
     scanCounts[scanStatus] = (scanCounts[scanStatus] ?? 0) + 1
 
-    // 排除原因优先级：denylist（人工权威）> 深扫未检出 > 基础规则
+    // 排除原因优先级：denylist（人工权威）> 基础规则 > 深扫未检出
+    // 深扫未检出仅在不被人工精选收录时排除：hub 目录 / awesome 列表的人工审核
+    // 比文件特征更可信（存在结构特殊的真插件，如纯前端/无 package.json 的），
+    // 避免误杀（见 ADR-0004 的 dsh-web-ui 案例）。
     let reason = exclusionReason(repo)
     if (!reason) {
       const denyReason = denylist.get(repo.fullName.toLowerCase())
       if (denyReason) reason = denyReason
     }
-    if (!reason && scanStatus === 'unverified') reason = '未检出插件特征（深扫）'
+    if (!reason && scanStatus === 'unverified' && !curated && awesomeListNames.length === 0) {
+      reason = '未检出插件特征（深扫）'
+    }
 
     if (reason) excluded += 1
     registry.push({

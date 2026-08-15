@@ -17,4 +17,5 @@
     - id: dsh-recommend-web
       name: 'dsh-recommend/web'
       config:
+        dataUrl: https://raw.githubusercontent.com/zp-home/dsh-recommend/main/data/registry.json
         cachePath: !!js dshHomePath('dsh-recommend/registry.json')
