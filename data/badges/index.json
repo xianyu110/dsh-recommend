@@ -1,33 +1,33 @@
 {
-  "generatedAt": "2026-08-20T07:28:00.136Z",
+  "generatedAt": "2026-08-20T09:17:43.857Z",
   "scoringVersion": 2,
   "entries": {
+    "volcengine/OpenViking": {
+      "file": "volcengine__OpenViking.json",
+      "message": "1.00",
+      "color": "f5c518",
+      "rank": 1
+    },
+    "anywhere-labs/deepseek-harness-desktop": {
+      "file": "anywhere-labs__deepseek-harness-desktop.json",
+      "message": "1.00",
+      "color": "f5c518",
+      "rank": 2
+    },
     "Q00/ouroboros": {
       "file": "Q00__ouroboros.json",
       "message": "1.00",
       "color": "f5c518",
-      "rank": 1
+      "rank": 3
     },
     "omdsh-dev/DSH-better-sidebar": {
       "file": "omdsh-dev__DSH-better-sidebar.json",
       "message": "1.00",
       "color": "f5c518",
-      "rank": 2
+      "rank": 4
     },
     "ccch1mneyyy/dsh-TUI": {
       "file": "ccch1mneyyy__dsh-TUI.json",
-      "message": "1.00",
-      "color": "f5c518",
-      "rank": 3
-    },
-    "volcengine/OpenViking": {
-      "file": "volcengine__OpenViking.json",
-      "message": "1.00",
-      "color": "f5c518",
-      "rank": 4
-    },
-    "anywhere-labs/deepseek-harness-desktop": {
-      "file": "anywhere-labs__deepseek-harness-desktop.json",
       "message": "1.00",
       "color": "f5c518",
       "rank": 5
@@ -98,26 +98,26 @@
       "color": "f5c518",
       "rank": 16
     },
-    "sandbaseai/sandbase-harness": {
-      "file": "sandbaseai__sandbase-harness.json",
-      "message": "0.98",
-      "color": "f5c518",
-      "rank": 17
-    },
     "hairyf/deepseek-harness-desktop": {
       "file": "hairyf__deepseek-harness-desktop.json",
       "message": "0.98",
       "color": "f5c518",
-      "rank": 18
+      "rank": 17
     },
-    "superdesigndev/treg": {
-      "file": "superdesigndev__treg.json",
-      "message": "0.97",
+    "sandbaseai/sandbase-harness": {
+      "file": "sandbaseai__sandbase-harness.json",
+      "message": "0.98",
       "color": "f5c518",
-      "rank": 19
+      "rank": 18
     },
     "bowenliang123/dsh-context": {
       "file": "bowenliang123__dsh-context.json",
+      "message": "0.98",
+      "color": "f5c518",
+      "rank": 19
+    },
+    "superdesigndev/treg": {
+      "file": "superdesigndev__treg.json",
       "message": "0.97",
       "color": "f5c518",
       "rank": 20
@@ -176,14 +176,14 @@
       "color": "f5c518",
       "rank": 29
     },
-    "hust-open-atom-club/oh-dsh": {
-      "file": "hust-open-atom-club__oh-dsh.json",
+    "shaobeichen/dsh-pocket": {
+      "file": "shaobeichen__dsh-pocket.json",
       "message": "0.94",
       "color": "f5c518",
       "rank": 30
     },
-    "shaobeichen/dsh-pocket": {
-      "file": "shaobeichen__dsh-pocket.json",
+    "hust-open-atom-club/oh-dsh": {
+      "file": "hust-open-atom-club__oh-dsh.json",
       "message": "0.94",
       "color": "f5c518",
       "rank": 31
@@ -230,26 +230,26 @@
       "color": "f5c518",
       "rank": 38
     },
-    "tinqiao-oss/engramory": {
-      "file": "tinqiao-oss__engramory.json",
-      "message": "0.92",
-      "color": "f5c518",
-      "rank": 39
-    },
     "Devin-AXIS/deepseek-design": {
       "file": "Devin-AXIS__deepseek-design.json",
       "message": "0.92",
       "color": "f5c518",
+      "rank": 39
+    },
+    "tinqiao-oss/engramory": {
+      "file": "tinqiao-oss__engramory.json",
+      "message": "0.92",
+      "color": "f5c518",
       "rank": 40
     },
-    "Small-tailqwq/dsh-deep-whale": {
-      "file": "Small-tailqwq__dsh-deep-whale.json",
+    "NanmiCoder/dsh-agent-teams": {
+      "file": "NanmiCoder__dsh-agent-teams.json",
       "message": "0.92",
       "color": "f5c518",
       "rank": 41
     },
-    "NanmiCoder/dsh-agent-teams": {
-      "file": "NanmiCoder__dsh-agent-teams.json",
+    "Small-tailqwq/dsh-deep-whale": {
+      "file": "Small-tailqwq__dsh-deep-whale.json",
       "message": "0.92",
       "color": "f5c518",
       "rank": 42
@@ -272,14 +272,14 @@
       "color": "f5c518",
       "rank": 45
     },
-    "ChisaAlter/Deepseek-Harness-Desktop": {
-      "file": "ChisaAlter__Deepseek-Harness-Desktop.json",
+    "omdsh-dev/dsh-mnemon": {
+      "file": "omdsh-dev__dsh-mnemon.json",
       "message": "0.91",
       "color": "f5c518",
       "rank": 46
     },
-    "omdsh-dev/dsh-mnemon": {
-      "file": "omdsh-dev__dsh-mnemon.json",
+    "ChisaAlter/Deepseek-Harness-Desktop": {
+      "file": "ChisaAlter__Deepseek-Harness-Desktop.json",
       "message": "0.91",
       "color": "f5c518",
       "rank": 47
@@ -302,14 +302,14 @@
       "color": "f5c518",
       "rank": 50
     },
-    "toolclub/dsh-agent-team-gui": {
-      "file": "toolclub__dsh-agent-team-gui.json",
+    "zh667/TokenLedger": {
+      "file": "zh667__TokenLedger.json",
       "message": "0.90",
       "color": "f5c518",
       "rank": 51
     },
-    "zh667/TokenLedger": {
-      "file": "zh667__TokenLedger.json",
+    "toolclub/dsh-agent-team-gui": {
+      "file": "toolclub__dsh-agent-team-gui.json",
       "message": "0.90",
       "color": "f5c518",
       "rank": 52
@@ -332,15 +332,15 @@
       "color": "f5c518",
       "rank": 55
     },
-    "Vladimir-Human/humanizer-ru": {
-      "file": "Vladimir-Human__humanizer-ru.json",
+    "Ychris12138/dsh-usage-stats": {
+      "file": "Ychris12138__dsh-usage-stats.json",
       "message": "0.90",
       "color": "f5c518",
       "rank": 56
     },
-    "Ychris12138/dsh-usage-stats": {
-      "file": "Ychris12138__dsh-usage-stats.json",
-      "message": "0.89",
+    "Vladimir-Human/humanizer-ru": {
+      "file": "Vladimir-Human__humanizer-ru.json",
+      "message": "0.90",
       "color": "f5c518",
       "rank": 57
     },
@@ -356,14 +356,14 @@
       "color": "f5c518",
       "rank": 59
     },
-    "omdsh-dev/dsh-annotation": {
-      "file": "omdsh-dev__dsh-annotation.json",
+    "Nwflower/dsh-chat-import": {
+      "file": "Nwflower__dsh-chat-import.json",
       "message": "0.89",
       "color": "f5c518",
       "rank": 60
     },
-    "Nwflower/dsh-chat-import": {
-      "file": "Nwflower__dsh-chat-import.json",
+    "omdsh-dev/dsh-annotation": {
+      "file": "omdsh-dev__dsh-annotation.json",
       "message": "0.89",
       "color": "f5c518",
       "rank": 61
@@ -398,14 +398,14 @@
       "color": "f5c518",
       "rank": 66
     },
-    "omdsh-dev/dsh_workflow": {
-      "file": "omdsh-dev__dsh_workflow.json",
+    "like-study1/Oh-My-DSH": {
+      "file": "like-study1__Oh-My-DSH.json",
       "message": "0.88",
       "color": "f5c518",
       "rank": 67
     },
-    "like-study1/Oh-My-DSH": {
-      "file": "like-study1__Oh-My-DSH.json",
+    "omdsh-dev/dsh_workflow": {
+      "file": "omdsh-dev__dsh_workflow.json",
       "message": "0.88",
       "color": "f5c518",
       "rank": 68
@@ -428,26 +428,26 @@
       "color": "f5c518",
       "rank": 71
     },
-    "bruc3van/dsh-desktop": {
-      "file": "bruc3van__dsh-desktop.json",
-      "message": "0.88",
-      "color": "f5c518",
-      "rank": 72
-    },
     "awesome-dsh-plugin/dsh-find-plugin": {
       "file": "awesome-dsh-plugin__dsh-find-plugin.json",
       "message": "0.88",
       "color": "f5c518",
+      "rank": 72
+    },
+    "shengsheng90/DSH-taskboard": {
+      "file": "shengsheng90__DSH-taskboard.json",
+      "message": "0.88",
+      "color": "f5c518",
       "rank": 73
     },
-    "nexu-io/open-design": {
-      "file": "nexu-io__open-design.json",
+    "bruc3van/dsh-desktop": {
+      "file": "bruc3van__dsh-desktop.json",
       "message": "0.88",
       "color": "f5c518",
       "rank": 74
     },
-    "TencentCloudBase/CloudBase-AI-Toolkit": {
-      "file": "TencentCloudBase__CloudBase-AI-Toolkit.json",
+    "nexu-io/open-design": {
+      "file": "nexu-io__open-design.json",
       "message": "0.88",
       "color": "f5c518",
       "rank": 75
@@ -458,26 +458,26 @@
       "color": "f5c518",
       "rank": 76
     },
-    "whiteguo233/OpenBiliClaw": {
-      "file": "whiteguo233__OpenBiliClaw.json",
+    "TencentCloudBase/CloudBase-AI-Toolkit": {
+      "file": "TencentCloudBase__CloudBase-AI-Toolkit.json",
       "message": "0.88",
       "color": "f5c518",
       "rank": 77
-    },
-    "shengsheng90/DSH-taskboard": {
-      "file": "shengsheng90__DSH-taskboard.json",
-      "message": "0.88",
-      "color": "f5c518",
-      "rank": 78
     },
     "omdsh-dev/dsh-notification": {
       "file": "omdsh-dev__dsh-notification.json",
       "message": "0.88",
       "color": "f5c518",
-      "rank": 79
+      "rank": 78
     },
     "Noob-stupid/dsh-plugin-hub": {
       "file": "Noob-stupid__dsh-plugin-hub.json",
+      "message": "0.88",
+      "color": "f5c518",
+      "rank": 79
+    },
+    "whiteguo233/OpenBiliClaw": {
+      "file": "whiteguo233__OpenBiliClaw.json",
       "message": "0.88",
       "color": "f5c518",
       "rank": 80
@@ -488,14 +488,14 @@
       "color": "f5c518",
       "rank": 81
     },
-    "Anionex/agent-vision-toolkit": {
-      "file": "Anionex__agent-vision-toolkit.json",
+    "walkinglabs/learn-harness-engineering": {
+      "file": "walkinglabs__learn-harness-engineering.json",
       "message": "0.88",
       "color": "f5c518",
       "rank": 82
     },
-    "walkinglabs/learn-harness-engineering": {
-      "file": "walkinglabs__learn-harness-engineering.json",
+    "Anionex/agent-vision-toolkit": {
+      "file": "Anionex__agent-vision-toolkit.json",
       "message": "0.88",
       "color": "f5c518",
       "rank": 83
@@ -596,50 +596,50 @@
       "color": "f5c518",
       "rank": 99
     },
+    "dream-num/dsh-univer-office": {
+      "file": "dream-num__dsh-univer-office.json",
+      "message": "0.87",
+      "color": "f5c518",
+      "rank": 100
+    },
     "omdsh-dev/dsh-open-in-vscode": {
       "file": "omdsh-dev__dsh-open-in-vscode.json",
       "message": "0.87",
       "color": "f5c518",
-      "rank": 100
+      "rank": 101
     },
     "foryourhealth111-pixel/Vibe-Skills": {
       "file": "foryourhealth111-pixel__Vibe-Skills.json",
       "message": "0.86",
       "color": "f5c518",
-      "rank": 101
+      "rank": 102
     },
     "Alisa0808/vox-director": {
       "file": "Alisa0808__vox-director.json",
       "message": "0.86",
       "color": "f5c518",
-      "rank": 102
-    },
-    "dream-num/dsh-univer-office": {
-      "file": "dream-num__dsh-univer-office.json",
-      "message": "0.86",
-      "color": "f5c518",
       "rank": 103
-    },
-    "whiteguo233/dsh-openbiliclaw": {
-      "file": "whiteguo233__dsh-openbiliclaw.json",
-      "message": "0.86",
-      "color": "f5c518",
-      "rank": 104
     },
     "whyihaveyou/dsh-suite": {
       "file": "whyihaveyou__dsh-suite.json",
       "message": "0.86",
       "color": "f5c518",
+      "rank": 104
+    },
+    "dhicoc/dsh-reverse-skill": {
+      "file": "dhicoc__dsh-reverse-skill.json",
+      "message": "0.86",
+      "color": "f5c518",
       "rank": 105
     },
-    "Laplace-bit/dsh-smooth-stream": {
-      "file": "Laplace-bit__dsh-smooth-stream.json",
+    "whiteguo233/dsh-openbiliclaw": {
+      "file": "whiteguo233__dsh-openbiliclaw.json",
       "message": "0.86",
       "color": "f5c518",
       "rank": 106
     },
-    "dhicoc/dsh-reverse-skill": {
-      "file": "dhicoc__dsh-reverse-skill.json",
+    "Laplace-bit/dsh-smooth-stream": {
+      "file": "Laplace-bit__dsh-smooth-stream.json",
       "message": "0.86",
       "color": "f5c518",
       "rank": 107
@@ -656,44 +656,44 @@
       "color": "f5c518",
       "rank": 109
     },
-    "omdsh-dev/dsh-lark": {
-      "file": "omdsh-dev__dsh-lark.json",
-      "message": "0.86",
-      "color": "f5c518",
-      "rank": 110
-    },
     "dream12347/dsh-session-manager": {
       "file": "dream12347__dsh-session-manager.json",
       "message": "0.86",
       "color": "f5c518",
+      "rank": 110
+    },
+    "omdsh-dev/dsh-lark": {
+      "file": "omdsh-dev__dsh-lark.json",
+      "message": "0.86",
+      "color": "f5c518",
       "rank": 111
+    },
+    "starsstreaming/beautiCode": {
+      "file": "starsstreaming__beautiCode.json",
+      "message": "0.86",
+      "color": "f5c518",
+      "rank": 112
     },
     "franksong2702/dsh-codex-connect": {
       "file": "franksong2702__dsh-codex-connect.json",
       "message": "0.85",
       "color": "f5c518",
-      "rank": 112
+      "rank": 113
     },
     "Chinesezjc/dsh-interconnect": {
       "file": "Chinesezjc__dsh-interconnect.json",
       "message": "0.85",
       "color": "f5c518",
-      "rank": 113
+      "rank": 114
     },
     "opencues/opencues": {
       "file": "opencues__opencues.json",
       "message": "0.85",
       "color": "f5c518",
-      "rank": 114
+      "rank": 115
     },
     "HsiangNianian/dsh-auto-continue": {
       "file": "HsiangNianian__dsh-auto-continue.json",
-      "message": "0.85",
-      "color": "f5c518",
-      "rank": 115
-    },
-    "starsstreaming/beautiCode": {
-      "file": "starsstreaming__beautiCode.json",
       "message": "0.85",
       "color": "f5c518",
       "rank": 116
@@ -716,26 +716,26 @@
       "color": "4176e6",
       "rank": 119
     },
+    "Tyan66666/billion-context-dsh": {
+      "file": "Tyan66666__billion-context-dsh.json",
+      "message": "0.85",
+      "color": "4176e6",
+      "rank": 120
+    },
     "freestylefly/wesight": {
       "file": "freestylefly__wesight.json",
       "message": "0.85",
       "color": "4176e6",
-      "rank": 120
+      "rank": 121
     },
     "hellodigua/dsh-emoji": {
       "file": "hellodigua__dsh-emoji.json",
       "message": "0.85",
       "color": "4176e6",
-      "rank": 121
+      "rank": 122
     },
     "DDDMUC/dsh-free-search": {
       "file": "DDDMUC__dsh-free-search.json",
-      "message": "0.85",
-      "color": "4176e6",
-      "rank": 122
-    },
-    "the-beating-light-of-the-nail/dsh-meme-hub": {
-      "file": "the-beating-light-of-the-nail__dsh-meme-hub.json",
       "message": "0.85",
       "color": "4176e6",
       "rank": 123
@@ -746,50 +746,50 @@
       "color": "4176e6",
       "rank": 124
     },
-    "Tyan66666/billion-context-dsh": {
-      "file": "Tyan66666__billion-context-dsh.json",
+    "the-beating-light-of-the-nail/dsh-meme-hub": {
+      "file": "the-beating-light-of-the-nail__dsh-meme-hub.json",
       "message": "0.85",
       "color": "4176e6",
       "rank": 125
-    },
-    "vostride/agent-qa": {
-      "file": "vostride__agent-qa.json",
-      "message": "0.85",
-      "color": "4176e6",
-      "rank": 126
-    },
-    "zhu168/dsh-save-money": {
-      "file": "zhu168__dsh-save-money.json",
-      "message": "0.85",
-      "color": "4176e6",
-      "rank": 127
-    },
-    "hellodigua/dsh-share": {
-      "file": "hellodigua__dsh-share.json",
-      "message": "0.85",
-      "color": "4176e6",
-      "rank": 128
-    },
-    "jing-hy/picturereader": {
-      "file": "jing-hy__picturereader.json",
-      "message": "0.85",
-      "color": "4176e6",
-      "rank": 129
     },
     "hikariming/dshfind": {
       "file": "hikariming__dshfind.json",
       "message": "0.85",
       "color": "4176e6",
-      "rank": 130
+      "rank": 126
     },
-    "UNLINEARITY/dsh-code": {
-      "file": "UNLINEARITY__dsh-code.json",
-      "message": "0.84",
+    "vostride/agent-qa": {
+      "file": "vostride__agent-qa.json",
+      "message": "0.85",
       "color": "4176e6",
-      "rank": 131
+      "rank": 127
+    },
+    "zhu168/dsh-save-money": {
+      "file": "zhu168__dsh-save-money.json",
+      "message": "0.85",
+      "color": "4176e6",
+      "rank": 128
     },
     "flymysql/dsh-remote": {
       "file": "flymysql__dsh-remote.json",
+      "message": "0.85",
+      "color": "4176e6",
+      "rank": 129
+    },
+    "hellodigua/dsh-share": {
+      "file": "hellodigua__dsh-share.json",
+      "message": "0.85",
+      "color": "4176e6",
+      "rank": 130
+    },
+    "jing-hy/picturereader": {
+      "file": "jing-hy__picturereader.json",
+      "message": "0.85",
+      "color": "4176e6",
+      "rank": 131
+    },
+    "UNLINEARITY/dsh-code": {
+      "file": "UNLINEARITY__dsh-code.json",
       "message": "0.84",
       "color": "4176e6",
       "rank": 132
@@ -806,98 +806,98 @@
       "color": "4176e6",
       "rank": 134
     },
+    "Phant0Meow/dsh-meow-memory": {
+      "file": "Phant0Meow__dsh-meow-memory.json",
+      "message": "0.84",
+      "color": "4176e6",
+      "rank": 135
+    },
     "PlutoKeating/dsh-lark-bot": {
       "file": "PlutoKeating__dsh-lark-bot.json",
       "message": "0.84",
       "color": "4176e6",
-      "rank": 135
+      "rank": 136
     },
     "geml-spec/geml": {
       "file": "geml-spec__geml.json",
       "message": "0.84",
       "color": "4176e6",
-      "rank": 136
+      "rank": 137
     },
     "sandbaseai/sandbase-skills": {
       "file": "sandbaseai__sandbase-skills.json",
       "message": "0.84",
       "color": "4176e6",
-      "rank": 137
+      "rank": 138
     },
     "omdsh-dev/dsh-plugin-check": {
       "file": "omdsh-dev__dsh-plugin-check.json",
       "message": "0.84",
       "color": "4176e6",
-      "rank": 138
-    },
-    "e2mcc/dsh-popout-sidebar": {
-      "file": "e2mcc__dsh-popout-sidebar.json",
-      "message": "0.84",
-      "color": "4176e6",
       "rank": 139
-    },
-    "lhh010/dsh-minigames": {
-      "file": "lhh010__dsh-minigames.json",
-      "message": "0.84",
-      "color": "4176e6",
-      "rank": 140
     },
     "fufankeji/deepseek-harness-studio": {
       "file": "fufankeji__deepseek-harness-studio.json",
       "message": "0.84",
       "color": "4176e6",
+      "rank": 140
+    },
+    "e2mcc/dsh-popout-sidebar": {
+      "file": "e2mcc__dsh-popout-sidebar.json",
+      "message": "0.84",
+      "color": "4176e6",
       "rank": 141
+    },
+    "lhh010/dsh-minigames": {
+      "file": "lhh010__dsh-minigames.json",
+      "message": "0.84",
+      "color": "4176e6",
+      "rank": 142
     },
     "omdsh-dev/dsh-toolkit": {
       "file": "omdsh-dev__dsh-toolkit.json",
       "message": "0.84",
       "color": "4176e6",
-      "rank": 142
+      "rank": 143
+    },
+    "FuRongJun-1999/dsh-memory": {
+      "file": "FuRongJun-1999__dsh-memory.json",
+      "message": "0.84",
+      "color": "4176e6",
+      "rank": 144
     },
     "yyyyukari/dsh-plugin-workshop": {
       "file": "yyyyukari__dsh-plugin-workshop.json",
       "message": "0.84",
       "color": "4176e6",
-      "rank": 143
-    },
-    "SenmuuuuW/dsh-whale-report": {
-      "file": "SenmuuuuW__dsh-whale-report.json",
-      "message": "0.84",
-      "color": "4176e6",
-      "rank": 144
+      "rank": 145
     },
     "PerryLink/dsh-permission-rules": {
       "file": "PerryLink__dsh-permission-rules.json",
       "message": "0.84",
       "color": "4176e6",
-      "rank": 145
+      "rank": 146
+    },
+    "SenmuuuuW/dsh-whale-report": {
+      "file": "SenmuuuuW__dsh-whale-report.json",
+      "message": "0.84",
+      "color": "4176e6",
+      "rank": 147
     },
     "Links2008/DeepSeek-Harness-Desktop": {
       "file": "Links2008__DeepSeek-Harness-Desktop.json",
       "message": "0.84",
       "color": "4176e6",
-      "rank": 146
-    },
-    "Phant0Meow/dsh-meow-memory": {
-      "file": "Phant0Meow__dsh-meow-memory.json",
-      "message": "0.84",
-      "color": "4176e6",
-      "rank": 147
+      "rank": 148
     },
     "lhh010/dsh-ui-whale": {
       "file": "lhh010__dsh-ui-whale.json",
       "message": "0.83",
       "color": "4176e6",
-      "rank": 148
+      "rank": 149
     },
     "anweat/dsh-web-search-pro": {
       "file": "anweat__dsh-web-search-pro.json",
-      "message": "0.83",
-      "color": "4176e6",
-      "rank": 149
-    },
-    "FuRongJun-1999/dsh-memory": {
-      "file": "FuRongJun-1999__dsh-memory.json",
       "message": "0.83",
       "color": "4176e6",
       "rank": 150
@@ -914,290 +914,290 @@
       "color": "4176e6",
       "rank": 152
     },
+    "Anionex/dsh-computer-use": {
+      "file": "Anionex__dsh-computer-use.json",
+      "message": "0.83",
+      "color": "4176e6",
+      "rank": 153
+    },
     "omdsh-dev/dsh-custom-tool": {
       "file": "omdsh-dev__dsh-custom-tool.json",
       "message": "0.83",
       "color": "4176e6",
-      "rank": 153
+      "rank": 154
     },
     "amlyczz/dsh-lark-link": {
       "file": "amlyczz__dsh-lark-link.json",
       "message": "0.83",
       "color": "4176e6",
-      "rank": 154
+      "rank": 155
     },
     "raullenchai/rapid-mlx-dsh-provider": {
       "file": "raullenchai__rapid-mlx-dsh-provider.json",
       "message": "0.83",
       "color": "4176e6",
-      "rank": 155
-    },
-    "limbo947/dsh-recall-plugin": {
-      "file": "limbo947__dsh-recall-plugin.json",
-      "message": "0.83",
-      "color": "4176e6",
       "rank": 156
-    },
-    "Anionex/dsh-computer-use": {
-      "file": "Anionex__dsh-computer-use.json",
-      "message": "0.83",
-      "color": "4176e6",
-      "rank": 157
-    },
-    "jjxjjjjiik-bot/dsh-chat-timeline": {
-      "file": "jjxjjjjiik-bot__dsh-chat-timeline.json",
-      "message": "0.83",
-      "color": "4176e6",
-      "rank": 158
     },
     "Aik358/dsh-auto-memory": {
       "file": "Aik358__dsh-auto-memory.json",
       "message": "0.83",
       "color": "4176e6",
+      "rank": 157
+    },
+    "yyh-001/dsh-meme": {
+      "file": "yyh-001__dsh-meme.json",
+      "message": "0.83",
+      "color": "4176e6",
+      "rank": 158
+    },
+    "limbo947/dsh-recall-plugin": {
+      "file": "limbo947__dsh-recall-plugin.json",
+      "message": "0.83",
+      "color": "4176e6",
       "rank": 159
-    },
-    "yogsoth-ai/de-anthropocentric-research-engine": {
-      "file": "yogsoth-ai__de-anthropocentric-research-engine.json",
-      "message": "0.83",
-      "color": "4176e6",
-      "rank": 160
-    },
-    "WSL043/dsh-codex-subscription": {
-      "file": "WSL043__dsh-codex-subscription.json",
-      "message": "0.83",
-      "color": "4176e6",
-      "rank": 161
-    },
-    "xiehuan123/dsh-deepread": {
-      "file": "xiehuan123__dsh-deepread.json",
-      "message": "0.83",
-      "color": "4176e6",
-      "rank": 162
-    },
-    "WYH66666666/DSH-Transparent-UI-Plugin": {
-      "file": "WYH66666666__DSH-Transparent-UI-Plugin.json",
-      "message": "0.83",
-      "color": "4176e6",
-      "rank": 163
     },
     "howmp/dsh-pentest": {
       "file": "howmp__dsh-pentest.json",
       "message": "0.83",
       "color": "4176e6",
+      "rank": 160
+    },
+    "liguobao/dsh-desktop": {
+      "file": "liguobao__dsh-desktop.json",
+      "message": "0.83",
+      "color": "4176e6",
+      "rank": 161
+    },
+    "jjxjjjjiik-bot/dsh-chat-timeline": {
+      "file": "jjxjjjjiik-bot__dsh-chat-timeline.json",
+      "message": "0.83",
+      "color": "4176e6",
+      "rank": 162
+    },
+    "yogsoth-ai/de-anthropocentric-research-engine": {
+      "file": "yogsoth-ai__de-anthropocentric-research-engine.json",
+      "message": "0.83",
+      "color": "4176e6",
+      "rank": 163
+    },
+    "CheshireJCat/blender": {
+      "file": "CheshireJCat__blender.json",
+      "message": "0.83",
+      "color": "4176e6",
       "rank": 164
-    },
-    "KinGao294/dsh-skin": {
-      "file": "KinGao294__dsh-skin.json",
-      "message": "0.83",
-      "color": "4176e6",
-      "rank": 165
-    },
-    "PerryLink/dsh-mcp-panel": {
-      "file": "PerryLink__dsh-mcp-panel.json",
-      "message": "0.83",
-      "color": "4176e6",
-      "rank": 166
-    },
-    "nutshellai-tech/mobius": {
-      "file": "nutshellai-tech__mobius.json",
-      "message": "0.83",
-      "color": "4176e6",
-      "rank": 167
-    },
-    "zp-home/dsh-recommend": {
-      "file": "zp-home__dsh-recommend.json",
-      "message": "0.83",
-      "color": "4176e6",
-      "rank": 168
-    },
-    "agi-fans/oh-my-dsh": {
-      "file": "agi-fans__oh-my-dsh.json",
-      "message": "0.83",
-      "color": "4176e6",
-      "rank": 169
-    },
-    "pengpengyi92/dsh-quant": {
-      "file": "pengpengyi92__dsh-quant.json",
-      "message": "0.83",
-      "color": "4176e6",
-      "rank": 170
     },
     "a735624258/dsh-skill-picker": {
       "file": "a735624258__dsh-skill-picker.json",
       "message": "0.83",
       "color": "4176e6",
+      "rank": 165
+    },
+    "WYH66666666/DSH-Transparent-UI-Plugin": {
+      "file": "WYH66666666__DSH-Transparent-UI-Plugin.json",
+      "message": "0.83",
+      "color": "4176e6",
+      "rank": 166
+    },
+    "xiehuan123/dsh-deepread": {
+      "file": "xiehuan123__dsh-deepread.json",
+      "message": "0.83",
+      "color": "4176e6",
+      "rank": 167
+    },
+    "KinGao294/dsh-skin": {
+      "file": "KinGao294__dsh-skin.json",
+      "message": "0.83",
+      "color": "4176e6",
+      "rank": 168
+    },
+    "PerryLink/dsh-mcp-panel": {
+      "file": "PerryLink__dsh-mcp-panel.json",
+      "message": "0.83",
+      "color": "4176e6",
+      "rank": 169
+    },
+    "nutshellai-tech/mobius": {
+      "file": "nutshellai-tech__mobius.json",
+      "message": "0.83",
+      "color": "4176e6",
+      "rank": 170
+    },
+    "pengpengyi92/dsh-quant": {
+      "file": "pengpengyi92__dsh-quant.json",
+      "message": "0.83",
+      "color": "4176e6",
       "rank": 171
+    },
+    "agi-fans/oh-my-dsh": {
+      "file": "agi-fans__oh-my-dsh.json",
+      "message": "0.83",
+      "color": "4176e6",
+      "rank": 172
+    },
+    "zp-home/dsh-recommend": {
+      "file": "zp-home__dsh-recommend.json",
+      "message": "0.83",
+      "color": "4176e6",
+      "rank": 173
+    },
+    "WSL043/dsh-codex-subscription": {
+      "file": "WSL043__dsh-codex-subscription.json",
+      "message": "0.83",
+      "color": "4176e6",
+      "rank": 174
     },
     "JUANWANG-BUAA/dsh-full-remote": {
       "file": "JUANWANG-BUAA__dsh-full-remote.json",
       "message": "0.83",
       "color": "4176e6",
-      "rank": 172
-    },
-    "liguobao/dsh-desktop": {
-      "file": "liguobao__dsh-desktop.json",
-      "message": "0.82",
-      "color": "4176e6",
-      "rank": 173
+      "rank": 175
     },
     "Jesseovo/last30days-skill-cn": {
       "file": "Jesseovo__last30days-skill-cn.json",
       "message": "0.82",
       "color": "4176e6",
-      "rank": 174
+      "rank": 176
     },
     "DietCokewithSugar/dsh-user-experience": {
       "file": "DietCokewithSugar__dsh-user-experience.json",
       "message": "0.82",
       "color": "4176e6",
-      "rank": 175
-    },
-    "dsh-tui/dsh-tui": {
-      "file": "dsh-tui__dsh-tui.json",
-      "message": "0.82",
-      "color": "4176e6",
-      "rank": 176
+      "rank": 177
     },
     "morluto/rea": {
       "file": "morluto__rea.json",
       "message": "0.82",
       "color": "4176e6",
-      "rank": 177
+      "rank": 178
+    },
+    "dsh-tui/dsh-tui": {
+      "file": "dsh-tui__dsh-tui.json",
+      "message": "0.82",
+      "color": "4176e6",
+      "rank": 179
     },
     "BlockRunAI/dsh-clawrouter": {
       "file": "BlockRunAI__dsh-clawrouter.json",
       "message": "0.82",
       "color": "4176e6",
-      "rank": 178
+      "rank": 180
     },
     "Make0209/dsh-usage-stats": {
       "file": "Make0209__dsh-usage-stats.json",
       "message": "0.82",
       "color": "4176e6",
-      "rank": 179
+      "rank": 181
     },
     "niiang/dsh-kimino-theme": {
       "file": "niiang__dsh-kimino-theme.json",
       "message": "0.82",
       "color": "4176e6",
-      "rank": 180
+      "rank": 182
     },
     "Jungod1121/dsh-anchored-standard": {
       "file": "Jungod1121__dsh-anchored-standard.json",
       "message": "0.82",
       "color": "4176e6",
-      "rank": 181
-    },
-    "yyh-001/dsh-meme": {
-      "file": "yyh-001__dsh-meme.json",
-      "message": "0.82",
-      "color": "4176e6",
-      "rank": 182
-    },
-    "william-jin-cmu/dsh-stickers": {
-      "file": "william-jin-cmu__dsh-stickers.json",
-      "message": "0.82",
-      "color": "4176e6",
       "rank": 183
-    },
-    "LaplaceYoung/dsh-qq2006": {
-      "file": "LaplaceYoung__dsh-qq2006.json",
-      "message": "0.82",
-      "color": "4176e6",
-      "rank": 184
     },
     "elysia395/dsh-wallpaper-engine": {
       "file": "elysia395__dsh-wallpaper-engine.json",
       "message": "0.82",
       "color": "4176e6",
+      "rank": 184
+    },
+    "william-jin-cmu/dsh-stickers": {
+      "file": "william-jin-cmu__dsh-stickers.json",
+      "message": "0.82",
+      "color": "4176e6",
       "rank": 185
+    },
+    "LaplaceYoung/dsh-qq2006": {
+      "file": "LaplaceYoung__dsh-qq2006.json",
+      "message": "0.82",
+      "color": "4176e6",
+      "rank": 186
     },
     "Lxiayu/DshCockpit": {
       "file": "Lxiayu__DshCockpit.json",
       "message": "0.82",
       "color": "4176e6",
-      "rank": 186
-    },
-    "slywalker2006/dsh-passwords": {
-      "file": "slywalker2006__dsh-passwords.json",
-      "message": "0.82",
-      "color": "4176e6",
       "rank": 187
-    },
-    "bruc3van/awesome-dsh-plugin": {
-      "file": "bruc3van__awesome-dsh-plugin.json",
-      "message": "0.82",
-      "color": "4176e6",
-      "rank": 188
-    },
-    "Zhenyu98/dsh-context-doctor": {
-      "file": "Zhenyu98__dsh-context-doctor.json",
-      "message": "0.82",
-      "color": "4176e6",
-      "rank": 189
-    },
-    "alaliqing/claude-paper": {
-      "file": "alaliqing__claude-paper.json",
-      "message": "0.82",
-      "color": "4176e6",
-      "rank": 190
-    },
-    "fredalxin/dsh-solo-thinking": {
-      "file": "fredalxin__dsh-solo-thinking.json",
-      "message": "0.82",
-      "color": "4176e6",
-      "rank": 191
-    },
-    "mem9-ai/mem9": {
-      "file": "mem9-ai__mem9.json",
-      "message": "0.82",
-      "color": "4176e6",
-      "rank": 192
     },
     "MichengAI/dsh-codex-ui": {
       "file": "MichengAI__dsh-codex-ui.json",
       "message": "0.82",
       "color": "4176e6",
-      "rank": 193
+      "rank": 188
     },
-    "PGZXB/dsh-feishu": {
-      "file": "PGZXB__dsh-feishu.json",
+    "slywalker2006/dsh-passwords": {
+      "file": "slywalker2006__dsh-passwords.json",
       "message": "0.82",
       "color": "4176e6",
-      "rank": 194
-    },
-    "THU-MAIC/dsh-openmaic": {
-      "file": "THU-MAIC__dsh-openmaic.json",
-      "message": "0.82",
-      "color": "4176e6",
-      "rank": 195
-    },
-    "ZRui-C/dsh-computer-use": {
-      "file": "ZRui-C__dsh-computer-use.json",
-      "message": "0.82",
-      "color": "4176e6",
-      "rank": 196
+      "rank": 189
     },
     "omdsh-dev/dsh-advisor": {
       "file": "omdsh-dev__dsh-advisor.json",
       "message": "0.82",
       "color": "4176e6",
-      "rank": 197
+      "rank": 190
     },
     "limuyang2/agent-team": {
       "file": "limuyang2__agent-team.json",
       "message": "0.82",
       "color": "4176e6",
+      "rank": 191
+    },
+    "bruc3van/awesome-dsh-plugin": {
+      "file": "bruc3van__awesome-dsh-plugin.json",
+      "message": "0.82",
+      "color": "4176e6",
+      "rank": 192
+    },
+    "alaliqing/claude-paper": {
+      "file": "alaliqing__claude-paper.json",
+      "message": "0.82",
+      "color": "4176e6",
+      "rank": 193
+    },
+    "WJZ-P/deepseek-harness-desktop": {
+      "file": "WJZ-P__deepseek-harness-desktop.json",
+      "message": "0.82",
+      "color": "4176e6",
+      "rank": 194
+    },
+    "Tkingxiao/dsh-any-background": {
+      "file": "Tkingxiao__dsh-any-background.json",
+      "message": "0.82",
+      "color": "4176e6",
+      "rank": 195
+    },
+    "fredalxin/dsh-solo-thinking": {
+      "file": "fredalxin__dsh-solo-thinking.json",
+      "message": "0.82",
+      "color": "4176e6",
+      "rank": 196
+    },
+    "mem9-ai/mem9": {
+      "file": "mem9-ai__mem9.json",
+      "message": "0.82",
+      "color": "4176e6",
+      "rank": 197
+    },
+    "ZK-Andy/dsh-continual-evolve": {
+      "file": "ZK-Andy__dsh-continual-evolve.json",
+      "message": "0.82",
+      "color": "4176e6",
       "rank": 198
     },
-    "openma-ai/open-managed-agents": {
-      "file": "openma-ai__open-managed-agents.json",
+    "PGZXB/dsh-feishu": {
+      "file": "PGZXB__dsh-feishu.json",
       "message": "0.82",
       "color": "4176e6",
       "rank": 199
     },
-    "CheshireJCat/blender": {
-      "file": "CheshireJCat__blender.json",
+    "Zhenyu98/dsh-context-doctor": {
+      "file": "Zhenyu98__dsh-context-doctor.json",
       "message": "0.82",
       "color": "4176e6",
       "rank": 200
