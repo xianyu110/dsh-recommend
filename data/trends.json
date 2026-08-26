@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-08-26T13:39:00.405Z",
+    "generatedAt": "2026-08-26T16:14:53.707Z",
     "historyStart": "2026-08-15",
     "historyDays": 12,
     "windows": [
@@ -17,8 +17,8 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 3569,
-        "score": 1,
-        "rank": 2,
+        "score": 0.9998,
+        "rank": 8,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
@@ -26,18 +26,18 @@
       "deltas": {
         "7d": {
           "stars": 37,
-          "score": 0,
-          "rank": -1
+          "score": -0.0002,
+          "rank": -7
         },
         "30d": {
           "stars": 123,
-          "score": 0.0001,
-          "rank": -1
+          "score": -0.0001,
+          "rank": -7
         },
         "90d": {
           "stars": 123,
-          "score": 0.0001,
-          "rank": -1
+          "score": -0.0001,
+          "rank": -7
         }
       },
       "direction": "steady",
@@ -61,28 +61,28 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 2580,
-        "score": 0.9998,
-        "rank": 8,
+        "stars": 2588,
+        "score": 0.9999,
+        "rank": 4,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 504,
-          "score": -0.0001,
-          "rank": -6
+          "stars": 512,
+          "score": 0,
+          "rank": -2
         },
         "30d": {
-          "stars": 1326,
-          "score": -0.0001,
-          "rank": -6
+          "stars": 1334,
+          "score": 0,
+          "rank": -2
         },
         "90d": {
-          "stars": 1326,
-          "score": -0.0001,
-          "rank": -6
+          "stars": 1334,
+          "score": 0,
+          "rank": -2
         }
       },
       "direction": "steady",
@@ -98,7 +98,7 @@
         2372,
         2472,
         2543,
-        2580
+        2588
       ]
     },
     {
@@ -141,8 +141,8 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 3686,
-        "score": 0.9979,
+        "stars": 3692,
+        "score": 0.9977,
         "rank": 15,
         "certified": false,
         "npmWeekly": null,
@@ -150,18 +150,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 415,
-          "score": -0.0018,
+          "stars": 421,
+          "score": -0.002,
           "rank": -12
         },
         "30d": {
-          "stars": 1788,
-          "score": -0.0015,
+          "stars": 1794,
+          "score": -0.0017,
           "rank": -11
         },
         "90d": {
-          "stars": 1788,
-          "score": -0.0015,
+          "stars": 1794,
+          "score": -0.0017,
           "rank": -11
         }
       },
@@ -178,7 +178,7 @@
         3556,
         3602,
         3662,
-        3686
+        3692
       ]
     },
     {
@@ -186,28 +186,28 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 2954,
-        "score": 0.9998,
-        "rank": 7,
+        "stars": 2962,
+        "score": 1,
+        "rank": 2,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 624,
-          "score": 0.0002,
-          "rank": -2
+          "stars": 632,
+          "score": 0.0004,
+          "rank": 3
         },
         "30d": {
-          "stars": 1699,
-          "score": 0.0004,
-          "rank": -2
+          "stars": 1707,
+          "score": 0.0006,
+          "rank": 3
         },
         "90d": {
-          "stars": 1699,
-          "score": 0.0004,
-          "rank": -2
+          "stars": 1707,
+          "score": 0.0006,
+          "rank": 3
         }
       },
       "direction": "steady",
@@ -223,7 +223,7 @@
         2719,
         2814,
         2898,
-        2954
+        2962
       ]
     },
     {
@@ -232,7 +232,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 1133,
-        "score": 0.9951,
+        "score": 0.9949,
         "rank": 17,
         "certified": false,
         "npmWeekly": null,
@@ -241,17 +241,17 @@
       "deltas": {
         "7d": {
           "stars": 62,
-          "score": -0.004,
+          "score": -0.0042,
           "rank": -8
         },
         "30d": {
           "stars": 109,
-          "score": -0.0031,
+          "score": -0.0033,
           "rank": -11
         },
         "90d": {
           "stars": 109,
-          "score": -0.0031,
+          "score": -0.0033,
           "rank": -11
         }
       },
@@ -277,7 +277,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 634,
-        "score": 0.9736,
+        "score": 0.9733,
         "rank": 27,
         "certified": false,
         "npmWeekly": null,
@@ -286,17 +286,17 @@
       "deltas": {
         "7d": {
           "stars": 11,
-          "score": -0.0059,
+          "score": -0.0062,
           "rank": -10
         },
         "30d": {
           "stars": 43,
-          "score": -0.0028,
+          "score": -0.0031,
           "rank": -20
         },
         "90d": {
           "stars": 43,
-          "score": -0.0028,
+          "score": -0.0031,
           "rank": -20
         }
       },
@@ -321,8 +321,8 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 831,
-        "score": 0.9901,
+        "stars": 833,
+        "score": 0.99,
         "rank": 20,
         "certified": false,
         "npmWeekly": null,
@@ -330,18 +330,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 80,
-          "score": 0.0029,
+          "stars": 82,
+          "score": 0.0028,
           "rank": -5
         },
         "30d": {
-          "stars": 398,
-          "score": 0.0267,
+          "stars": 400,
+          "score": 0.0266,
           "rank": -12
         },
         "90d": {
-          "stars": 398,
-          "score": 0.0267,
+          "stars": 400,
+          "score": 0.0266,
           "rank": -12
         }
       },
@@ -358,7 +358,7 @@
         817,
         819,
         825,
-        831
+        833
       ]
     },
     {
@@ -411,8 +411,8 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 618,
-        "score": 0.9791,
+        "stars": 619,
+        "score": 0.9792,
         "rank": 24,
         "certified": false,
         "npmWeekly": null,
@@ -420,18 +420,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 112,
-          "score": 0.0087,
+          "stars": 113,
+          "score": 0.0088,
           "rank": -5
         },
         "30d": {
-          "stars": 201,
-          "score": 0.0179,
+          "stars": 202,
+          "score": 0.018,
           "rank": -14
         },
         "90d": {
-          "stars": 201,
-          "score": 0.0179,
+          "stars": 202,
+          "score": 0.018,
           "rank": -14
         }
       },
@@ -448,7 +448,7 @@
         570,
         590,
         613,
-        618
+        619
       ]
     },
     {
@@ -457,7 +457,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 569,
-        "score": 0.9685,
+        "score": 0.9683,
         "rank": 28,
         "certified": false,
         "npmWeekly": null,
@@ -466,17 +466,17 @@
       "deltas": {
         "7d": {
           "stars": 58,
-          "score": 0.0012,
+          "score": 0.001,
           "rank": -7
         },
         "30d": {
           "stars": 157,
-          "score": 0.0075,
+          "score": 0.0073,
           "rank": -17
         },
         "90d": {
           "stars": 157,
-          "score": 0.0075,
+          "score": 0.0073,
           "rank": -17
         }
       },
@@ -502,7 +502,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 453,
-        "score": 0.9555,
+        "score": 0.9553,
         "rank": 36,
         "certified": false,
         "npmWeekly": null,
@@ -511,17 +511,17 @@
       "deltas": {
         "7d": {
           "stars": 17,
-          "score": -0.0035,
+          "score": -0.0037,
           "rank": -11
         },
         "30d": {
           "stars": 38,
-          "score": -0.0052,
+          "score": -0.0054,
           "rank": -24
         },
         "90d": {
           "stars": 38,
-          "score": -0.0052,
+          "score": -0.0054,
           "rank": -24
         }
       },
@@ -546,31 +546,31 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 2476,
-        "score": 0.9994,
-        "rank": 12,
+        "stars": 2492,
+        "score": 0.9992,
+        "rank": 13,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 1233,
-          "score": -0.0002,
-          "rank": -6
+          "stars": 1249,
+          "score": -0.0004,
+          "rank": -7
         },
         "30d": {
-          "stars": 2193,
-          "score": 0.0546,
-          "rank": 1
+          "stars": 2209,
+          "score": 0.0544,
+          "rank": 0
         },
         "90d": {
-          "stars": 2193,
-          "score": 0.0546,
-          "rank": 1
+          "stars": 2209,
+          "score": 0.0544,
+          "rank": 0
         }
       },
-      "direction": "rising",
+      "direction": "steady",
       "sparkline": [
         283,
         562,
@@ -583,7 +583,7 @@
         2017,
         2191,
         2371,
-        2476
+        2492
       ]
     },
     {
@@ -658,28 +658,28 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 280,
-        "score": 0.9442,
-        "rank": 40,
+        "stars": 281,
+        "score": 0.945,
+        "rank": 39,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 23,
-          "score": 0.0046,
-          "rank": -11
+          "stars": 24,
+          "score": 0.0054,
+          "rank": -10
         },
         "30d": {
-          "stars": 87,
-          "score": 0.0155,
-          "rank": -24
+          "stars": 88,
+          "score": 0.0163,
+          "rank": -23
         },
         "90d": {
-          "stars": 87,
-          "score": 0.0155,
-          "rank": -24
+          "stars": 88,
+          "score": 0.0163,
+          "rank": -23
         }
       },
       "direction": "steady",
@@ -695,7 +695,7 @@
         258,
         268,
         277,
-        280
+        281
       ]
     },
     {
@@ -704,7 +704,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 237,
-        "score": 0.9376,
+        "score": 0.9374,
         "rank": 44,
         "certified": false,
         "npmWeekly": null,
@@ -713,17 +713,17 @@
       "deltas": {
         "7d": {
           "stars": 17,
-          "score": 0.0032,
+          "score": 0.003,
           "rank": -12
         },
         "30d": {
           "stars": 66,
-          "score": 0.0145,
+          "score": 0.0143,
           "rank": -27
         },
         "90d": {
           "stars": 66,
-          "score": 0.0145,
+          "score": 0.0143,
           "rank": -27
         }
       },
@@ -749,8 +749,8 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 285,
-        "score": 0.9329,
-        "rank": 50,
+        "score": 0.9327,
+        "rank": 51,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
@@ -758,18 +758,18 @@
       "deltas": {
         "7d": {
           "stars": 38,
-          "score": -0.0064,
-          "rank": -20
+          "score": -0.0066,
+          "rank": -21
         },
         "30d": {
           "stars": 115,
-          "score": 0.0102,
-          "rank": -32
+          "score": 0.01,
+          "rank": -33
         },
         "90d": {
           "stars": 115,
-          "score": 0.0102,
-          "rank": -32
+          "score": 0.01,
+          "rank": -33
         }
       },
       "direction": "steady",
@@ -793,8 +793,8 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 464,
-        "score": 0.9644,
+        "stars": 468,
+        "score": 0.9669,
         "rank": 30,
         "certified": false,
         "npmWeekly": null,
@@ -802,18 +802,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 139,
-          "score": 0.0136,
+          "stars": 143,
+          "score": 0.0161,
           "rank": -3
         },
         "30d": {
-          "stars": 302,
-          "score": 0.0437,
+          "stars": 306,
+          "score": 0.0462,
           "rank": -11
         },
         "90d": {
-          "stars": 302,
-          "score": 0.0437,
+          "stars": 306,
+          "score": 0.0462,
           "rank": -11
         }
       },
@@ -830,7 +830,7 @@
         405,
         427,
         456,
-        464
+        468
       ]
     },
     {
@@ -838,8 +838,8 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 174,
-        "score": 0.9123,
+        "stars": 175,
+        "score": 0.9124,
         "rank": 65,
         "certified": false,
         "npmWeekly": null,
@@ -847,18 +847,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 13,
-          "score": -0.0079,
+          "stars": 14,
+          "score": -0.0078,
           "rank": -26
         },
         "30d": {
-          "stars": 21,
-          "score": -0.006,
+          "stars": 22,
+          "score": -0.0059,
           "rank": -45
         },
         "90d": {
-          "stars": 21,
-          "score": -0.006,
+          "stars": 22,
+          "score": -0.0059,
           "rank": -45
         }
       },
@@ -875,7 +875,7 @@
         171,
         171,
         174,
-        174
+        175
       ]
     },
     {
@@ -883,28 +883,28 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 988,
-        "score": 0.9994,
-        "rank": 13,
+        "stars": 992,
+        "score": 0.9996,
+        "rank": 11,
         "certified": true,
         "npmWeekly": 22620,
         "npmMonthly": 44299
       },
       "deltas": {
         "7d": {
-          "stars": 144,
-          "score": 0.0069,
-          "rank": 1
+          "stars": 148,
+          "score": 0.0071,
+          "rank": 3
         },
         "30d": {
-          "stars": 845,
-          "score": 0.0836,
-          "rank": 8
+          "stars": 849,
+          "score": 0.0838,
+          "rank": 10
         },
         "90d": {
-          "stars": 845,
-          "score": 0.0836,
-          "rank": 8
+          "stars": 849,
+          "score": 0.0838,
+          "rank": 10
         }
       },
       "direction": "rising",
@@ -920,7 +920,7 @@
         943,
         962,
         973,
-        988
+        992
       ]
     },
     {
@@ -928,28 +928,28 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 1738,
-        "score": 0.9181,
-        "rank": 58,
+        "stars": 1742,
+        "score": 0.9179,
+        "rank": 59,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 278,
-          "score": -0.0013,
-          "rank": -18
+          "stars": 282,
+          "score": -0.0015,
+          "rank": -19
         },
         "30d": {
-          "stars": 835,
-          "score": 0.0036,
-          "rank": -36
+          "stars": 839,
+          "score": 0.0034,
+          "rank": -37
         },
         "90d": {
-          "stars": 835,
-          "score": 0.0036,
-          "rank": -36
+          "stars": 839,
+          "score": 0.0034,
+          "rank": -37
         }
       },
       "direction": "steady",
@@ -965,7 +965,7 @@
         1630,
         1674,
         1715,
-        1738
+        1742
       ]
     },
     {
@@ -974,7 +974,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 218,
-        "score": 0.9269,
+        "score": 0.9267,
         "rank": 54,
         "certified": false,
         "npmWeekly": null,
@@ -983,17 +983,17 @@
       "deltas": {
         "7d": {
           "stars": 33,
-          "score": 0.0043,
+          "score": 0.0041,
           "rank": -16
         },
         "30d": {
           "stars": 97,
-          "score": 0.0188,
+          "score": 0.0186,
           "rank": -31
         },
         "90d": {
           "stars": 97,
-          "score": 0.0188,
+          "score": 0.0186,
           "rank": -31
         }
       },
@@ -1019,7 +1019,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 342,
-        "score": 0.9517,
+        "score": 0.9535,
         "rank": 37,
         "certified": false,
         "npmWeekly": null,
@@ -1028,17 +1028,17 @@
       "deltas": {
         "7d": {
           "stars": 92,
-          "score": 0.0118,
+          "score": 0.0136,
           "rank": -9
         },
         "30d": {
           "stars": 234,
-          "score": 0.0482,
+          "score": 0.05,
           "rank": -13
         },
         "90d": {
           "stars": 234,
-          "score": 0.0482,
+          "score": 0.05,
           "rank": -13
         }
       },
@@ -1063,8 +1063,8 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 283,
-        "score": 0.9416,
+        "stars": 288,
+        "score": 0.9422,
         "rank": 41,
         "certified": false,
         "npmWeekly": null,
@@ -1072,18 +1072,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 113,
-          "score": 0.0187,
+          "stars": 118,
+          "score": 0.0193,
           "rank": -4
         },
         "30d": {
-          "stars": 178,
-          "score": 0.0405,
+          "stars": 183,
+          "score": 0.0411,
           "rank": -16
         },
         "90d": {
-          "stars": 178,
-          "score": 0.0405,
+          "stars": 183,
+          "score": 0.0411,
           "rank": -16
         }
       },
@@ -1100,7 +1100,7 @@
         236,
         251,
         272,
-        283
+        288
       ]
     },
     {
@@ -1108,28 +1108,28 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 167,
+        "stars": 168,
         "score": 0.902,
-        "rank": 78,
+        "rank": 79,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 14,
+          "stars": 15,
           "score": -0.0085,
-          "rank": -34
+          "rank": -35
         },
         "30d": {
-          "stars": 69,
+          "stars": 70,
           "score": 0.003,
-          "rank": -52
+          "rank": -53
         },
         "90d": {
-          "stars": 69,
+          "stars": 70,
           "score": 0.003,
-          "rank": -52
+          "rank": -53
         }
       },
       "direction": "steady",
@@ -1145,7 +1145,7 @@
         168,
         169,
         167,
-        167
+        168
       ]
     },
     {
@@ -1153,7 +1153,7 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 249,
+        "stars": 250,
         "score": 0.9359,
         "rank": 48,
         "certified": false,
@@ -1162,17 +1162,17 @@
       },
       "deltas": {
         "7d": {
-          "stars": 54,
+          "stars": 55,
           "score": 0.0073,
           "rank": -13
         },
         "30d": {
-          "stars": 156,
+          "stars": 157,
           "score": 0.0413,
           "rank": -21
         },
         "90d": {
-          "stars": 156,
+          "stars": 157,
           "score": 0.0413,
           "rank": -21
         }
@@ -1190,7 +1190,7 @@
         231,
         241,
         247,
-        249
+        250
       ]
     },
     {
@@ -1199,7 +1199,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 141,
-        "score": 0.9148,
+        "score": 0.9146,
         "rank": 63,
         "certified": false,
         "npmWeekly": null,
@@ -1208,17 +1208,17 @@
       "deltas": {
         "7d": {
           "stars": 19,
-          "score": 0.009,
+          "score": 0.0088,
           "rank": -16
         },
         "30d": {
           "stars": 56,
-          "score": 0.0224,
+          "score": 0.0222,
           "rank": -35
         },
         "90d": {
           "stars": 56,
-          "score": 0.0224,
+          "score": 0.0222,
           "rank": -35
         }
       },
@@ -1243,8 +1243,8 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 1054,
-        "score": 0.9397,
+        "stars": 1062,
+        "score": 0.9395,
         "rank": 43,
         "certified": false,
         "npmWeekly": null,
@@ -1252,18 +1252,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 446,
-          "score": 0.0218,
+          "stars": 454,
+          "score": 0.0216,
           "rank": -1
         },
         "30d": {
-          "stars": 718,
-          "score": 0.0476,
+          "stars": 726,
+          "score": 0.0474,
           "rank": -14
         },
         "90d": {
-          "stars": 718,
-          "score": 0.0476,
+          "stars": 726,
+          "score": 0.0474,
           "rank": -14
         }
       },
@@ -1280,7 +1280,7 @@
         898,
         952,
         1010,
-        1054
+        1062
       ]
     },
     {
@@ -1289,7 +1289,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 153,
-        "score": 0.9183,
+        "score": 0.9187,
         "rank": 57,
         "certified": false,
         "npmWeekly": null,
@@ -1298,17 +1298,17 @@
       "deltas": {
         "7d": {
           "stars": 30,
-          "score": 0.0152,
+          "score": 0.0156,
           "rank": -7
         },
         "30d": {
           "stars": 71,
-          "score": 0.029,
+          "score": 0.0294,
           "rank": -27
         },
         "90d": {
           "stars": 71,
-          "score": 0.029,
+          "score": 0.0294,
           "rank": -27
         }
       },
@@ -1334,7 +1334,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 111,
-        "score": 0.9046,
+        "score": 0.9048,
         "rank": 74,
         "certified": false,
         "npmWeekly": null,
@@ -1343,17 +1343,17 @@
       "deltas": {
         "7d": {
           "stars": 7,
-          "score": 0.0147,
+          "score": 0.0149,
           "rank": -16
         },
         "30d": {
           "stars": 30,
-          "score": 0.0178,
+          "score": 0.018,
           "rank": -43
         },
         "90d": {
           "stars": 30,
-          "score": 0.0178,
+          "score": 0.018,
           "rank": -43
         }
       },
@@ -1378,8 +1378,8 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 5671,
-        "score": 0.9984,
+        "stars": 5675,
+        "score": 0.9982,
         "rank": 14,
         "certified": false,
         "npmWeekly": null,
@@ -1387,18 +1387,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 91,
-          "score": -0.0003,
+          "stars": 95,
+          "score": -0.0005,
           "rank": -3
         },
         "30d": {
-          "stars": 248,
-          "score": 0.1184,
+          "stars": 252,
+          "score": 0.1182,
           "rank": 18
         },
         "90d": {
-          "stars": 248,
-          "score": 0.1184,
+          "stars": 252,
+          "score": 0.1182,
           "rank": 18
         }
       },
@@ -1415,7 +1415,7 @@
         5634,
         5645,
         5663,
-        5671
+        5675
       ]
     },
     {
@@ -1658,8 +1658,8 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 100,
-        "score": 0.8998,
-        "rank": 80,
+        "score": 0.8996,
+        "rank": 82,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
@@ -1667,18 +1667,18 @@
       "deltas": {
         "7d": {
           "stars": 12,
-          "score": 0.0111,
-          "rank": -20
+          "score": 0.0109,
+          "rank": -22
         },
         "30d": {
           "stars": 44,
-          "score": 0.0268,
-          "rank": -40
+          "score": 0.0266,
+          "rank": -42
         },
         "90d": {
           "stars": 44,
-          "score": 0.0268,
-          "rank": -40
+          "score": 0.0266,
+          "rank": -42
         }
       },
       "direction": "steady",
@@ -1703,7 +1703,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 101,
-        "score": 0.8988,
+        "score": 0.8986,
         "rank": 85,
         "certified": false,
         "npmWeekly": null,
@@ -1712,17 +1712,17 @@
       "deltas": {
         "7d": {
           "stars": 22,
-          "score": 0.0106,
+          "score": 0.0104,
           "rank": -23
         },
         "30d": {
           "stars": 47,
-          "score": 0.0258,
+          "score": 0.0256,
           "rank": -44
         },
         "90d": {
           "stars": 47,
-          "score": 0.0258,
+          "score": 0.0256,
           "rank": -44
         }
       },
@@ -1748,7 +1748,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 101,
-        "score": 0.8925,
+        "score": 0.8923,
         "rank": 88,
         "certified": false,
         "npmWeekly": null,
@@ -1757,17 +1757,17 @@
       "deltas": {
         "7d": {
           "stars": 11,
-          "score": 0,
+          "score": -0.0002,
           "rank": -31
         },
         "30d": {
           "stars": 49,
-          "score": 0.0205,
+          "score": 0.0203,
           "rank": -46
         },
         "90d": {
           "stars": 49,
-          "score": 0.0205,
+          "score": 0.0203,
           "rank": -46
         }
       },
@@ -1823,7 +1823,7 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 203,
+        "stars": 204,
         "score": 0.9308,
         "rank": 52,
         "certified": false,
@@ -1832,17 +1832,17 @@
       },
       "deltas": {
         "7d": {
-          "stars": 53,
+          "stars": 54,
           "score": 0.0138,
           "rank": -9
         },
         "30d": {
-          "stars": 156,
+          "stars": 157,
           "score": 0.063,
           "rank": -8
         },
         "90d": {
-          "stars": 156,
+          "stars": 157,
           "score": 0.063,
           "rank": -8
         }
@@ -1860,7 +1860,7 @@
         174,
         186,
         190,
-        203
+        204
       ]
     },
     {
@@ -1901,8 +1901,8 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 423,
-        "score": 0.9613,
+        "stars": 424,
+        "score": 0.9612,
         "rank": 33,
         "certified": false,
         "npmWeekly": null,
@@ -1910,18 +1910,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 217,
-          "score": 0.0309,
+          "stars": 218,
+          "score": 0.0308,
           "rank": 1
         },
         "30d": {
-          "stars": 377,
-          "score": 0.0952,
+          "stars": 378,
+          "score": 0.0951,
           "rank": 13
         },
         "90d": {
-          "stars": 377,
-          "score": 0.0952,
+          "stars": 378,
+          "score": 0.0951,
           "rank": 13
         }
       },
@@ -1938,7 +1938,7 @@
         365,
         396,
         417,
-        423
+        424
       ]
     },
     {
@@ -1980,28 +1980,28 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 1051,
-        "score": 1,
-        "rank": 3,
+        "stars": 1058,
+        "score": 0.9999,
+        "rank": 5,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 566,
-          "score": 0.0315,
-          "rank": 17
+          "stars": 573,
+          "score": 0.0314,
+          "rank": 15
         },
         "30d": {
-          "stars": 1009,
-          "score": 0.1371,
-          "rank": 45
+          "stars": 1016,
+          "score": 0.137,
+          "rank": 43
         },
         "90d": {
-          "stars": 1009,
-          "score": 0.1371,
-          "rank": 45
+          "stars": 1016,
+          "score": 0.137,
+          "rank": 43
         }
       },
       "direction": "rising",
@@ -2017,7 +2017,7 @@
         939,
         1001,
         1029,
-        1051
+        1058
       ]
     },
     {
@@ -2090,7 +2090,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 81,
-        "score": 0.886,
+        "score": 0.8858,
         "rank": 93,
         "certified": false,
         "npmWeekly": null,
@@ -2099,17 +2099,17 @@
       "deltas": {
         "7d": {
           "stars": 16,
-          "score": 0.0092,
+          "score": 0.009,
           "rank": -9
         },
         "30d": {
           "stars": 40,
-          "score": 0.0269,
+          "score": 0.0267,
           "rank": -42
         },
         "90d": {
           "stars": 40,
-          "score": 0.0269,
+          "score": 0.0267,
           "rank": -42
         }
       },
@@ -2196,7 +2196,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 73,
-        "score": 0.8866,
+        "score": 0.8867,
         "rank": 91,
         "certified": false,
         "npmWeekly": null,
@@ -2205,17 +2205,17 @@
       "deltas": {
         "7d": {
           "stars": 7,
-          "score": 0.0042,
+          "score": 0.0043,
           "rank": -23
         },
         "30d": {
           "stars": 38,
-          "score": 0.0312,
+          "score": 0.0313,
           "rank": -37
         },
         "90d": {
           "stars": 38,
-          "score": 0.0312,
+          "score": 0.0313,
           "rank": -37
         }
       },
@@ -2240,28 +2240,28 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 111,
-        "score": 0.9048,
-        "rank": 73,
+        "stars": 113,
+        "score": 0.9056,
+        "rank": 72,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 33,
-          "score": 0.0161,
-          "rank": -12
+          "stars": 35,
+          "score": 0.0169,
+          "rank": -11
         },
         "30d": {
-          "stars": 76,
-          "score": 0.0496,
-          "rank": -18
+          "stars": 78,
+          "score": 0.0504,
+          "rank": -17
         },
         "90d": {
-          "stars": 76,
-          "score": 0.0496,
-          "rank": -18
+          "stars": 78,
+          "score": 0.0504,
+          "rank": -17
         }
       },
       "direction": "steady",
@@ -2277,7 +2277,7 @@
         94,
         102,
         109,
-        111
+        113
       ]
     },
     {
@@ -2309,8 +2309,8 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 125,
-        "score": 0.9096,
-        "rank": 67,
+        "score": 0.9094,
+        "rank": 68,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
@@ -2318,18 +2318,18 @@
       "deltas": {
         "7d": {
           "stars": 38,
-          "score": 0.0163,
-          "rank": -11
+          "score": 0.0161,
+          "rank": -12
         },
         "30d": {
           "stars": 91,
-          "score": 0.0563,
-          "rank": -10
+          "score": 0.0561,
+          "rank": -11
         },
         "90d": {
           "stars": 91,
-          "score": 0.0563,
-          "rank": -10
+          "score": 0.0561,
+          "rank": -11
         }
       },
       "direction": "steady",
@@ -2354,7 +2354,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 76,
-        "score": 0.8847,
+        "score": 0.8845,
         "rank": 95,
         "certified": false,
         "npmWeekly": null,
@@ -2363,17 +2363,17 @@
       "deltas": {
         "7d": {
           "stars": 12,
-          "score": 0.0039,
+          "score": 0.0037,
           "rank": -24
         },
         "30d": {
           "stars": 44,
-          "score": 0.0332,
+          "score": 0.033,
           "rank": -37
         },
         "90d": {
           "stars": 44,
-          "score": 0.0332,
+          "score": 0.033,
           "rank": -37
         }
       },
@@ -2398,7 +2398,7 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 200,
+        "stars": 201,
         "score": 0.9301,
         "rank": 53,
         "certified": false,
@@ -2407,17 +2407,17 @@
       },
       "deltas": {
         "7d": {
-          "stars": 86,
+          "stars": 87,
           "score": 0.0246,
           "rank": -5
         },
         "30d": {
-          "stars": 168,
+          "stars": 169,
           "score": 0.0789,
           "rank": 6
         },
         "90d": {
-          "stars": 168,
+          "stars": 169,
           "score": 0.0789,
           "rank": 6
         }
@@ -2435,7 +2435,7 @@
         168,
         183,
         193,
-        200
+        201
       ]
     },
     {
@@ -2443,8 +2443,8 @@
       "firstSeen": "2026-08-15",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 575,
-        "score": 0.9748,
+        "stars": 576,
+        "score": 0.9746,
         "rank": 26,
         "certified": false,
         "npmWeekly": null,
@@ -2457,13 +2457,13 @@
           "rank": 0
         },
         "30d": {
-          "stars": 59,
-          "score": 0.1269,
+          "stars": 60,
+          "score": 0.1267,
           "rank": 34
         },
         "90d": {
-          "stars": 59,
-          "score": 0.1269,
+          "stars": 60,
+          "score": 0.1267,
           "rank": 34
         }
       },
@@ -2472,7 +2472,7 @@
         516,
         524,
         540,
-        575
+        576
       ]
     },
     {
@@ -2507,7 +2507,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 233,
-        "score": 0.9367,
+        "score": 0.9365,
         "rank": 47,
         "certified": false,
         "npmWeekly": null,
@@ -2516,17 +2516,17 @@
       "deltas": {
         "7d": {
           "stars": 110,
-          "score": 0.0279,
+          "score": 0.0277,
           "rank": -1
         },
         "30d": {
           "stars": 204,
-          "score": 0.0909,
+          "score": 0.0907,
           "rank": 15
         },
         "90d": {
           "stars": 204,
-          "score": 0.0909,
+          "score": 0.0907,
           "rank": 15
         }
       },
@@ -2632,7 +2632,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 171,
-        "score": 0.9231,
+        "score": 0.9229,
         "rank": 56,
         "certified": false,
         "npmWeekly": null,
@@ -2641,17 +2641,17 @@
       "deltas": {
         "7d": {
           "stars": 109,
-          "score": 0.0442,
+          "score": 0.044,
           "rank": 23
         },
         "30d": {
           "stars": 144,
-          "score": 0.0791,
+          "score": 0.0789,
           "rank": 10
         },
         "90d": {
           "stars": 144,
-          "score": 0.0791,
+          "score": 0.0789,
           "rank": 10
         }
       },
@@ -2703,7 +2703,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 99,
-        "score": 0.886,
+        "score": 0.8858,
         "rank": 92,
         "certified": false,
         "npmWeekly": null,
@@ -2712,17 +2712,17 @@
       "deltas": {
         "7d": {
           "stars": 36,
-          "score": 0.0068,
+          "score": 0.0066,
           "rank": -17
         },
         "30d": {
           "stars": 72,
-          "score": 0.044,
+          "score": 0.0438,
           "rank": -24
         },
         "90d": {
           "stars": 72,
-          "score": 0.044,
+          "score": 0.0438,
           "rank": -24
         }
       },
@@ -2854,7 +2854,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 70,
-        "score": 0.885,
+        "score": 0.8848,
         "rank": 94,
         "certified": false,
         "npmWeekly": null,
@@ -2863,17 +2863,17 @@
       "deltas": {
         "7d": {
           "stars": 9,
-          "score": 0.0061,
+          "score": 0.0059,
           "rank": -13
         },
         "30d": {
           "stars": 47,
-          "score": 0.0479,
+          "score": 0.0477,
           "rank": -21
         },
         "90d": {
           "stars": 47,
-          "score": 0.0479,
+          "score": 0.0477,
           "rank": -21
         }
       },
@@ -3306,7 +3306,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 82,
-        "score": 0.8838,
+        "score": 0.8836,
         "rank": 97,
         "certified": false,
         "npmWeekly": null,
@@ -3315,17 +3315,17 @@
       "deltas": {
         "7d": {
           "stars": 23,
-          "score": 0.0066,
+          "score": 0.0064,
           "rank": -4
         },
         "30d": {
           "stars": 66,
-          "score": 0.062,
+          "score": 0.0618,
           "rank": -6
         },
         "90d": {
           "stars": 66,
-          "score": 0.062,
+          "score": 0.0618,
           "rank": -6
         }
       },
@@ -3349,7 +3349,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 66,
-        "score": 0.8821,
+        "score": 0.8819,
         "rank": 99,
         "certified": false,
         "npmWeekly": null,
@@ -3358,17 +3358,17 @@
       "deltas": {
         "7d": {
           "stars": 10,
-          "score": 0.0116,
+          "score": 0.0114,
           "rank": -9
         },
         "30d": {
           "stars": 50,
-          "score": 0.0604,
+          "score": 0.0602,
           "rank": -7
         },
         "90d": {
           "stars": 50,
-          "score": 0.0604,
+          "score": 0.0602,
           "rank": -7
         }
       },
@@ -3575,28 +3575,28 @@
       "firstSeen": "2026-08-16",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 33478,
-        "score": 1,
-        "rank": 1,
+        "stars": 33501,
+        "score": 0.9999,
+        "rank": 3,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 3352,
-          "score": 0.0006,
-          "rank": 7
+          "stars": 3375,
+          "score": 0.0005,
+          "rank": 5
         },
         "30d": {
-          "stars": 4817,
-          "score": 0.0005,
-          "rank": 4
+          "stars": 4840,
+          "score": 0.0004,
+          "rank": 2
         },
         "90d": {
-          "stars": 4817,
-          "score": 0.0005,
-          "rank": 4
+          "stars": 4840,
+          "score": 0.0004,
+          "rank": 2
         }
       },
       "direction": "steady",
@@ -3611,7 +3611,7 @@
         32465,
         32961,
         33271,
-        33478
+        33501
       ]
     },
     {
@@ -3653,7 +3653,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 117,
-        "score": 0.9069,
+        "score": 0.9067,
         "rank": 71,
         "certified": false,
         "npmWeekly": null,
@@ -3662,17 +3662,17 @@
       "deltas": {
         "7d": {
           "stars": 11,
-          "score": 0.0111,
+          "score": 0.0109,
           "rank": -16
         },
         "30d": {
           "stars": 17,
-          "score": 0.0079,
+          "score": 0.0077,
           "rank": -37
         },
         "90d": {
           "stars": 17,
-          "score": 0.0079,
+          "score": 0.0077,
           "rank": -37
         }
       },
@@ -3696,8 +3696,8 @@
       "firstSeen": "2026-08-16",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 146,
-        "score": 0.9165,
+        "stars": 147,
+        "score": 0.9169,
         "rank": 60,
         "certified": false,
         "npmWeekly": null,
@@ -3705,18 +3705,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 21,
-          "score": 0.0066,
+          "stars": 22,
+          "score": 0.007,
           "rank": -15
         },
         "30d": {
-          "stars": 56,
-          "score": 0.0207,
+          "stars": 57,
+          "score": 0.0211,
           "rank": -25
         },
         "90d": {
-          "stars": 56,
-          "score": 0.0207,
+          "stars": 57,
+          "score": 0.0211,
           "rank": -25
         }
       },
@@ -3732,7 +3732,7 @@
         139,
         140,
         143,
-        146
+        147
       ]
     },
     {
@@ -3741,7 +3741,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 75,
-        "score": 0.884,
+        "score": 0.8838,
         "rank": 96,
         "certified": false,
         "npmWeekly": null,
@@ -3750,17 +3750,17 @@
       "deltas": {
         "7d": {
           "stars": 9,
-          "score": 0.0062,
+          "score": 0.006,
           "rank": -13
         },
         "30d": {
           "stars": 11,
-          "score": 0.0037,
+          "score": 0.0035,
           "rank": -59
         },
         "90d": {
           "stars": 11,
-          "score": 0.0037,
+          "score": 0.0035,
           "rank": -59
         }
       },
@@ -3815,8 +3815,8 @@
       "firstSeen": "2026-08-16",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 495,
-        "score": 0.9673,
+        "stars": 500,
+        "score": 0.9675,
         "rank": 29,
         "certified": false,
         "npmWeekly": null,
@@ -3824,18 +3824,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 333,
-          "score": 0.0491,
+          "stars": 338,
+          "score": 0.0493,
           "rank": 12
         },
         "30d": {
-          "stars": 436,
-          "score": 0.0901,
+          "stars": 441,
+          "score": 0.0903,
           "rank": 19
         },
         "90d": {
-          "stars": 436,
-          "score": 0.0901,
+          "stars": 441,
+          "score": 0.0903,
           "rank": 19
         }
       },
@@ -3851,7 +3851,7 @@
         358,
         406,
         455,
-        495
+        500
       ]
     },
     {
@@ -3895,8 +3895,8 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 108,
-        "score": 0.9029,
-        "rank": 77,
+        "score": 0.9027,
+        "rank": 78,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
@@ -3904,18 +3904,18 @@
       "deltas": {
         "7d": {
           "stars": 39,
-          "score": 0.02,
-          "rank": -12
+          "score": 0.0198,
+          "rank": -13
         },
         "30d": {
           "stars": 73,
-          "score": 0.0478,
-          "rank": -9
+          "score": 0.0476,
+          "rank": -10
         },
         "90d": {
           "stars": 73,
-          "score": 0.0478,
-          "rank": -9
+          "score": 0.0476,
+          "rank": -10
         }
       },
       "direction": "steady",
@@ -3970,8 +3970,8 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 115,
-        "score": 0.9057,
-        "rank": 72,
+        "score": 0.9055,
+        "rank": 73,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
@@ -3979,18 +3979,18 @@
       "deltas": {
         "7d": {
           "stars": 50,
-          "score": 0.0241,
-          "rank": -3
+          "score": 0.0239,
+          "rank": -4
         },
         "30d": {
           "stars": 83,
-          "score": 0.0571,
-          "rank": 4
+          "score": 0.0569,
+          "rank": 3
         },
         "90d": {
           "stars": 83,
-          "score": 0.0571,
-          "rank": 4
+          "score": 0.0569,
+          "rank": 3
         }
       },
       "direction": "rising",
@@ -4095,8 +4095,8 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 162,
-        "score": 0.9169,
-        "rank": 59,
+        "score": 0.9167,
+        "rank": 61,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
@@ -4104,18 +4104,18 @@
       "deltas": {
         "7d": {
           "stars": 50,
-          "score": 0.0165,
-          "rank": -7
+          "score": 0.0163,
+          "rank": -9
         },
         "30d": {
           "stars": 142,
-          "score": 0.0872,
-          "rank": 41
+          "score": 0.087,
+          "rank": 39
         },
         "90d": {
           "stars": 142,
-          "score": 0.0872,
-          "rank": 41
+          "score": 0.087,
+          "rank": 39
         }
       },
       "direction": "rising",
@@ -4137,28 +4137,28 @@
       "firstSeen": "2026-08-17",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 16949,
-        "score": 0.9997,
-        "rank": 10,
+        "stars": 17239,
+        "score": 0.9998,
+        "rank": 7,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 2471,
-          "score": 0.001,
-          "rank": 0
+          "stars": 2761,
+          "score": 0.0011,
+          "rank": 3
         },
         "30d": {
-          "stars": 3112,
-          "score": 0.0003,
-          "rank": -4
+          "stars": 3402,
+          "score": 0.0004,
+          "rank": -1
         },
         "90d": {
-          "stars": 3112,
-          "score": 0.0003,
-          "rank": -4
+          "stars": 3402,
+          "score": 0.0004,
+          "rank": -1
         }
       },
       "direction": "steady",
@@ -4172,7 +4172,7 @@
         15150,
         15329,
         16264,
-        16949
+        17239
       ]
     },
     {
@@ -4180,28 +4180,28 @@
       "firstSeen": "2026-08-17",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 1125,
-        "score": 0.9999,
-        "rank": 6,
+        "stars": 1126,
+        "score": 0.9997,
+        "rank": 10,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 38,
-          "score": 0.0022,
-          "rank": 6
+          "stars": 39,
+          "score": 0.002,
+          "rank": 2
         },
         "30d": {
-          "stars": 54,
-          "score": 0.0009,
-          "rank": 3
+          "stars": 55,
+          "score": 0.0007,
+          "rank": -1
         },
         "90d": {
-          "stars": 54,
-          "score": 0.0009,
-          "rank": 3
+          "stars": 55,
+          "score": 0.0007,
+          "rank": -1
         }
       },
       "direction": "steady",
@@ -4215,7 +4215,7 @@
         1109,
         1110,
         1119,
-        1125
+        1126
       ]
     },
     {
@@ -4223,8 +4223,8 @@
       "firstSeen": "2026-08-17",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 460,
-        "score": 0.9614,
+        "stars": 462,
+        "score": 0.9613,
         "rank": 32,
         "certified": false,
         "npmWeekly": null,
@@ -4232,18 +4232,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 53,
-          "score": 0.0013,
+          "stars": 55,
+          "score": 0.0012,
           "rank": -8
         },
         "30d": {
-          "stars": 84,
-          "score": 0.0051,
+          "stars": 86,
+          "score": 0.005,
           "rank": -11
         },
         "90d": {
-          "stars": 84,
-          "score": 0.0051,
+          "stars": 86,
+          "score": 0.005,
           "rank": -11
         }
       },
@@ -4258,7 +4258,7 @@
         436,
         443,
         456,
-        460
+        462
       ]
     },
     {
@@ -4266,8 +4266,8 @@
       "firstSeen": "2026-08-17",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 681,
-        "score": 0.9816,
+        "stars": 685,
+        "score": 0.9817,
         "rank": 23,
         "certified": false,
         "npmWeekly": null,
@@ -4275,18 +4275,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 459,
-          "score": 0.0474,
+          "stars": 463,
+          "score": 0.0475,
           "rank": 10
         },
         "30d": {
-          "stars": 607,
-          "score": 0.0948,
+          "stars": 611,
+          "score": 0.0949,
           "rank": 22
         },
         "90d": {
-          "stars": 607,
-          "score": 0.0948,
+          "stars": 611,
+          "score": 0.0949,
           "rank": 22
         }
       },
@@ -4301,7 +4301,7 @@
         529,
         593,
         652,
-        681
+        685
       ]
     },
     {
@@ -4410,28 +4410,28 @@
       "firstSeen": "2026-08-17",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 137,
-        "score": 0.9095,
-        "rank": 68,
+        "stars": 139,
+        "score": 0.91,
+        "rank": 66,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 30,
-          "score": 0.0078,
-          "rank": -17
+          "stars": 32,
+          "score": 0.0083,
+          "rank": -15
         },
         "30d": {
-          "stars": 100,
-          "score": 0.0519,
-          "rank": 15
+          "stars": 102,
+          "score": 0.0524,
+          "rank": 17
         },
         "90d": {
-          "stars": 100,
-          "score": 0.0519,
-          "rank": 15
+          "stars": 102,
+          "score": 0.0524,
+          "rank": 17
         }
       },
       "direction": "rising",
@@ -4445,7 +4445,7 @@
         119,
         128,
         131,
-        137
+        139
       ]
     },
     {
@@ -4453,8 +4453,8 @@
       "firstSeen": "2026-08-17",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 874,
-        "score": 0.994,
+        "stars": 885,
+        "score": 0.9946,
         "rank": 18,
         "certified": false,
         "npmWeekly": null,
@@ -4462,18 +4462,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 803,
-          "score": 0.1086,
+          "stars": 814,
+          "score": 0.1092,
           "rank": 45
         },
         "30d": {
-          "stars": 838,
-          "score": 0.1375,
+          "stars": 849,
+          "score": 0.1381,
           "rank": 67
         },
         "90d": {
-          "stars": 838,
-          "score": 0.1375,
+          "stars": 849,
+          "score": 0.1381,
           "rank": 67
         }
       },
@@ -4488,7 +4488,7 @@
         666,
         774,
         849,
-        874
+        885
       ]
     },
     {
@@ -4496,8 +4496,8 @@
       "firstSeen": "2026-08-17",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 144,
-        "score": 0.908,
+        "stars": 145,
+        "score": 0.9081,
         "rank": 69,
         "certified": false,
         "npmWeekly": null,
@@ -4505,18 +4505,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 88,
-          "score": 0.0335,
+          "stars": 89,
+          "score": 0.0336,
           "rank": 18
         },
         "30d": {
-          "stars": 117,
-          "score": 0.0644,
+          "stars": 118,
+          "score": 0.0645,
           "rank": 29
         },
         "90d": {
-          "stars": 117,
-          "score": 0.0644,
+          "stars": 118,
+          "score": 0.0645,
           "rank": 29
         }
       },
@@ -4531,7 +4531,7 @@
         108,
         118,
         131,
-        144
+        145
       ]
     },
     {
@@ -4539,8 +4539,8 @@
       "firstSeen": "2026-08-17",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 110,
-        "score": 0.9044,
+        "stars": 111,
+        "score": 0.9048,
         "rank": 75,
         "certified": false,
         "npmWeekly": null,
@@ -4548,18 +4548,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 53,
-          "score": 0.0313,
+          "stars": 54,
+          "score": 0.0317,
           "rank": 19
         },
         "30d": {
-          "stars": 84,
-          "score": 0.0627,
+          "stars": 85,
+          "score": 0.0631,
           "rank": 25
         },
         "90d": {
-          "stars": 84,
-          "score": 0.0627,
+          "stars": 85,
+          "score": 0.0631,
           "rank": 25
         }
       },
@@ -4573,7 +4573,7 @@
         89,
         96,
         107,
-        110
+        111
       ]
     },
     {
@@ -4582,7 +4582,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 811,
-        "score": 0.9871,
+        "score": 0.9869,
         "rank": 21,
         "certified": false,
         "npmWeekly": null,
@@ -4591,17 +4591,17 @@
       "deltas": {
         "7d": {
           "stars": 17,
-          "score": 0.005,
+          "score": 0.0048,
           "rank": -5
         },
         "30d": {
           "stars": 20,
-          "score": 0.0033,
+          "score": 0.0031,
           "rank": -6
         },
         "90d": {
           "stars": 20,
-          "score": 0.0033,
+          "score": 0.0031,
           "rank": -6
         }
       },
@@ -4624,7 +4624,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 374,
-        "score": 0.9556,
+        "score": 0.9574,
         "rank": 35,
         "certified": false,
         "npmWeekly": null,
@@ -4633,17 +4633,17 @@
       "deltas": {
         "7d": {
           "stars": 47,
-          "score": 0.0044,
+          "score": 0.0062,
           "rank": -9
         },
         "30d": {
           "stars": 55,
-          "score": 0.0056,
+          "score": 0.0074,
           "rank": -11
         },
         "90d": {
           "stars": 55,
-          "score": 0.0056,
+          "score": 0.0074,
           "rank": -11
         }
       },
@@ -4666,7 +4666,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 300,
-        "score": 0.9473,
+        "score": 0.9471,
         "rank": 38,
         "certified": false,
         "npmWeekly": null,
@@ -4675,17 +4675,17 @@
       "deltas": {
         "7d": {
           "stars": 61,
-          "score": 0.0116,
+          "score": 0.0114,
           "rank": -7
         },
         "30d": {
           "stars": 67,
-          "score": 0.0107,
+          "score": 0.0105,
           "rank": -10
         },
         "90d": {
           "stars": 67,
-          "score": 0.0107,
+          "score": 0.0105,
           "rank": -10
         }
       },
@@ -4708,7 +4708,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 194,
-        "score": 0.9252,
+        "score": 0.925,
         "rank": 55,
         "certified": false,
         "npmWeekly": null,
@@ -4717,17 +4717,17 @@
       "deltas": {
         "7d": {
           "stars": 12,
-          "score": 0.0005,
+          "score": 0.0003,
           "rank": -19
         },
         "30d": {
           "stars": 37,
-          "score": 0.0059,
+          "score": 0.0057,
           "rank": -20
         },
         "90d": {
           "stars": 37,
-          "score": 0.0059,
+          "score": 0.0057,
           "rank": -20
         }
       },
@@ -4750,7 +4750,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 100,
-        "score": 0.8977,
+        "score": 0.8975,
         "rank": 86,
         "certified": false,
         "npmWeekly": null,
@@ -4759,17 +4759,17 @@
       "deltas": {
         "7d": {
           "stars": 8,
-          "score": 0.0018,
+          "score": 0.0016,
           "rank": -32
         },
         "30d": {
           "stars": 11,
-          "score": 0.0026,
+          "score": 0.0024,
           "rank": -35
         },
         "90d": {
           "stars": 11,
-          "score": 0.0026,
+          "score": 0.0024,
           "rank": -35
         }
       },
@@ -4820,28 +4820,28 @@
       "firstSeen": "2026-08-18",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 211,
-        "score": 0.9324,
-        "rank": 51,
+        "stars": 217,
+        "score": 0.9338,
+        "rank": 50,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 133,
-          "score": 0.0431,
-          "rank": 8
+          "stars": 139,
+          "score": 0.0445,
+          "rank": 9
         },
         "30d": {
-          "stars": 163,
-          "score": 0.0651,
-          "rank": 32
+          "stars": 169,
+          "score": 0.0665,
+          "rank": 33
         },
         "90d": {
-          "stars": 163,
-          "score": 0.0651,
-          "rank": 32
+          "stars": 169,
+          "score": 0.0665,
+          "rank": 33
         }
       },
       "direction": "rising",
@@ -4854,7 +4854,7 @@
         154,
         178,
         195,
-        211
+        217
       ]
     },
     {
@@ -4863,8 +4863,8 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 106,
-        "score": 0.8992,
-        "rank": 82,
+        "score": 0.9029,
+        "rank": 77,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
@@ -4872,18 +4872,18 @@
       "deltas": {
         "7d": {
           "stars": 57,
-          "score": 0.0304,
-          "rank": 11
+          "score": 0.0341,
+          "rank": 16
         },
         "30d": {
           "stars": 67,
-          "score": 0.0396,
-          "rank": 13
+          "score": 0.0433,
+          "rank": 18
         },
         "90d": {
           "stars": 67,
-          "score": 0.0396,
-          "rank": 13
+          "score": 0.0433,
+          "rank": 18
         }
       },
       "direction": "rising",
@@ -4938,8 +4938,8 @@
       "firstSeen": "2026-08-19",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 937,
-        "score": 0.9353,
+        "stars": 938,
+        "score": 0.9351,
         "rank": 49,
         "certified": false,
         "npmWeekly": null,
@@ -4947,18 +4947,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 62,
-          "score": -0.0582,
+          "stars": 63,
+          "score": -0.0584,
           "rank": -36
         },
         "30d": {
-          "stars": 62,
-          "score": -0.0582,
+          "stars": 63,
+          "score": -0.0584,
           "rank": -36
         },
         "90d": {
-          "stars": 62,
-          "score": -0.0582,
+          "stars": 63,
+          "score": -0.0584,
           "rank": -36
         }
       },
@@ -4971,7 +4971,7 @@
         919,
         924,
         936,
-        937
+        938
       ]
     },
     {
@@ -4980,8 +4980,8 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 126,
-        "score": 0.9009,
-        "rank": 79,
+        "score": 0.9007,
+        "rank": 80,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
@@ -4989,18 +4989,18 @@
       "deltas": {
         "7d": {
           "stars": 14,
-          "score": -0.0033,
-          "rank": -30
+          "score": -0.0035,
+          "rank": -31
         },
         "30d": {
           "stars": 14,
-          "score": -0.0033,
-          "rank": -30
+          "score": -0.0035,
+          "rank": -31
         },
         "90d": {
           "stars": 14,
-          "score": -0.0033,
-          "rank": -30
+          "score": -0.0035,
+          "rank": -31
         }
       },
       "direction": "steady",
@@ -5020,8 +5020,8 @@
       "firstSeen": "2026-08-19",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 128,
-        "score": 0.9039,
+        "stars": 130,
+        "score": 0.9043,
         "rank": 76,
         "certified": false,
         "npmWeekly": null,
@@ -5029,18 +5029,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 32,
-          "score": 0.0056,
+          "stars": 34,
+          "score": 0.006,
           "rank": -23
         },
         "30d": {
-          "stars": 32,
-          "score": 0.0056,
+          "stars": 34,
+          "score": 0.006,
           "rank": -23
         },
         "90d": {
-          "stars": 32,
-          "score": 0.0056,
+          "stars": 34,
+          "score": 0.006,
           "rank": -23
         }
       },
@@ -5053,7 +5053,7 @@
         120,
         123,
         127,
-        128
+        130
       ]
     },
     {
@@ -5061,8 +5061,8 @@
       "firstSeen": "2026-08-19",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 113,
-        "score": 0.8993,
+        "stars": 115,
+        "score": 0.8999,
         "rank": 81,
         "certified": false,
         "npmWeekly": null,
@@ -5070,18 +5070,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 52,
-          "score": 0.0204,
+          "stars": 54,
+          "score": 0.021,
           "rank": -1
         },
         "30d": {
-          "stars": 52,
-          "score": 0.0204,
+          "stars": 54,
+          "score": 0.021,
           "rank": -1
         },
         "90d": {
-          "stars": 52,
-          "score": 0.0204,
+          "stars": 54,
+          "score": 0.021,
           "rank": -1
         }
       },
@@ -5094,7 +5094,7 @@
         104,
         110,
         112,
-        113
+        115
       ]
     },
     {
@@ -5103,8 +5103,8 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 98,
-        "score": 0.8991,
-        "rank": 84,
+        "score": 0.8994,
+        "rank": 83,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
@@ -5112,18 +5112,18 @@
       "deltas": {
         "7d": {
           "stars": 49,
-          "score": 0.0297,
-          "rank": 8
+          "score": 0.03,
+          "rank": 9
         },
         "30d": {
           "stars": 49,
-          "score": 0.0297,
-          "rank": 8
+          "score": 0.03,
+          "rank": 9
         },
         "90d": {
           "stars": 49,
-          "score": 0.0297,
-          "rank": 8
+          "score": 0.03,
+          "rank": 9
         }
       },
       "direction": "rising",
@@ -5143,8 +5143,8 @@
       "firstSeen": "2026-08-20",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 151,
-        "score": 0.9157,
+        "stars": 152,
+        "score": 0.9158,
         "rank": 62,
         "certified": false,
         "npmWeekly": null,
@@ -5152,18 +5152,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 91,
-          "score": 0.0402,
+          "stars": 92,
+          "score": 0.0403,
           "rank": 26
         },
         "30d": {
-          "stars": 91,
-          "score": 0.0402,
+          "stars": 92,
+          "score": 0.0403,
           "rank": 26
         },
         "90d": {
-          "stars": 91,
-          "score": 0.0402,
+          "stars": 92,
+          "score": 0.0403,
           "rank": 26
         }
       },
@@ -5175,7 +5175,7 @@
         135,
         138,
         144,
-        151
+        152
       ]
     },
     {
@@ -5183,28 +5183,28 @@
       "firstSeen": "2026-08-20",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 144,
-        "score": 0.916,
-        "rank": 61,
+        "stars": 152,
+        "score": 0.9183,
+        "rank": 58,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 89,
-          "score": 0.042,
-          "rank": 31
+          "stars": 97,
+          "score": 0.0443,
+          "rank": 34
         },
         "30d": {
-          "stars": 89,
-          "score": 0.042,
-          "rank": 31
+          "stars": 97,
+          "score": 0.0443,
+          "rank": 34
         },
         "90d": {
-          "stars": 89,
-          "score": 0.042,
-          "rank": 31
+          "stars": 97,
+          "score": 0.0443,
+          "rank": 34
         }
       },
       "direction": "new",
@@ -5215,7 +5215,7 @@
         82,
         106,
         129,
-        144
+        152
       ]
     },
     {
@@ -5251,28 +5251,28 @@
       "firstSeen": "2026-08-21",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 1372,
-        "score": 0.9995,
-        "rank": 11,
+        "stars": 1375,
+        "score": 0.9993,
+        "rank": 12,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 122,
-          "score": 0.0004,
-          "rank": -1
+          "stars": 125,
+          "score": 0.0002,
+          "rank": -2
         },
         "30d": {
-          "stars": 122,
-          "score": 0.0004,
-          "rank": -1
+          "stars": 125,
+          "score": 0.0002,
+          "rank": -2
         },
         "90d": {
-          "stars": 122,
-          "score": 0.0004,
-          "rank": -1
+          "stars": 125,
+          "score": 0.0002,
+          "rank": -2
         }
       },
       "direction": "new",
@@ -5282,7 +5282,7 @@
         1280,
         1300,
         1322,
-        1372
+        1375
       ]
     },
     {
@@ -5290,8 +5290,8 @@
       "firstSeen": "2026-08-21",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 478,
-        "score": 0.9606,
+        "stars": 481,
+        "score": 0.9607,
         "rank": 34,
         "certified": false,
         "npmWeekly": null,
@@ -5299,18 +5299,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 29,
-          "score": -0.0022,
+          "stars": 32,
+          "score": -0.0021,
           "rank": -12
         },
         "30d": {
-          "stars": 29,
-          "score": -0.0022,
+          "stars": 32,
+          "score": -0.0021,
           "rank": -12
         },
         "90d": {
-          "stars": 29,
-          "score": -0.0022,
+          "stars": 32,
+          "score": -0.0021,
           "rank": -12
         }
       },
@@ -5321,7 +5321,7 @@
         461,
         467,
         474,
-        478
+        481
       ]
     },
     {
@@ -5329,7 +5329,7 @@
       "firstSeen": "2026-08-21",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 278,
+        "stars": 279,
         "score": 0.9405,
         "rank": 42,
         "certified": false,
@@ -5338,17 +5338,17 @@
       },
       "deltas": {
         "7d": {
-          "stars": 55,
+          "stars": 56,
           "score": 0.0065,
           "rank": -5
         },
         "30d": {
-          "stars": 55,
+          "stars": 56,
           "score": 0.0065,
           "rank": -5
         },
         "90d": {
-          "stars": 55,
+          "stars": 56,
           "score": 0.0065,
           "rank": -5
         }
@@ -5360,7 +5360,7 @@
         252,
         264,
         273,
-        278
+        279
       ]
     },
     {
@@ -5368,8 +5368,8 @@
       "firstSeen": "2026-08-21",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 137,
-        "score": 0.9131,
+        "stars": 138,
+        "score": 0.9132,
         "rank": 64,
         "certified": false,
         "npmWeekly": null,
@@ -5377,18 +5377,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 67,
-          "score": 0.0286,
+          "stars": 68,
+          "score": 0.0287,
           "rank": 10
         },
         "30d": {
-          "stars": 67,
-          "score": 0.0286,
+          "stars": 68,
+          "score": 0.0287,
           "rank": 10
         },
         "90d": {
-          "stars": 67,
-          "score": 0.0286,
+          "stars": 68,
+          "score": 0.0287,
           "rank": 10
         }
       },
@@ -5399,7 +5399,7 @@
         115,
         126,
         134,
-        137
+        138
       ]
     },
     {
@@ -5407,8 +5407,8 @@
       "firstSeen": "2026-08-21",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 68,
-        "score": 0.8837,
+        "stars": 67,
+        "score": 0.8829,
         "rank": 98,
         "certified": false,
         "npmWeekly": null,
@@ -5416,18 +5416,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 16,
-          "score": 0.0119,
+          "stars": 15,
+          "score": 0.0111,
           "rank": 0
         },
         "30d": {
-          "stars": 16,
-          "score": 0.0119,
+          "stars": 15,
+          "score": 0.0111,
           "rank": 0
         },
         "90d": {
-          "stars": 16,
-          "score": 0.0119,
+          "stars": 15,
+          "score": 0.0111,
           "rank": 0
         }
       },
@@ -5437,7 +5437,7 @@
         57,
         61,
         67,
-        68
+        67
       ]
     },
     {
@@ -5446,7 +5446,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 92,
-        "score": 0.8928,
+        "score": 0.8926,
         "rank": 87,
         "certified": false,
         "npmWeekly": null,
@@ -5455,17 +5455,17 @@
       "deltas": {
         "7d": {
           "stars": 41,
-          "score": 0.0216,
+          "score": 0.0214,
           "rank": 13
         },
         "30d": {
           "stars": 41,
-          "score": 0.0216,
+          "score": 0.0214,
           "rank": 13
         },
         "90d": {
           "stars": 41,
-          "score": 0.0216,
+          "score": 0.0214,
           "rank": 13
         }
       },
@@ -5484,8 +5484,8 @@
       "firstSeen": "2026-08-22",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 254,
-        "score": 0.937,
+        "stars": 255,
+        "score": 0.9369,
         "rank": 46,
         "certified": false,
         "npmWeekly": null,
@@ -5493,18 +5493,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 47,
-          "score": 0.0078,
+          "stars": 48,
+          "score": 0.0077,
           "rank": -4
         },
         "30d": {
-          "stars": 47,
-          "score": 0.0078,
+          "stars": 48,
+          "score": 0.0077,
           "rank": -4
         },
         "90d": {
-          "stars": 47,
-          "score": 0.0078,
+          "stars": 48,
+          "score": 0.0077,
           "rank": -4
         }
       },
@@ -5514,7 +5514,7 @@
         218,
         242,
         253,
-        254
+        255
       ]
     },
     {
@@ -5523,8 +5523,8 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 119,
-        "score": 0.8991,
-        "rank": 83,
+        "score": 0.8989,
+        "rank": 84,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
@@ -5532,18 +5532,18 @@
       "deltas": {
         "7d": {
           "stars": 44,
-          "score": 0.0129,
-          "rank": -7
+          "score": 0.0127,
+          "rank": -8
         },
         "30d": {
           "stars": 44,
-          "score": 0.0129,
-          "rank": -7
+          "score": 0.0127,
+          "rank": -8
         },
         "90d": {
           "stars": 44,
-          "score": 0.0129,
-          "rank": -7
+          "score": 0.0127,
+          "rank": -8
         }
       },
       "direction": "new",
@@ -5587,7 +5587,7 @@
       "firstSeen": "2026-08-23",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 1220,
+        "stars": 1231,
         "score": 0.9998,
         "rank": 9,
         "certified": false,
@@ -5596,17 +5596,17 @@
       },
       "deltas": {
         "7d": {
-          "stars": 222,
+          "stars": 233,
           "score": 0.0004,
           "rank": 0
         },
         "30d": {
-          "stars": 222,
+          "stars": 233,
           "score": 0.0004,
           "rank": 0
         },
         "90d": {
-          "stars": 222,
+          "stars": 233,
           "score": 0.0004,
           "rank": 0
         }
@@ -5616,7 +5616,7 @@
         998,
         1104,
         1177,
-        1220
+        1231
       ]
     },
     {
@@ -5624,8 +5624,8 @@
       "firstSeen": "2026-08-23",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 1060,
-        "score": 0.9964,
+        "stars": 1074,
+        "score": 0.9962,
         "rank": 16,
         "certified": false,
         "npmWeekly": null,
@@ -5633,18 +5633,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 346,
-          "score": 0.0122,
+          "stars": 360,
+          "score": 0.012,
           "rank": 2
         },
         "30d": {
-          "stars": 346,
-          "score": 0.0122,
+          "stars": 360,
+          "score": 0.012,
           "rank": 2
         },
         "90d": {
-          "stars": 346,
-          "score": 0.0122,
+          "stars": 360,
+          "score": 0.012,
           "rank": 2
         }
       },
@@ -5653,7 +5653,7 @@
         714,
         864,
         996,
-        1060
+        1074
       ]
     },
     {
@@ -5699,7 +5699,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 632,
-        "score": 0.978,
+        "score": 0.9778,
         "rank": 25,
         "certified": false,
         "npmWeekly": null,
@@ -5708,17 +5708,17 @@
       "deltas": {
         "7d": {
           "stars": 11,
-          "score": -0.0009,
+          "score": -0.0011,
           "rank": -4
         },
         "30d": {
           "stars": 11,
-          "score": -0.0009,
+          "score": -0.0011,
           "rank": -4
         },
         "90d": {
           "stars": 11,
-          "score": -0.0009,
+          "score": -0.0011,
           "rank": -4
         }
       },
@@ -5735,28 +5735,28 @@
       "firstSeen": "2026-08-23",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 140,
-        "score": 0.9096,
-        "rank": 66,
+        "stars": 141,
+        "score": 0.9097,
+        "rank": 67,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 8,
-          "score": -0.0025,
-          "rank": -8
+          "stars": 9,
+          "score": -0.0024,
+          "rank": -9
         },
         "30d": {
-          "stars": 8,
-          "score": -0.0025,
-          "rank": -8
+          "stars": 9,
+          "score": -0.0024,
+          "rank": -9
         },
         "90d": {
-          "stars": 8,
-          "score": -0.0025,
-          "rank": -8
+          "stars": 9,
+          "score": -0.0024,
+          "rank": -9
         }
       },
       "direction": "new",
@@ -5764,7 +5764,7 @@
         132,
         134,
         135,
-        140
+        141
       ]
     },
     {
@@ -5772,8 +5772,8 @@
       "firstSeen": "2026-08-23",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 124,
-        "score": 0.9074,
+        "stars": 125,
+        "score": 0.9075,
         "rank": 70,
         "certified": false,
         "npmWeekly": null,
@@ -5781,18 +5781,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 16,
-          "score": 0.0048,
+          "stars": 17,
+          "score": 0.0049,
           "rank": -3
         },
         "30d": {
-          "stars": 16,
-          "score": 0.0048,
+          "stars": 17,
+          "score": 0.0049,
           "rank": -3
         },
         "90d": {
-          "stars": 16,
-          "score": 0.0048,
+          "stars": 17,
+          "score": 0.0049,
           "rank": -3
         }
       },
@@ -5801,7 +5801,7 @@
         108,
         118,
         121,
-        124
+        125
       ]
     },
     {
@@ -5809,8 +5809,8 @@
       "firstSeen": "2026-08-23",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 104,
-        "score": 0.8909,
+        "stars": 106,
+        "score": 0.8915,
         "rank": 90,
         "certified": false,
         "npmWeekly": null,
@@ -5818,18 +5818,18 @@
       },
       "deltas": {
         "7d": {
-          "stars": 31,
-          "score": 0.0103,
+          "stars": 33,
+          "score": 0.0109,
           "rank": 1
         },
         "30d": {
-          "stars": 31,
-          "score": 0.0103,
+          "stars": 33,
+          "score": 0.0109,
           "rank": 1
         },
         "90d": {
-          "stars": 31,
-          "score": 0.0103,
+          "stars": 33,
+          "score": 0.0109,
           "rank": 1
         }
       },
@@ -5838,7 +5838,7 @@
         73,
         87,
         98,
-        104
+        106
       ]
     },
     {
@@ -5873,35 +5873,35 @@
       "firstSeen": "2026-08-24",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 20581,
-        "score": 0.9999,
-        "rank": 4,
+        "stars": 20657,
+        "score": 0.9998,
+        "rank": 6,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 929,
-          "score": 0.0002,
-          "rank": -1
+          "stars": 1005,
+          "score": 0.0001,
+          "rank": -3
         },
         "30d": {
-          "stars": 929,
-          "score": 0.0002,
-          "rank": -1
+          "stars": 1005,
+          "score": 0.0001,
+          "rank": -3
         },
         "90d": {
-          "stars": 929,
-          "score": 0.0002,
-          "rank": -1
+          "stars": 1005,
+          "score": 0.0001,
+          "rank": -3
         }
       },
       "direction": "new",
       "sparkline": [
         19652,
         20178,
-        20581
+        20657
       ]
     },
     {
@@ -5909,35 +5909,35 @@
       "firstSeen": "2026-08-24",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 6152,
-        "score": 0.9999,
-        "rank": 5,
+        "stars": 6173,
+        "score": 1,
+        "rank": 1,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
       },
       "deltas": {
         "7d": {
-          "stars": 242,
-          "score": 0.0006,
-          "rank": 5
+          "stars": 263,
+          "score": 0.0007,
+          "rank": 9
         },
         "30d": {
-          "stars": 242,
-          "score": 0.0006,
-          "rank": 5
+          "stars": 263,
+          "score": 0.0007,
+          "rank": 9
         },
         "90d": {
-          "stars": 242,
-          "score": 0.0006,
-          "rank": 5
+          "stars": 263,
+          "score": 0.0007,
+          "rank": 9
         }
       },
       "direction": "new",
       "sparkline": [
         5910,
         6050,
-        6152
+        6173
       ]
     },
     {
@@ -5946,7 +5946,7 @@
       "lastSeen": "2026-08-26",
       "current": {
         "stars": 2515,
-        "score": 0.9935,
+        "score": 0.9933,
         "rank": 19,
         "certified": false,
         "npmWeekly": null,
@@ -5955,17 +5955,17 @@
       "deltas": {
         "7d": {
           "stars": 18,
-          "score": -0.0031,
+          "score": -0.0033,
           "rank": -3
         },
         "30d": {
           "stars": 18,
-          "score": -0.0031,
+          "score": -0.0033,
           "rank": -3
         },
         "90d": {
           "stars": 18,
-          "score": -0.0031,
+          "score": -0.0033,
           "rank": -3
         }
       },
@@ -5981,8 +5981,8 @@
       "firstSeen": "2026-08-25",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 83,
-        "score": 0.8915,
+        "stars": 84,
+        "score": 0.8918,
         "rank": 89,
         "certified": false,
         "npmWeekly": null,
@@ -5990,25 +5990,25 @@
       },
       "deltas": {
         "7d": {
-          "stars": 8,
-          "score": 0.009,
+          "stars": 9,
+          "score": 0.0093,
           "rank": 5
         },
         "30d": {
-          "stars": 8,
-          "score": 0.009,
+          "stars": 9,
+          "score": 0.0093,
           "rank": 5
         },
         "90d": {
-          "stars": 8,
-          "score": 0.009,
+          "stars": 9,
+          "score": 0.0093,
           "rank": 5
         }
       },
       "direction": "new",
       "sparkline": [
         75,
-        83
+        84
       ]
     },
     {
@@ -6016,9 +6016,9 @@
       "firstSeen": "2026-08-26",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 280,
-        "score": 0.9443,
-        "rank": 39,
+        "stars": 284,
+        "score": 0.9447,
+        "rank": 40,
         "certified": false,
         "npmWeekly": null,
         "npmMonthly": null
@@ -6042,7 +6042,7 @@
       },
       "direction": "new",
       "sparkline": [
-        280
+        284
       ]
     },
     {
@@ -6050,8 +6050,8 @@
       "firstSeen": "2026-08-26",
       "lastSeen": "2026-08-26",
       "current": {
-        "stars": 235,
-        "score": 0.9373,
+        "stars": 236,
+        "score": 0.9372,
         "rank": 45,
         "certified": false,
         "npmWeekly": null,
@@ -6076,7 +6076,7 @@
       },
       "direction": "new",
       "sparkline": [
-        235
+        236
       ]
     }
   ],
@@ -6087,28 +6087,28 @@
         "firstSeen": "2026-08-16",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 33478,
-          "score": 1,
-          "rank": 1,
+          "stars": 33501,
+          "score": 0.9999,
+          "rank": 3,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 3352,
-            "score": 0.0006,
-            "rank": 7
+            "stars": 3375,
+            "score": 0.0005,
+            "rank": 5
           },
           "30d": {
-            "stars": 4817,
-            "score": 0.0005,
-            "rank": 4
+            "stars": 4840,
+            "score": 0.0004,
+            "rank": 2
           },
           "90d": {
-            "stars": 4817,
-            "score": 0.0005,
-            "rank": 4
+            "stars": 4840,
+            "score": 0.0004,
+            "rank": 2
           }
         },
         "direction": "steady",
@@ -6123,7 +6123,7 @@
           32465,
           32961,
           33271,
-          33478
+          33501
         ]
       },
       {
@@ -6131,28 +6131,28 @@
         "firstSeen": "2026-08-17",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 16949,
-          "score": 0.9997,
-          "rank": 10,
+          "stars": 17239,
+          "score": 0.9998,
+          "rank": 7,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 2471,
-            "score": 0.001,
-            "rank": 0
+            "stars": 2761,
+            "score": 0.0011,
+            "rank": 3
           },
           "30d": {
-            "stars": 3112,
-            "score": 0.0003,
-            "rank": -4
+            "stars": 3402,
+            "score": 0.0004,
+            "rank": -1
           },
           "90d": {
-            "stars": 3112,
-            "score": 0.0003,
-            "rank": -4
+            "stars": 3402,
+            "score": 0.0004,
+            "rank": -1
           }
         },
         "direction": "steady",
@@ -6166,7 +6166,7 @@
           15150,
           15329,
           16264,
-          16949
+          17239
         ]
       },
       {
@@ -6174,31 +6174,31 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 2476,
-          "score": 0.9994,
-          "rank": 12,
+          "stars": 2492,
+          "score": 0.9992,
+          "rank": 13,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 1233,
-            "score": -0.0002,
-            "rank": -6
+            "stars": 1249,
+            "score": -0.0004,
+            "rank": -7
           },
           "30d": {
-            "stars": 2193,
-            "score": 0.0546,
-            "rank": 1
+            "stars": 2209,
+            "score": 0.0544,
+            "rank": 0
           },
           "90d": {
-            "stars": 2193,
-            "score": 0.0546,
-            "rank": 1
+            "stars": 2209,
+            "score": 0.0544,
+            "rank": 0
           }
         },
-        "direction": "rising",
+        "direction": "steady",
         "sparkline": [
           283,
           562,
@@ -6211,7 +6211,7 @@
           2017,
           2191,
           2371,
-          2476
+          2492
         ]
       },
       {
@@ -6219,35 +6219,35 @@
         "firstSeen": "2026-08-24",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 20581,
-          "score": 0.9999,
-          "rank": 4,
+          "stars": 20657,
+          "score": 0.9998,
+          "rank": 6,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 929,
-            "score": 0.0002,
-            "rank": -1
+            "stars": 1005,
+            "score": 0.0001,
+            "rank": -3
           },
           "30d": {
-            "stars": 929,
-            "score": 0.0002,
-            "rank": -1
+            "stars": 1005,
+            "score": 0.0001,
+            "rank": -3
           },
           "90d": {
-            "stars": 929,
-            "score": 0.0002,
-            "rank": -1
+            "stars": 1005,
+            "score": 0.0001,
+            "rank": -3
           }
         },
         "direction": "new",
         "sparkline": [
           19652,
           20178,
-          20581
+          20657
         ]
       },
       {
@@ -6255,8 +6255,8 @@
         "firstSeen": "2026-08-17",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 874,
-          "score": 0.994,
+          "stars": 885,
+          "score": 0.9946,
           "rank": 18,
           "certified": false,
           "npmWeekly": null,
@@ -6264,18 +6264,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 803,
-            "score": 0.1086,
+            "stars": 814,
+            "score": 0.1092,
             "rank": 45
           },
           "30d": {
-            "stars": 838,
-            "score": 0.1375,
+            "stars": 849,
+            "score": 0.1381,
             "rank": 67
           },
           "90d": {
-            "stars": 838,
-            "score": 0.1375,
+            "stars": 849,
+            "score": 0.1381,
             "rank": 67
           }
         },
@@ -6290,7 +6290,7 @@
           666,
           774,
           849,
-          874
+          885
         ]
       },
       {
@@ -6298,28 +6298,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 2954,
-          "score": 0.9998,
-          "rank": 7,
+          "stars": 2962,
+          "score": 1,
+          "rank": 2,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 624,
-            "score": 0.0002,
-            "rank": -2
+            "stars": 632,
+            "score": 0.0004,
+            "rank": 3
           },
           "30d": {
-            "stars": 1699,
-            "score": 0.0004,
-            "rank": -2
+            "stars": 1707,
+            "score": 0.0006,
+            "rank": 3
           },
           "90d": {
-            "stars": 1699,
-            "score": 0.0004,
-            "rank": -2
+            "stars": 1707,
+            "score": 0.0006,
+            "rank": 3
           }
         },
         "direction": "steady",
@@ -6335,7 +6335,7 @@
           2719,
           2814,
           2898,
-          2954
+          2962
         ]
       },
       {
@@ -6343,28 +6343,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1051,
-          "score": 1,
-          "rank": 3,
+          "stars": 1058,
+          "score": 0.9999,
+          "rank": 5,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 566,
-            "score": 0.0315,
-            "rank": 17
+            "stars": 573,
+            "score": 0.0314,
+            "rank": 15
           },
           "30d": {
-            "stars": 1009,
-            "score": 0.1371,
-            "rank": 45
+            "stars": 1016,
+            "score": 0.137,
+            "rank": 43
           },
           "90d": {
-            "stars": 1009,
-            "score": 0.1371,
-            "rank": 45
+            "stars": 1016,
+            "score": 0.137,
+            "rank": 43
           }
         },
         "direction": "rising",
@@ -6380,7 +6380,7 @@
           939,
           1001,
           1029,
-          1051
+          1058
         ]
       },
       {
@@ -6388,28 +6388,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 2580,
-          "score": 0.9998,
-          "rank": 8,
+          "stars": 2588,
+          "score": 0.9999,
+          "rank": 4,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 504,
-            "score": -0.0001,
-            "rank": -6
+            "stars": 512,
+            "score": 0,
+            "rank": -2
           },
           "30d": {
-            "stars": 1326,
-            "score": -0.0001,
-            "rank": -6
+            "stars": 1334,
+            "score": 0,
+            "rank": -2
           },
           "90d": {
-            "stars": 1326,
-            "score": -0.0001,
-            "rank": -6
+            "stars": 1334,
+            "score": 0,
+            "rank": -2
           }
         },
         "direction": "steady",
@@ -6425,7 +6425,7 @@
           2372,
           2472,
           2543,
-          2580
+          2588
         ]
       },
       {
@@ -6433,8 +6433,8 @@
         "firstSeen": "2026-08-17",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 681,
-          "score": 0.9816,
+          "stars": 685,
+          "score": 0.9817,
           "rank": 23,
           "certified": false,
           "npmWeekly": null,
@@ -6442,18 +6442,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 459,
-            "score": 0.0474,
+            "stars": 463,
+            "score": 0.0475,
             "rank": 10
           },
           "30d": {
-            "stars": 607,
-            "score": 0.0948,
+            "stars": 611,
+            "score": 0.0949,
             "rank": 22
           },
           "90d": {
-            "stars": 607,
-            "score": 0.0948,
+            "stars": 611,
+            "score": 0.0949,
             "rank": 22
           }
         },
@@ -6468,7 +6468,7 @@
           529,
           593,
           652,
-          681
+          685
         ]
       },
       {
@@ -6476,8 +6476,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1054,
-          "score": 0.9397,
+          "stars": 1062,
+          "score": 0.9395,
           "rank": 43,
           "certified": false,
           "npmWeekly": null,
@@ -6485,18 +6485,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 446,
-            "score": 0.0218,
+            "stars": 454,
+            "score": 0.0216,
             "rank": -1
           },
           "30d": {
-            "stars": 718,
-            "score": 0.0476,
+            "stars": 726,
+            "score": 0.0474,
             "rank": -14
           },
           "90d": {
-            "stars": 718,
-            "score": 0.0476,
+            "stars": 726,
+            "score": 0.0474,
             "rank": -14
           }
         },
@@ -6513,7 +6513,7 @@
           898,
           952,
           1010,
-          1054
+          1062
         ]
       },
       {
@@ -6521,8 +6521,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 3686,
-          "score": 0.9979,
+          "stars": 3692,
+          "score": 0.9977,
           "rank": 15,
           "certified": false,
           "npmWeekly": null,
@@ -6530,18 +6530,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 415,
-            "score": -0.0018,
+            "stars": 421,
+            "score": -0.002,
             "rank": -12
           },
           "30d": {
-            "stars": 1788,
-            "score": -0.0015,
+            "stars": 1794,
+            "score": -0.0017,
             "rank": -11
           },
           "90d": {
-            "stars": 1788,
-            "score": -0.0015,
+            "stars": 1794,
+            "score": -0.0017,
             "rank": -11
           }
         },
@@ -6558,7 +6558,7 @@
           3556,
           3602,
           3662,
-          3686
+          3692
         ]
       },
       {
@@ -6566,8 +6566,8 @@
         "firstSeen": "2026-08-23",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1060,
-          "score": 0.9964,
+          "stars": 1074,
+          "score": 0.9962,
           "rank": 16,
           "certified": false,
           "npmWeekly": null,
@@ -6575,18 +6575,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 346,
-            "score": 0.0122,
+            "stars": 360,
+            "score": 0.012,
             "rank": 2
           },
           "30d": {
-            "stars": 346,
-            "score": 0.0122,
+            "stars": 360,
+            "score": 0.012,
             "rank": 2
           },
           "90d": {
-            "stars": 346,
-            "score": 0.0122,
+            "stars": 360,
+            "score": 0.012,
             "rank": 2
           }
         },
@@ -6595,7 +6595,7 @@
           714,
           864,
           996,
-          1060
+          1074
         ]
       },
       {
@@ -6603,8 +6603,8 @@
         "firstSeen": "2026-08-16",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 495,
-          "score": 0.9673,
+          "stars": 500,
+          "score": 0.9675,
           "rank": 29,
           "certified": false,
           "npmWeekly": null,
@@ -6612,18 +6612,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 333,
-            "score": 0.0491,
+            "stars": 338,
+            "score": 0.0493,
             "rank": 12
           },
           "30d": {
-            "stars": 436,
-            "score": 0.0901,
+            "stars": 441,
+            "score": 0.0903,
             "rank": 19
           },
           "90d": {
-            "stars": 436,
-            "score": 0.0901,
+            "stars": 441,
+            "score": 0.0903,
             "rank": 19
           }
         },
@@ -6639,7 +6639,7 @@
           358,
           406,
           455,
-          495
+          500
         ]
       },
       {
@@ -6647,28 +6647,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1738,
-          "score": 0.9181,
-          "rank": 58,
+          "stars": 1742,
+          "score": 0.9179,
+          "rank": 59,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 278,
-            "score": -0.0013,
-            "rank": -18
+            "stars": 282,
+            "score": -0.0015,
+            "rank": -19
           },
           "30d": {
-            "stars": 835,
-            "score": 0.0036,
-            "rank": -36
+            "stars": 839,
+            "score": 0.0034,
+            "rank": -37
           },
           "90d": {
-            "stars": 835,
-            "score": 0.0036,
-            "rank": -36
+            "stars": 839,
+            "score": 0.0034,
+            "rank": -37
           }
         },
         "direction": "steady",
@@ -6684,7 +6684,7 @@
           1630,
           1674,
           1715,
-          1738
+          1742
         ]
       },
       {
@@ -6692,35 +6692,35 @@
         "firstSeen": "2026-08-24",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 6152,
-          "score": 0.9999,
-          "rank": 5,
+          "stars": 6173,
+          "score": 1,
+          "rank": 1,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 242,
-            "score": 0.0006,
-            "rank": 5
+            "stars": 263,
+            "score": 0.0007,
+            "rank": 9
           },
           "30d": {
-            "stars": 242,
-            "score": 0.0006,
-            "rank": 5
+            "stars": 263,
+            "score": 0.0007,
+            "rank": 9
           },
           "90d": {
-            "stars": 242,
-            "score": 0.0006,
-            "rank": 5
+            "stars": 263,
+            "score": 0.0007,
+            "rank": 9
           }
         },
         "direction": "new",
         "sparkline": [
           5910,
           6050,
-          6152
+          6173
         ]
       },
       {
@@ -6728,7 +6728,7 @@
         "firstSeen": "2026-08-23",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1220,
+          "stars": 1231,
           "score": 0.9998,
           "rank": 9,
           "certified": false,
@@ -6737,17 +6737,17 @@
         },
         "deltas": {
           "7d": {
-            "stars": 222,
+            "stars": 233,
             "score": 0.0004,
             "rank": 0
           },
           "30d": {
-            "stars": 222,
+            "stars": 233,
             "score": 0.0004,
             "rank": 0
           },
           "90d": {
-            "stars": 222,
+            "stars": 233,
             "score": 0.0004,
             "rank": 0
           }
@@ -6757,7 +6757,7 @@
           998,
           1104,
           1177,
-          1220
+          1231
         ]
       },
       {
@@ -6765,8 +6765,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 423,
-          "score": 0.9613,
+          "stars": 424,
+          "score": 0.9612,
           "rank": 33,
           "certified": false,
           "npmWeekly": null,
@@ -6774,18 +6774,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 217,
-            "score": 0.0309,
+            "stars": 218,
+            "score": 0.0308,
             "rank": 1
           },
           "30d": {
-            "stars": 377,
-            "score": 0.0952,
+            "stars": 378,
+            "score": 0.0951,
             "rank": 13
           },
           "90d": {
-            "stars": 377,
-            "score": 0.0952,
+            "stars": 378,
+            "score": 0.0951,
             "rank": 13
           }
         },
@@ -6802,7 +6802,7 @@
           365,
           396,
           417,
-          423
+          424
         ]
       },
       {
@@ -6810,28 +6810,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 988,
-          "score": 0.9994,
-          "rank": 13,
+          "stars": 992,
+          "score": 0.9996,
+          "rank": 11,
           "certified": true,
           "npmWeekly": 22620,
           "npmMonthly": 44299
         },
         "deltas": {
           "7d": {
-            "stars": 144,
-            "score": 0.0069,
-            "rank": 1
+            "stars": 148,
+            "score": 0.0071,
+            "rank": 3
           },
           "30d": {
-            "stars": 845,
-            "score": 0.0836,
-            "rank": 8
+            "stars": 849,
+            "score": 0.0838,
+            "rank": 10
           },
           "90d": {
-            "stars": 845,
-            "score": 0.0836,
-            "rank": 8
+            "stars": 849,
+            "score": 0.0838,
+            "rank": 10
           }
         },
         "direction": "rising",
@@ -6847,7 +6847,7 @@
           943,
           962,
           973,
-          988
+          992
         ]
       },
       {
@@ -6855,8 +6855,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 464,
-          "score": 0.9644,
+          "stars": 468,
+          "score": 0.9669,
           "rank": 30,
           "certified": false,
           "npmWeekly": null,
@@ -6864,18 +6864,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 139,
-            "score": 0.0136,
+            "stars": 143,
+            "score": 0.0161,
             "rank": -3
           },
           "30d": {
-            "stars": 302,
-            "score": 0.0437,
+            "stars": 306,
+            "score": 0.0462,
             "rank": -11
           },
           "90d": {
-            "stars": 302,
-            "score": 0.0437,
+            "stars": 306,
+            "score": 0.0462,
             "rank": -11
           }
         },
@@ -6892,7 +6892,7 @@
           405,
           427,
           456,
-          464
+          468
         ]
       },
       {
@@ -6900,28 +6900,28 @@
         "firstSeen": "2026-08-18",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 211,
-          "score": 0.9324,
-          "rank": 51,
+          "stars": 217,
+          "score": 0.9338,
+          "rank": 50,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 133,
-            "score": 0.0431,
-            "rank": 8
+            "stars": 139,
+            "score": 0.0445,
+            "rank": 9
           },
           "30d": {
-            "stars": 163,
-            "score": 0.0651,
-            "rank": 32
+            "stars": 169,
+            "score": 0.0665,
+            "rank": 33
           },
           "90d": {
-            "stars": 163,
-            "score": 0.0651,
-            "rank": 32
+            "stars": 169,
+            "score": 0.0665,
+            "rank": 33
           }
         },
         "direction": "rising",
@@ -6934,7 +6934,7 @@
           154,
           178,
           195,
-          211
+          217
         ]
       }
     ],
@@ -6944,28 +6944,28 @@
         "firstSeen": "2026-08-16",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 33478,
-          "score": 1,
-          "rank": 1,
+          "stars": 33501,
+          "score": 0.9999,
+          "rank": 3,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 3352,
-            "score": 0.0006,
-            "rank": 7
+            "stars": 3375,
+            "score": 0.0005,
+            "rank": 5
           },
           "30d": {
-            "stars": 4817,
-            "score": 0.0005,
-            "rank": 4
+            "stars": 4840,
+            "score": 0.0004,
+            "rank": 2
           },
           "90d": {
-            "stars": 4817,
-            "score": 0.0005,
-            "rank": 4
+            "stars": 4840,
+            "score": 0.0004,
+            "rank": 2
           }
         },
         "direction": "steady",
@@ -6980,7 +6980,7 @@
           32465,
           32961,
           33271,
-          33478
+          33501
         ]
       },
       {
@@ -6988,28 +6988,28 @@
         "firstSeen": "2026-08-17",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 16949,
-          "score": 0.9997,
-          "rank": 10,
+          "stars": 17239,
+          "score": 0.9998,
+          "rank": 7,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 2471,
-            "score": 0.001,
-            "rank": 0
+            "stars": 2761,
+            "score": 0.0011,
+            "rank": 3
           },
           "30d": {
-            "stars": 3112,
-            "score": 0.0003,
-            "rank": -4
+            "stars": 3402,
+            "score": 0.0004,
+            "rank": -1
           },
           "90d": {
-            "stars": 3112,
-            "score": 0.0003,
-            "rank": -4
+            "stars": 3402,
+            "score": 0.0004,
+            "rank": -1
           }
         },
         "direction": "steady",
@@ -7023,7 +7023,7 @@
           15150,
           15329,
           16264,
-          16949
+          17239
         ]
       },
       {
@@ -7031,31 +7031,31 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 2476,
-          "score": 0.9994,
-          "rank": 12,
+          "stars": 2492,
+          "score": 0.9992,
+          "rank": 13,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 1233,
-            "score": -0.0002,
-            "rank": -6
+            "stars": 1249,
+            "score": -0.0004,
+            "rank": -7
           },
           "30d": {
-            "stars": 2193,
-            "score": 0.0546,
-            "rank": 1
+            "stars": 2209,
+            "score": 0.0544,
+            "rank": 0
           },
           "90d": {
-            "stars": 2193,
-            "score": 0.0546,
-            "rank": 1
+            "stars": 2209,
+            "score": 0.0544,
+            "rank": 0
           }
         },
-        "direction": "rising",
+        "direction": "steady",
         "sparkline": [
           283,
           562,
@@ -7068,7 +7068,7 @@
           2017,
           2191,
           2371,
-          2476
+          2492
         ]
       },
       {
@@ -7076,8 +7076,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 3686,
-          "score": 0.9979,
+          "stars": 3692,
+          "score": 0.9977,
           "rank": 15,
           "certified": false,
           "npmWeekly": null,
@@ -7085,18 +7085,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 415,
-            "score": -0.0018,
+            "stars": 421,
+            "score": -0.002,
             "rank": -12
           },
           "30d": {
-            "stars": 1788,
-            "score": -0.0015,
+            "stars": 1794,
+            "score": -0.0017,
             "rank": -11
           },
           "90d": {
-            "stars": 1788,
-            "score": -0.0015,
+            "stars": 1794,
+            "score": -0.0017,
             "rank": -11
           }
         },
@@ -7113,7 +7113,7 @@
           3556,
           3602,
           3662,
-          3686
+          3692
         ]
       },
       {
@@ -7121,28 +7121,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 2954,
-          "score": 0.9998,
-          "rank": 7,
+          "stars": 2962,
+          "score": 1,
+          "rank": 2,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 624,
-            "score": 0.0002,
-            "rank": -2
+            "stars": 632,
+            "score": 0.0004,
+            "rank": 3
           },
           "30d": {
-            "stars": 1699,
-            "score": 0.0004,
-            "rank": -2
+            "stars": 1707,
+            "score": 0.0006,
+            "rank": 3
           },
           "90d": {
-            "stars": 1699,
-            "score": 0.0004,
-            "rank": -2
+            "stars": 1707,
+            "score": 0.0006,
+            "rank": 3
           }
         },
         "direction": "steady",
@@ -7158,7 +7158,7 @@
           2719,
           2814,
           2898,
-          2954
+          2962
         ]
       },
       {
@@ -7166,28 +7166,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 2580,
-          "score": 0.9998,
-          "rank": 8,
+          "stars": 2588,
+          "score": 0.9999,
+          "rank": 4,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 504,
-            "score": -0.0001,
-            "rank": -6
+            "stars": 512,
+            "score": 0,
+            "rank": -2
           },
           "30d": {
-            "stars": 1326,
-            "score": -0.0001,
-            "rank": -6
+            "stars": 1334,
+            "score": 0,
+            "rank": -2
           },
           "90d": {
-            "stars": 1326,
-            "score": -0.0001,
-            "rank": -6
+            "stars": 1334,
+            "score": 0,
+            "rank": -2
           }
         },
         "direction": "steady",
@@ -7203,7 +7203,7 @@
           2372,
           2472,
           2543,
-          2580
+          2588
         ]
       },
       {
@@ -7211,28 +7211,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1051,
-          "score": 1,
-          "rank": 3,
+          "stars": 1058,
+          "score": 0.9999,
+          "rank": 5,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 566,
-            "score": 0.0315,
-            "rank": 17
+            "stars": 573,
+            "score": 0.0314,
+            "rank": 15
           },
           "30d": {
-            "stars": 1009,
-            "score": 0.1371,
-            "rank": 45
+            "stars": 1016,
+            "score": 0.137,
+            "rank": 43
           },
           "90d": {
-            "stars": 1009,
-            "score": 0.1371,
-            "rank": 45
+            "stars": 1016,
+            "score": 0.137,
+            "rank": 43
           }
         },
         "direction": "rising",
@@ -7248,7 +7248,7 @@
           939,
           1001,
           1029,
-          1051
+          1058
         ]
       },
       {
@@ -7256,35 +7256,35 @@
         "firstSeen": "2026-08-24",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 20581,
-          "score": 0.9999,
-          "rank": 4,
+          "stars": 20657,
+          "score": 0.9998,
+          "rank": 6,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 929,
-            "score": 0.0002,
-            "rank": -1
+            "stars": 1005,
+            "score": 0.0001,
+            "rank": -3
           },
           "30d": {
-            "stars": 929,
-            "score": 0.0002,
-            "rank": -1
+            "stars": 1005,
+            "score": 0.0001,
+            "rank": -3
           },
           "90d": {
-            "stars": 929,
-            "score": 0.0002,
-            "rank": -1
+            "stars": 1005,
+            "score": 0.0001,
+            "rank": -3
           }
         },
         "direction": "new",
         "sparkline": [
           19652,
           20178,
-          20581
+          20657
         ]
       },
       {
@@ -7292,28 +7292,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 988,
-          "score": 0.9994,
-          "rank": 13,
+          "stars": 992,
+          "score": 0.9996,
+          "rank": 11,
           "certified": true,
           "npmWeekly": 22620,
           "npmMonthly": 44299
         },
         "deltas": {
           "7d": {
-            "stars": 144,
-            "score": 0.0069,
-            "rank": 1
+            "stars": 148,
+            "score": 0.0071,
+            "rank": 3
           },
           "30d": {
-            "stars": 845,
-            "score": 0.0836,
-            "rank": 8
+            "stars": 849,
+            "score": 0.0838,
+            "rank": 10
           },
           "90d": {
-            "stars": 845,
-            "score": 0.0836,
-            "rank": 8
+            "stars": 849,
+            "score": 0.0838,
+            "rank": 10
           }
         },
         "direction": "rising",
@@ -7329,7 +7329,7 @@
           943,
           962,
           973,
-          988
+          992
         ]
       },
       {
@@ -7337,8 +7337,8 @@
         "firstSeen": "2026-08-17",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 874,
-          "score": 0.994,
+          "stars": 885,
+          "score": 0.9946,
           "rank": 18,
           "certified": false,
           "npmWeekly": null,
@@ -7346,18 +7346,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 803,
-            "score": 0.1086,
+            "stars": 814,
+            "score": 0.1092,
             "rank": 45
           },
           "30d": {
-            "stars": 838,
-            "score": 0.1375,
+            "stars": 849,
+            "score": 0.1381,
             "rank": 67
           },
           "90d": {
-            "stars": 838,
-            "score": 0.1375,
+            "stars": 849,
+            "score": 0.1381,
             "rank": 67
           }
         },
@@ -7372,7 +7372,7 @@
           666,
           774,
           849,
-          874
+          885
         ]
       },
       {
@@ -7380,28 +7380,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1738,
-          "score": 0.9181,
-          "rank": 58,
+          "stars": 1742,
+          "score": 0.9179,
+          "rank": 59,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 278,
-            "score": -0.0013,
-            "rank": -18
+            "stars": 282,
+            "score": -0.0015,
+            "rank": -19
           },
           "30d": {
-            "stars": 835,
-            "score": 0.0036,
-            "rank": -36
+            "stars": 839,
+            "score": 0.0034,
+            "rank": -37
           },
           "90d": {
-            "stars": 835,
-            "score": 0.0036,
-            "rank": -36
+            "stars": 839,
+            "score": 0.0034,
+            "rank": -37
           }
         },
         "direction": "steady",
@@ -7417,7 +7417,7 @@
           1630,
           1674,
           1715,
-          1738
+          1742
         ]
       },
       {
@@ -7425,8 +7425,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1054,
-          "score": 0.9397,
+          "stars": 1062,
+          "score": 0.9395,
           "rank": 43,
           "certified": false,
           "npmWeekly": null,
@@ -7434,18 +7434,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 446,
-            "score": 0.0218,
+            "stars": 454,
+            "score": 0.0216,
             "rank": -1
           },
           "30d": {
-            "stars": 718,
-            "score": 0.0476,
+            "stars": 726,
+            "score": 0.0474,
             "rank": -14
           },
           "90d": {
-            "stars": 718,
-            "score": 0.0476,
+            "stars": 726,
+            "score": 0.0474,
             "rank": -14
           }
         },
@@ -7462,7 +7462,7 @@
           898,
           952,
           1010,
-          1054
+          1062
         ]
       },
       {
@@ -7470,8 +7470,8 @@
         "firstSeen": "2026-08-17",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 681,
-          "score": 0.9816,
+          "stars": 685,
+          "score": 0.9817,
           "rank": 23,
           "certified": false,
           "npmWeekly": null,
@@ -7479,18 +7479,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 459,
-            "score": 0.0474,
+            "stars": 463,
+            "score": 0.0475,
             "rank": 10
           },
           "30d": {
-            "stars": 607,
-            "score": 0.0948,
+            "stars": 611,
+            "score": 0.0949,
             "rank": 22
           },
           "90d": {
-            "stars": 607,
-            "score": 0.0948,
+            "stars": 611,
+            "score": 0.0949,
             "rank": 22
           }
         },
@@ -7505,7 +7505,7 @@
           529,
           593,
           652,
-          681
+          685
         ]
       },
       {
@@ -7513,8 +7513,8 @@
         "firstSeen": "2026-08-16",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 495,
-          "score": 0.9673,
+          "stars": 500,
+          "score": 0.9675,
           "rank": 29,
           "certified": false,
           "npmWeekly": null,
@@ -7522,18 +7522,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 333,
-            "score": 0.0491,
+            "stars": 338,
+            "score": 0.0493,
             "rank": 12
           },
           "30d": {
-            "stars": 436,
-            "score": 0.0901,
+            "stars": 441,
+            "score": 0.0903,
             "rank": 19
           },
           "90d": {
-            "stars": 436,
-            "score": 0.0901,
+            "stars": 441,
+            "score": 0.0903,
             "rank": 19
           }
         },
@@ -7549,7 +7549,7 @@
           358,
           406,
           455,
-          495
+          500
         ]
       },
       {
@@ -7557,8 +7557,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 831,
-          "score": 0.9901,
+          "stars": 833,
+          "score": 0.99,
           "rank": 20,
           "certified": false,
           "npmWeekly": null,
@@ -7566,18 +7566,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 80,
-            "score": 0.0029,
+            "stars": 82,
+            "score": 0.0028,
             "rank": -5
           },
           "30d": {
-            "stars": 398,
-            "score": 0.0267,
+            "stars": 400,
+            "score": 0.0266,
             "rank": -12
           },
           "90d": {
-            "stars": 398,
-            "score": 0.0267,
+            "stars": 400,
+            "score": 0.0266,
             "rank": -12
           }
         },
@@ -7594,7 +7594,7 @@
           817,
           819,
           825,
-          831
+          833
         ]
       },
       {
@@ -7602,8 +7602,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 423,
-          "score": 0.9613,
+          "stars": 424,
+          "score": 0.9612,
           "rank": 33,
           "certified": false,
           "npmWeekly": null,
@@ -7611,18 +7611,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 217,
-            "score": 0.0309,
+            "stars": 218,
+            "score": 0.0308,
             "rank": 1
           },
           "30d": {
-            "stars": 377,
-            "score": 0.0952,
+            "stars": 378,
+            "score": 0.0951,
             "rank": 13
           },
           "90d": {
-            "stars": 377,
-            "score": 0.0952,
+            "stars": 378,
+            "score": 0.0951,
             "rank": 13
           }
         },
@@ -7639,7 +7639,7 @@
           365,
           396,
           417,
-          423
+          424
         ]
       },
       {
@@ -7647,8 +7647,8 @@
         "firstSeen": "2026-08-23",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1060,
-          "score": 0.9964,
+          "stars": 1074,
+          "score": 0.9962,
           "rank": 16,
           "certified": false,
           "npmWeekly": null,
@@ -7656,18 +7656,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 346,
-            "score": 0.0122,
+            "stars": 360,
+            "score": 0.012,
             "rank": 2
           },
           "30d": {
-            "stars": 346,
-            "score": 0.0122,
+            "stars": 360,
+            "score": 0.012,
             "rank": 2
           },
           "90d": {
-            "stars": 346,
-            "score": 0.0122,
+            "stars": 360,
+            "score": 0.012,
             "rank": 2
           }
         },
@@ -7676,7 +7676,7 @@
           714,
           864,
           996,
-          1060
+          1074
         ]
       },
       {
@@ -7684,8 +7684,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 464,
-          "score": 0.9644,
+          "stars": 468,
+          "score": 0.9669,
           "rank": 30,
           "certified": false,
           "npmWeekly": null,
@@ -7693,18 +7693,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 139,
-            "score": 0.0136,
+            "stars": 143,
+            "score": 0.0161,
             "rank": -3
           },
           "30d": {
-            "stars": 302,
-            "score": 0.0437,
+            "stars": 306,
+            "score": 0.0462,
             "rank": -11
           },
           "90d": {
-            "stars": 302,
-            "score": 0.0437,
+            "stars": 306,
+            "score": 0.0462,
             "rank": -11
           }
         },
@@ -7721,7 +7721,43 @@
           405,
           427,
           456,
-          464
+          468
+        ]
+      },
+      {
+        "fullName": "zhu1090093659/dsh-web",
+        "firstSeen": "2026-08-24",
+        "lastSeen": "2026-08-26",
+        "current": {
+          "stars": 6173,
+          "score": 1,
+          "rank": 1,
+          "certified": false,
+          "npmWeekly": null,
+          "npmMonthly": null
+        },
+        "deltas": {
+          "7d": {
+            "stars": 263,
+            "score": 0.0007,
+            "rank": 9
+          },
+          "30d": {
+            "stars": 263,
+            "score": 0.0007,
+            "rank": 9
+          },
+          "90d": {
+            "stars": 263,
+            "score": 0.0007,
+            "rank": 9
+          }
+        },
+        "direction": "new",
+        "sparkline": [
+          5910,
+          6050,
+          6173
         ]
       },
       {
@@ -7729,8 +7765,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 5671,
-          "score": 0.9984,
+          "stars": 5675,
+          "score": 0.9982,
           "rank": 14,
           "certified": false,
           "npmWeekly": null,
@@ -7738,18 +7774,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 91,
-            "score": -0.0003,
+            "stars": 95,
+            "score": -0.0005,
             "rank": -3
           },
           "30d": {
-            "stars": 248,
-            "score": 0.1184,
+            "stars": 252,
+            "score": 0.1182,
             "rank": 18
           },
           "90d": {
-            "stars": 248,
-            "score": 0.1184,
+            "stars": 252,
+            "score": 0.1182,
             "rank": 18
           }
         },
@@ -7766,43 +7802,7 @@
           5634,
           5645,
           5663,
-          5671
-        ]
-      },
-      {
-        "fullName": "zhu1090093659/dsh-web",
-        "firstSeen": "2026-08-24",
-        "lastSeen": "2026-08-26",
-        "current": {
-          "stars": 6152,
-          "score": 0.9999,
-          "rank": 5,
-          "certified": false,
-          "npmWeekly": null,
-          "npmMonthly": null
-        },
-        "deltas": {
-          "7d": {
-            "stars": 242,
-            "score": 0.0006,
-            "rank": 5
-          },
-          "30d": {
-            "stars": 242,
-            "score": 0.0006,
-            "rank": 5
-          },
-          "90d": {
-            "stars": 242,
-            "score": 0.0006,
-            "rank": 5
-          }
-        },
-        "direction": "new",
-        "sparkline": [
-          5910,
-          6050,
-          6152
+          5675
         ]
       }
     ],
@@ -7812,28 +7812,28 @@
         "firstSeen": "2026-08-16",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 33478,
-          "score": 1,
-          "rank": 1,
+          "stars": 33501,
+          "score": 0.9999,
+          "rank": 3,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 3352,
-            "score": 0.0006,
-            "rank": 7
+            "stars": 3375,
+            "score": 0.0005,
+            "rank": 5
           },
           "30d": {
-            "stars": 4817,
-            "score": 0.0005,
-            "rank": 4
+            "stars": 4840,
+            "score": 0.0004,
+            "rank": 2
           },
           "90d": {
-            "stars": 4817,
-            "score": 0.0005,
-            "rank": 4
+            "stars": 4840,
+            "score": 0.0004,
+            "rank": 2
           }
         },
         "direction": "steady",
@@ -7848,7 +7848,7 @@
           32465,
           32961,
           33271,
-          33478
+          33501
         ]
       },
       {
@@ -7856,28 +7856,28 @@
         "firstSeen": "2026-08-17",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 16949,
-          "score": 0.9997,
-          "rank": 10,
+          "stars": 17239,
+          "score": 0.9998,
+          "rank": 7,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 2471,
-            "score": 0.001,
-            "rank": 0
+            "stars": 2761,
+            "score": 0.0011,
+            "rank": 3
           },
           "30d": {
-            "stars": 3112,
-            "score": 0.0003,
-            "rank": -4
+            "stars": 3402,
+            "score": 0.0004,
+            "rank": -1
           },
           "90d": {
-            "stars": 3112,
-            "score": 0.0003,
-            "rank": -4
+            "stars": 3402,
+            "score": 0.0004,
+            "rank": -1
           }
         },
         "direction": "steady",
@@ -7891,7 +7891,7 @@
           15150,
           15329,
           16264,
-          16949
+          17239
         ]
       },
       {
@@ -7899,31 +7899,31 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 2476,
-          "score": 0.9994,
-          "rank": 12,
+          "stars": 2492,
+          "score": 0.9992,
+          "rank": 13,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 1233,
-            "score": -0.0002,
-            "rank": -6
+            "stars": 1249,
+            "score": -0.0004,
+            "rank": -7
           },
           "30d": {
-            "stars": 2193,
-            "score": 0.0546,
-            "rank": 1
+            "stars": 2209,
+            "score": 0.0544,
+            "rank": 0
           },
           "90d": {
-            "stars": 2193,
-            "score": 0.0546,
-            "rank": 1
+            "stars": 2209,
+            "score": 0.0544,
+            "rank": 0
           }
         },
-        "direction": "rising",
+        "direction": "steady",
         "sparkline": [
           283,
           562,
@@ -7936,7 +7936,7 @@
           2017,
           2191,
           2371,
-          2476
+          2492
         ]
       },
       {
@@ -7944,8 +7944,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 3686,
-          "score": 0.9979,
+          "stars": 3692,
+          "score": 0.9977,
           "rank": 15,
           "certified": false,
           "npmWeekly": null,
@@ -7953,18 +7953,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 415,
-            "score": -0.0018,
+            "stars": 421,
+            "score": -0.002,
             "rank": -12
           },
           "30d": {
-            "stars": 1788,
-            "score": -0.0015,
+            "stars": 1794,
+            "score": -0.0017,
             "rank": -11
           },
           "90d": {
-            "stars": 1788,
-            "score": -0.0015,
+            "stars": 1794,
+            "score": -0.0017,
             "rank": -11
           }
         },
@@ -7981,7 +7981,7 @@
           3556,
           3602,
           3662,
-          3686
+          3692
         ]
       },
       {
@@ -7989,28 +7989,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 2954,
-          "score": 0.9998,
-          "rank": 7,
+          "stars": 2962,
+          "score": 1,
+          "rank": 2,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 624,
-            "score": 0.0002,
-            "rank": -2
+            "stars": 632,
+            "score": 0.0004,
+            "rank": 3
           },
           "30d": {
-            "stars": 1699,
-            "score": 0.0004,
-            "rank": -2
+            "stars": 1707,
+            "score": 0.0006,
+            "rank": 3
           },
           "90d": {
-            "stars": 1699,
-            "score": 0.0004,
-            "rank": -2
+            "stars": 1707,
+            "score": 0.0006,
+            "rank": 3
           }
         },
         "direction": "steady",
@@ -8026,7 +8026,7 @@
           2719,
           2814,
           2898,
-          2954
+          2962
         ]
       },
       {
@@ -8034,28 +8034,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 2580,
-          "score": 0.9998,
-          "rank": 8,
+          "stars": 2588,
+          "score": 0.9999,
+          "rank": 4,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 504,
-            "score": -0.0001,
-            "rank": -6
+            "stars": 512,
+            "score": 0,
+            "rank": -2
           },
           "30d": {
-            "stars": 1326,
-            "score": -0.0001,
-            "rank": -6
+            "stars": 1334,
+            "score": 0,
+            "rank": -2
           },
           "90d": {
-            "stars": 1326,
-            "score": -0.0001,
-            "rank": -6
+            "stars": 1334,
+            "score": 0,
+            "rank": -2
           }
         },
         "direction": "steady",
@@ -8071,7 +8071,7 @@
           2372,
           2472,
           2543,
-          2580
+          2588
         ]
       },
       {
@@ -8079,28 +8079,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1051,
-          "score": 1,
-          "rank": 3,
+          "stars": 1058,
+          "score": 0.9999,
+          "rank": 5,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 566,
-            "score": 0.0315,
-            "rank": 17
+            "stars": 573,
+            "score": 0.0314,
+            "rank": 15
           },
           "30d": {
-            "stars": 1009,
-            "score": 0.1371,
-            "rank": 45
+            "stars": 1016,
+            "score": 0.137,
+            "rank": 43
           },
           "90d": {
-            "stars": 1009,
-            "score": 0.1371,
-            "rank": 45
+            "stars": 1016,
+            "score": 0.137,
+            "rank": 43
           }
         },
         "direction": "rising",
@@ -8116,7 +8116,7 @@
           939,
           1001,
           1029,
-          1051
+          1058
         ]
       },
       {
@@ -8124,35 +8124,35 @@
         "firstSeen": "2026-08-24",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 20581,
-          "score": 0.9999,
-          "rank": 4,
+          "stars": 20657,
+          "score": 0.9998,
+          "rank": 6,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 929,
-            "score": 0.0002,
-            "rank": -1
+            "stars": 1005,
+            "score": 0.0001,
+            "rank": -3
           },
           "30d": {
-            "stars": 929,
-            "score": 0.0002,
-            "rank": -1
+            "stars": 1005,
+            "score": 0.0001,
+            "rank": -3
           },
           "90d": {
-            "stars": 929,
-            "score": 0.0002,
-            "rank": -1
+            "stars": 1005,
+            "score": 0.0001,
+            "rank": -3
           }
         },
         "direction": "new",
         "sparkline": [
           19652,
           20178,
-          20581
+          20657
         ]
       },
       {
@@ -8160,28 +8160,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 988,
-          "score": 0.9994,
-          "rank": 13,
+          "stars": 992,
+          "score": 0.9996,
+          "rank": 11,
           "certified": true,
           "npmWeekly": 22620,
           "npmMonthly": 44299
         },
         "deltas": {
           "7d": {
-            "stars": 144,
-            "score": 0.0069,
-            "rank": 1
+            "stars": 148,
+            "score": 0.0071,
+            "rank": 3
           },
           "30d": {
-            "stars": 845,
-            "score": 0.0836,
-            "rank": 8
+            "stars": 849,
+            "score": 0.0838,
+            "rank": 10
           },
           "90d": {
-            "stars": 845,
-            "score": 0.0836,
-            "rank": 8
+            "stars": 849,
+            "score": 0.0838,
+            "rank": 10
           }
         },
         "direction": "rising",
@@ -8197,7 +8197,7 @@
           943,
           962,
           973,
-          988
+          992
         ]
       },
       {
@@ -8205,8 +8205,8 @@
         "firstSeen": "2026-08-17",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 874,
-          "score": 0.994,
+          "stars": 885,
+          "score": 0.9946,
           "rank": 18,
           "certified": false,
           "npmWeekly": null,
@@ -8214,18 +8214,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 803,
-            "score": 0.1086,
+            "stars": 814,
+            "score": 0.1092,
             "rank": 45
           },
           "30d": {
-            "stars": 838,
-            "score": 0.1375,
+            "stars": 849,
+            "score": 0.1381,
             "rank": 67
           },
           "90d": {
-            "stars": 838,
-            "score": 0.1375,
+            "stars": 849,
+            "score": 0.1381,
             "rank": 67
           }
         },
@@ -8240,7 +8240,7 @@
           666,
           774,
           849,
-          874
+          885
         ]
       },
       {
@@ -8248,28 +8248,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1738,
-          "score": 0.9181,
-          "rank": 58,
+          "stars": 1742,
+          "score": 0.9179,
+          "rank": 59,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 278,
-            "score": -0.0013,
-            "rank": -18
+            "stars": 282,
+            "score": -0.0015,
+            "rank": -19
           },
           "30d": {
-            "stars": 835,
-            "score": 0.0036,
-            "rank": -36
+            "stars": 839,
+            "score": 0.0034,
+            "rank": -37
           },
           "90d": {
-            "stars": 835,
-            "score": 0.0036,
-            "rank": -36
+            "stars": 839,
+            "score": 0.0034,
+            "rank": -37
           }
         },
         "direction": "steady",
@@ -8285,7 +8285,7 @@
           1630,
           1674,
           1715,
-          1738
+          1742
         ]
       },
       {
@@ -8293,8 +8293,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1054,
-          "score": 0.9397,
+          "stars": 1062,
+          "score": 0.9395,
           "rank": 43,
           "certified": false,
           "npmWeekly": null,
@@ -8302,18 +8302,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 446,
-            "score": 0.0218,
+            "stars": 454,
+            "score": 0.0216,
             "rank": -1
           },
           "30d": {
-            "stars": 718,
-            "score": 0.0476,
+            "stars": 726,
+            "score": 0.0474,
             "rank": -14
           },
           "90d": {
-            "stars": 718,
-            "score": 0.0476,
+            "stars": 726,
+            "score": 0.0474,
             "rank": -14
           }
         },
@@ -8330,7 +8330,7 @@
           898,
           952,
           1010,
-          1054
+          1062
         ]
       },
       {
@@ -8338,8 +8338,8 @@
         "firstSeen": "2026-08-17",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 681,
-          "score": 0.9816,
+          "stars": 685,
+          "score": 0.9817,
           "rank": 23,
           "certified": false,
           "npmWeekly": null,
@@ -8347,18 +8347,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 459,
-            "score": 0.0474,
+            "stars": 463,
+            "score": 0.0475,
             "rank": 10
           },
           "30d": {
-            "stars": 607,
-            "score": 0.0948,
+            "stars": 611,
+            "score": 0.0949,
             "rank": 22
           },
           "90d": {
-            "stars": 607,
-            "score": 0.0948,
+            "stars": 611,
+            "score": 0.0949,
             "rank": 22
           }
         },
@@ -8373,7 +8373,7 @@
           529,
           593,
           652,
-          681
+          685
         ]
       },
       {
@@ -8381,8 +8381,8 @@
         "firstSeen": "2026-08-16",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 495,
-          "score": 0.9673,
+          "stars": 500,
+          "score": 0.9675,
           "rank": 29,
           "certified": false,
           "npmWeekly": null,
@@ -8390,18 +8390,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 333,
-            "score": 0.0491,
+            "stars": 338,
+            "score": 0.0493,
             "rank": 12
           },
           "30d": {
-            "stars": 436,
-            "score": 0.0901,
+            "stars": 441,
+            "score": 0.0903,
             "rank": 19
           },
           "90d": {
-            "stars": 436,
-            "score": 0.0901,
+            "stars": 441,
+            "score": 0.0903,
             "rank": 19
           }
         },
@@ -8417,7 +8417,7 @@
           358,
           406,
           455,
-          495
+          500
         ]
       },
       {
@@ -8425,8 +8425,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 831,
-          "score": 0.9901,
+          "stars": 833,
+          "score": 0.99,
           "rank": 20,
           "certified": false,
           "npmWeekly": null,
@@ -8434,18 +8434,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 80,
-            "score": 0.0029,
+            "stars": 82,
+            "score": 0.0028,
             "rank": -5
           },
           "30d": {
-            "stars": 398,
-            "score": 0.0267,
+            "stars": 400,
+            "score": 0.0266,
             "rank": -12
           },
           "90d": {
-            "stars": 398,
-            "score": 0.0267,
+            "stars": 400,
+            "score": 0.0266,
             "rank": -12
           }
         },
@@ -8462,7 +8462,7 @@
           817,
           819,
           825,
-          831
+          833
         ]
       },
       {
@@ -8470,8 +8470,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 423,
-          "score": 0.9613,
+          "stars": 424,
+          "score": 0.9612,
           "rank": 33,
           "certified": false,
           "npmWeekly": null,
@@ -8479,18 +8479,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 217,
-            "score": 0.0309,
+            "stars": 218,
+            "score": 0.0308,
             "rank": 1
           },
           "30d": {
-            "stars": 377,
-            "score": 0.0952,
+            "stars": 378,
+            "score": 0.0951,
             "rank": 13
           },
           "90d": {
-            "stars": 377,
-            "score": 0.0952,
+            "stars": 378,
+            "score": 0.0951,
             "rank": 13
           }
         },
@@ -8507,7 +8507,7 @@
           365,
           396,
           417,
-          423
+          424
         ]
       },
       {
@@ -8515,8 +8515,8 @@
         "firstSeen": "2026-08-23",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1060,
-          "score": 0.9964,
+          "stars": 1074,
+          "score": 0.9962,
           "rank": 16,
           "certified": false,
           "npmWeekly": null,
@@ -8524,18 +8524,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 346,
-            "score": 0.0122,
+            "stars": 360,
+            "score": 0.012,
             "rank": 2
           },
           "30d": {
-            "stars": 346,
-            "score": 0.0122,
+            "stars": 360,
+            "score": 0.012,
             "rank": 2
           },
           "90d": {
-            "stars": 346,
-            "score": 0.0122,
+            "stars": 360,
+            "score": 0.012,
             "rank": 2
           }
         },
@@ -8544,7 +8544,7 @@
           714,
           864,
           996,
-          1060
+          1074
         ]
       },
       {
@@ -8552,8 +8552,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 464,
-          "score": 0.9644,
+          "stars": 468,
+          "score": 0.9669,
           "rank": 30,
           "certified": false,
           "npmWeekly": null,
@@ -8561,18 +8561,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 139,
-            "score": 0.0136,
+            "stars": 143,
+            "score": 0.0161,
             "rank": -3
           },
           "30d": {
-            "stars": 302,
-            "score": 0.0437,
+            "stars": 306,
+            "score": 0.0462,
             "rank": -11
           },
           "90d": {
-            "stars": 302,
-            "score": 0.0437,
+            "stars": 306,
+            "score": 0.0462,
             "rank": -11
           }
         },
@@ -8589,7 +8589,43 @@
           405,
           427,
           456,
-          464
+          468
+        ]
+      },
+      {
+        "fullName": "zhu1090093659/dsh-web",
+        "firstSeen": "2026-08-24",
+        "lastSeen": "2026-08-26",
+        "current": {
+          "stars": 6173,
+          "score": 1,
+          "rank": 1,
+          "certified": false,
+          "npmWeekly": null,
+          "npmMonthly": null
+        },
+        "deltas": {
+          "7d": {
+            "stars": 263,
+            "score": 0.0007,
+            "rank": 9
+          },
+          "30d": {
+            "stars": 263,
+            "score": 0.0007,
+            "rank": 9
+          },
+          "90d": {
+            "stars": 263,
+            "score": 0.0007,
+            "rank": 9
+          }
+        },
+        "direction": "new",
+        "sparkline": [
+          5910,
+          6050,
+          6173
         ]
       },
       {
@@ -8597,8 +8633,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 5671,
-          "score": 0.9984,
+          "stars": 5675,
+          "score": 0.9982,
           "rank": 14,
           "certified": false,
           "npmWeekly": null,
@@ -8606,18 +8642,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 91,
-            "score": -0.0003,
+            "stars": 95,
+            "score": -0.0005,
             "rank": -3
           },
           "30d": {
-            "stars": 248,
-            "score": 0.1184,
+            "stars": 252,
+            "score": 0.1182,
             "rank": 18
           },
           "90d": {
-            "stars": 248,
-            "score": 0.1184,
+            "stars": 252,
+            "score": 0.1182,
             "rank": 18
           }
         },
@@ -8634,43 +8670,7 @@
           5634,
           5645,
           5663,
-          5671
-        ]
-      },
-      {
-        "fullName": "zhu1090093659/dsh-web",
-        "firstSeen": "2026-08-24",
-        "lastSeen": "2026-08-26",
-        "current": {
-          "stars": 6152,
-          "score": 0.9999,
-          "rank": 5,
-          "certified": false,
-          "npmWeekly": null,
-          "npmMonthly": null
-        },
-        "deltas": {
-          "7d": {
-            "stars": 242,
-            "score": 0.0006,
-            "rank": 5
-          },
-          "30d": {
-            "stars": 242,
-            "score": 0.0006,
-            "rank": 5
-          },
-          "90d": {
-            "stars": 242,
-            "score": 0.0006,
-            "rank": 5
-          }
-        },
-        "direction": "new",
-        "sparkline": [
-          5910,
-          6050,
-          6152
+          5675
         ]
       }
     ],
@@ -8680,8 +8680,8 @@
         "firstSeen": "2026-08-17",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 874,
-          "score": 0.994,
+          "stars": 885,
+          "score": 0.9946,
           "rank": 18,
           "certified": false,
           "npmWeekly": null,
@@ -8689,18 +8689,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 803,
-            "score": 0.1086,
+            "stars": 814,
+            "score": 0.1092,
             "rank": 45
           },
           "30d": {
-            "stars": 838,
-            "score": 0.1375,
+            "stars": 849,
+            "score": 0.1381,
             "rank": 67
           },
           "90d": {
-            "stars": 838,
-            "score": 0.1375,
+            "stars": 849,
+            "score": 0.1381,
             "rank": 67
           }
         },
@@ -8715,7 +8715,7 @@
           666,
           774,
           849,
-          874
+          885
         ]
       },
       {
@@ -8723,28 +8723,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1051,
-          "score": 1,
-          "rank": 3,
+          "stars": 1058,
+          "score": 0.9999,
+          "rank": 5,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 566,
-            "score": 0.0315,
-            "rank": 17
+            "stars": 573,
+            "score": 0.0314,
+            "rank": 15
           },
           "30d": {
-            "stars": 1009,
-            "score": 0.1371,
-            "rank": 45
+            "stars": 1016,
+            "score": 0.137,
+            "rank": 43
           },
           "90d": {
-            "stars": 1009,
-            "score": 0.1371,
-            "rank": 45
+            "stars": 1016,
+            "score": 0.137,
+            "rank": 43
           }
         },
         "direction": "rising",
@@ -8760,7 +8760,7 @@
           939,
           1001,
           1029,
-          1051
+          1058
         ]
       },
       {
@@ -8769,8 +8769,8 @@
         "lastSeen": "2026-08-26",
         "current": {
           "stars": 162,
-          "score": 0.9169,
-          "rank": 59,
+          "score": 0.9167,
+          "rank": 61,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
@@ -8778,18 +8778,18 @@
         "deltas": {
           "7d": {
             "stars": 50,
-            "score": 0.0165,
-            "rank": -7
+            "score": 0.0163,
+            "rank": -9
           },
           "30d": {
             "stars": 142,
-            "score": 0.0872,
-            "rank": 41
+            "score": 0.087,
+            "rank": 39
           },
           "90d": {
             "stars": 142,
-            "score": 0.0872,
-            "rank": 41
+            "score": 0.087,
+            "rank": 39
           }
         },
         "direction": "rising",
@@ -8811,8 +8811,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 575,
-          "score": 0.9748,
+          "stars": 576,
+          "score": 0.9746,
           "rank": 26,
           "certified": false,
           "npmWeekly": null,
@@ -8825,13 +8825,13 @@
             "rank": 0
           },
           "30d": {
-            "stars": 59,
-            "score": 0.1269,
+            "stars": 60,
+            "score": 0.1267,
             "rank": 34
           },
           "90d": {
-            "stars": 59,
-            "score": 0.1269,
+            "stars": 60,
+            "score": 0.1267,
             "rank": 34
           }
         },
@@ -8840,7 +8840,47 @@
           516,
           524,
           540,
-          575
+          576
+        ]
+      },
+      {
+        "fullName": "dream-num/dsh-univer-office",
+        "firstSeen": "2026-08-20",
+        "lastSeen": "2026-08-26",
+        "current": {
+          "stars": 152,
+          "score": 0.9183,
+          "rank": 58,
+          "certified": false,
+          "npmWeekly": null,
+          "npmMonthly": null
+        },
+        "deltas": {
+          "7d": {
+            "stars": 97,
+            "score": 0.0443,
+            "rank": 34
+          },
+          "30d": {
+            "stars": 97,
+            "score": 0.0443,
+            "rank": 34
+          },
+          "90d": {
+            "stars": 97,
+            "score": 0.0443,
+            "rank": 34
+          }
+        },
+        "direction": "new",
+        "sparkline": [
+          55,
+          62,
+          73,
+          82,
+          106,
+          129,
+          152
         ]
       },
       {
@@ -8848,28 +8888,28 @@
         "firstSeen": "2026-08-18",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 211,
-          "score": 0.9324,
-          "rank": 51,
+          "stars": 217,
+          "score": 0.9338,
+          "rank": 50,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 133,
-            "score": 0.0431,
-            "rank": 8
+            "stars": 139,
+            "score": 0.0445,
+            "rank": 9
           },
           "30d": {
-            "stars": 163,
-            "score": 0.0651,
-            "rank": 32
+            "stars": 169,
+            "score": 0.0665,
+            "rank": 33
           },
           "90d": {
-            "stars": 163,
-            "score": 0.0651,
-            "rank": 32
+            "stars": 169,
+            "score": 0.0665,
+            "rank": 33
           }
         },
         "direction": "rising",
@@ -8882,47 +8922,7 @@
           154,
           178,
           195,
-          211
-        ]
-      },
-      {
-        "fullName": "dream-num/dsh-univer-office",
-        "firstSeen": "2026-08-20",
-        "lastSeen": "2026-08-26",
-        "current": {
-          "stars": 144,
-          "score": 0.916,
-          "rank": 61,
-          "certified": false,
-          "npmWeekly": null,
-          "npmMonthly": null
-        },
-        "deltas": {
-          "7d": {
-            "stars": 89,
-            "score": 0.042,
-            "rank": 31
-          },
-          "30d": {
-            "stars": 89,
-            "score": 0.042,
-            "rank": 31
-          },
-          "90d": {
-            "stars": 89,
-            "score": 0.042,
-            "rank": 31
-          }
-        },
-        "direction": "new",
-        "sparkline": [
-          55,
-          62,
-          73,
-          82,
-          106,
-          129,
-          144
+          217
         ]
       },
       {
@@ -8930,8 +8930,8 @@
         "firstSeen": "2026-08-17",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 144,
-          "score": 0.908,
+          "stars": 145,
+          "score": 0.9081,
           "rank": 69,
           "certified": false,
           "npmWeekly": null,
@@ -8939,18 +8939,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 88,
-            "score": 0.0335,
+            "stars": 89,
+            "score": 0.0336,
             "rank": 18
           },
           "30d": {
-            "stars": 117,
-            "score": 0.0644,
+            "stars": 118,
+            "score": 0.0645,
             "rank": 29
           },
           "90d": {
-            "stars": 117,
-            "score": 0.0644,
+            "stars": 118,
+            "score": 0.0645,
             "rank": 29
           }
         },
@@ -8965,7 +8965,7 @@
           108,
           118,
           131,
-          144
+          145
         ]
       },
       {
@@ -8973,8 +8973,8 @@
         "firstSeen": "2026-08-20",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 151,
-          "score": 0.9157,
+          "stars": 152,
+          "score": 0.9158,
           "rank": 62,
           "certified": false,
           "npmWeekly": null,
@@ -8982,18 +8982,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 91,
-            "score": 0.0402,
+            "stars": 92,
+            "score": 0.0403,
             "rank": 26
           },
           "30d": {
-            "stars": 91,
-            "score": 0.0402,
+            "stars": 92,
+            "score": 0.0403,
             "rank": 26
           },
           "90d": {
-            "stars": 91,
-            "score": 0.0402,
+            "stars": 92,
+            "score": 0.0403,
             "rank": 26
           }
         },
@@ -9005,7 +9005,7 @@
           135,
           138,
           144,
-          151
+          152
         ]
       },
       {
@@ -9013,8 +9013,8 @@
         "firstSeen": "2026-08-17",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 110,
-          "score": 0.9044,
+          "stars": 111,
+          "score": 0.9048,
           "rank": 75,
           "certified": false,
           "npmWeekly": null,
@@ -9022,18 +9022,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 53,
-            "score": 0.0313,
+            "stars": 54,
+            "score": 0.0317,
             "rank": 19
           },
           "30d": {
-            "stars": 84,
-            "score": 0.0627,
+            "stars": 85,
+            "score": 0.0631,
             "rank": 25
           },
           "90d": {
-            "stars": 84,
-            "score": 0.0627,
+            "stars": 85,
+            "score": 0.0631,
             "rank": 25
           }
         },
@@ -9047,7 +9047,7 @@
           89,
           96,
           107,
-          110
+          111
         ]
       },
       {
@@ -9055,8 +9055,8 @@
         "firstSeen": "2026-08-17",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 681,
-          "score": 0.9816,
+          "stars": 685,
+          "score": 0.9817,
           "rank": 23,
           "certified": false,
           "npmWeekly": null,
@@ -9064,18 +9064,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 459,
-            "score": 0.0474,
+            "stars": 463,
+            "score": 0.0475,
             "rank": 10
           },
           "30d": {
-            "stars": 607,
-            "score": 0.0948,
+            "stars": 611,
+            "score": 0.0949,
             "rank": 22
           },
           "90d": {
-            "stars": 607,
-            "score": 0.0948,
+            "stars": 611,
+            "score": 0.0949,
             "rank": 22
           }
         },
@@ -9090,7 +9090,7 @@
           529,
           593,
           652,
-          681
+          685
         ]
       },
       {
@@ -9098,8 +9098,8 @@
         "firstSeen": "2026-08-16",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 495,
-          "score": 0.9673,
+          "stars": 500,
+          "score": 0.9675,
           "rank": 29,
           "certified": false,
           "npmWeekly": null,
@@ -9107,18 +9107,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 333,
-            "score": 0.0491,
+            "stars": 338,
+            "score": 0.0493,
             "rank": 12
           },
           "30d": {
-            "stars": 436,
-            "score": 0.0901,
+            "stars": 441,
+            "score": 0.0903,
             "rank": 19
           },
           "90d": {
-            "stars": 436,
-            "score": 0.0901,
+            "stars": 441,
+            "score": 0.0903,
             "rank": 19
           }
         },
@@ -9134,7 +9134,7 @@
           358,
           406,
           455,
-          495
+          500
         ]
       },
       {
@@ -9142,8 +9142,8 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 5671,
-          "score": 0.9984,
+          "stars": 5675,
+          "score": 0.9982,
           "rank": 14,
           "certified": false,
           "npmWeekly": null,
@@ -9151,18 +9151,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 91,
-            "score": -0.0003,
+            "stars": 95,
+            "score": -0.0005,
             "rank": -3
           },
           "30d": {
-            "stars": 248,
-            "score": 0.1184,
+            "stars": 252,
+            "score": 0.1182,
             "rank": 18
           },
           "90d": {
-            "stars": 248,
-            "score": 0.1184,
+            "stars": 252,
+            "score": 0.1182,
             "rank": 18
           }
         },
@@ -9179,7 +9179,92 @@
           5634,
           5645,
           5663,
-          5671
+          5675
+        ]
+      },
+      {
+        "fullName": "pengyue-polaron/deepseek-harness-genui",
+        "firstSeen": "2026-08-18",
+        "lastSeen": "2026-08-26",
+        "current": {
+          "stars": 106,
+          "score": 0.9029,
+          "rank": 77,
+          "certified": false,
+          "npmWeekly": null,
+          "npmMonthly": null
+        },
+        "deltas": {
+          "7d": {
+            "stars": 57,
+            "score": 0.0341,
+            "rank": 16
+          },
+          "30d": {
+            "stars": 67,
+            "score": 0.0433,
+            "rank": 18
+          },
+          "90d": {
+            "stars": 67,
+            "score": 0.0433,
+            "rank": 18
+          }
+        },
+        "direction": "rising",
+        "sparkline": [
+          39,
+          49,
+          57,
+          68,
+          80,
+          91,
+          100,
+          106,
+          106
+        ]
+      },
+      {
+        "fullName": "toolclub/dsh-agent-team-gui",
+        "firstSeen": "2026-08-17",
+        "lastSeen": "2026-08-26",
+        "current": {
+          "stars": 139,
+          "score": 0.91,
+          "rank": 66,
+          "certified": false,
+          "npmWeekly": null,
+          "npmMonthly": null
+        },
+        "deltas": {
+          "7d": {
+            "stars": 32,
+            "score": 0.0083,
+            "rank": -15
+          },
+          "30d": {
+            "stars": 102,
+            "score": 0.0524,
+            "rank": 17
+          },
+          "90d": {
+            "stars": 102,
+            "score": 0.0524,
+            "rank": 17
+          }
+        },
+        "direction": "rising",
+        "sparkline": [
+          37,
+          60,
+          107,
+          109,
+          115,
+          117,
+          119,
+          128,
+          131,
+          139
         ]
       },
       {
@@ -9188,7 +9273,7 @@
         "lastSeen": "2026-08-26",
         "current": {
           "stars": 233,
-          "score": 0.9367,
+          "score": 0.9365,
           "rank": 47,
           "certified": false,
           "npmWeekly": null,
@@ -9197,17 +9282,17 @@
         "deltas": {
           "7d": {
             "stars": 110,
-            "score": 0.0279,
+            "score": 0.0277,
             "rank": -1
           },
           "30d": {
             "stars": 204,
-            "score": 0.0909,
+            "score": 0.0907,
             "rank": 15
           },
           "90d": {
             "stars": 204,
-            "score": 0.0909,
+            "score": 0.0907,
             "rank": 15
           }
         },
@@ -9228,55 +9313,12 @@
         ]
       },
       {
-        "fullName": "toolclub/dsh-agent-team-gui",
-        "firstSeen": "2026-08-17",
-        "lastSeen": "2026-08-26",
-        "current": {
-          "stars": 137,
-          "score": 0.9095,
-          "rank": 68,
-          "certified": false,
-          "npmWeekly": null,
-          "npmMonthly": null
-        },
-        "deltas": {
-          "7d": {
-            "stars": 30,
-            "score": 0.0078,
-            "rank": -17
-          },
-          "30d": {
-            "stars": 100,
-            "score": 0.0519,
-            "rank": 15
-          },
-          "90d": {
-            "stars": 100,
-            "score": 0.0519,
-            "rank": 15
-          }
-        },
-        "direction": "rising",
-        "sparkline": [
-          37,
-          60,
-          107,
-          109,
-          115,
-          117,
-          119,
-          128,
-          131,
-          137
-        ]
-      },
-      {
         "fullName": "PC2005-cloud/dsh-pet",
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 423,
-          "score": 0.9613,
+          "stars": 424,
+          "score": 0.9612,
           "rank": 33,
           "certified": false,
           "npmWeekly": null,
@@ -9284,18 +9326,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 217,
-            "score": 0.0309,
+            "stars": 218,
+            "score": 0.0308,
             "rank": 1
           },
           "30d": {
-            "stars": 377,
-            "score": 0.0952,
+            "stars": 378,
+            "score": 0.0951,
             "rank": 13
           },
           "90d": {
-            "stars": 377,
-            "score": 0.0952,
+            "stars": 378,
+            "score": 0.0951,
             "rank": 13
           }
         },
@@ -9312,49 +9354,7 @@
           365,
           396,
           417,
-          423
-        ]
-      },
-      {
-        "fullName": "pengyue-polaron/deepseek-harness-genui",
-        "firstSeen": "2026-08-18",
-        "lastSeen": "2026-08-26",
-        "current": {
-          "stars": 106,
-          "score": 0.8992,
-          "rank": 82,
-          "certified": false,
-          "npmWeekly": null,
-          "npmMonthly": null
-        },
-        "deltas": {
-          "7d": {
-            "stars": 57,
-            "score": 0.0304,
-            "rank": 11
-          },
-          "30d": {
-            "stars": 67,
-            "score": 0.0396,
-            "rank": 13
-          },
-          "90d": {
-            "stars": 67,
-            "score": 0.0396,
-            "rank": 13
-          }
-        },
-        "direction": "rising",
-        "sparkline": [
-          39,
-          49,
-          57,
-          68,
-          80,
-          91,
-          100,
-          106,
-          106
+          424
         ]
       },
       {
@@ -9363,7 +9363,7 @@
         "lastSeen": "2026-08-26",
         "current": {
           "stars": 92,
-          "score": 0.8928,
+          "score": 0.8926,
           "rank": 87,
           "certified": false,
           "npmWeekly": null,
@@ -9372,17 +9372,17 @@
         "deltas": {
           "7d": {
             "stars": 41,
-            "score": 0.0216,
+            "score": 0.0214,
             "rank": 13
           },
           "30d": {
             "stars": 41,
-            "score": 0.0216,
+            "score": 0.0214,
             "rank": 13
           },
           "90d": {
             "stars": 41,
-            "score": 0.0216,
+            "score": 0.0214,
             "rank": 13
           }
         },
@@ -9397,12 +9397,57 @@
         ]
       },
       {
+        "fullName": "ysr666/dsh-vision-router",
+        "firstSeen": "2026-08-15",
+        "lastSeen": "2026-08-26",
+        "current": {
+          "stars": 992,
+          "score": 0.9996,
+          "rank": 11,
+          "certified": true,
+          "npmWeekly": 22620,
+          "npmMonthly": 44299
+        },
+        "deltas": {
+          "7d": {
+            "stars": 148,
+            "score": 0.0071,
+            "rank": 3
+          },
+          "30d": {
+            "stars": 849,
+            "score": 0.0838,
+            "rank": 10
+          },
+          "90d": {
+            "stars": 849,
+            "score": 0.0838,
+            "rank": 10
+          }
+        },
+        "direction": "rising",
+        "sparkline": [
+          143,
+          429,
+          633,
+          756,
+          844,
+          903,
+          931,
+          937,
+          943,
+          962,
+          973,
+          992
+        ]
+      },
+      {
         "fullName": "omdsh-dev/dsh-data-agent",
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
           "stars": 171,
-          "score": 0.9231,
+          "score": 0.9229,
           "rank": 56,
           "certified": false,
           "npmWeekly": null,
@@ -9411,17 +9456,17 @@
         "deltas": {
           "7d": {
             "stars": 109,
-            "score": 0.0442,
+            "score": 0.044,
             "rank": 23
           },
           "30d": {
             "stars": 144,
-            "score": 0.0791,
+            "score": 0.0789,
             "rank": 10
           },
           "90d": {
             "stars": 144,
-            "score": 0.0791,
+            "score": 0.0789,
             "rank": 10
           }
         },
@@ -9446,8 +9491,8 @@
         "firstSeen": "2026-08-21",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 137,
-          "score": 0.9131,
+          "stars": 138,
+          "score": 0.9132,
           "rank": 64,
           "certified": false,
           "npmWeekly": null,
@@ -9455,18 +9500,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 67,
-            "score": 0.0286,
+            "stars": 68,
+            "score": 0.0287,
             "rank": 10
           },
           "30d": {
-            "stars": 67,
-            "score": 0.0286,
+            "stars": 68,
+            "score": 0.0287,
             "rank": 10
           },
           "90d": {
-            "stars": 67,
-            "score": 0.0286,
+            "stars": 68,
+            "score": 0.0287,
             "rank": 10
           }
         },
@@ -9477,52 +9522,7 @@
           115,
           126,
           134,
-          137
-        ]
-      },
-      {
-        "fullName": "ysr666/dsh-vision-router",
-        "firstSeen": "2026-08-15",
-        "lastSeen": "2026-08-26",
-        "current": {
-          "stars": 988,
-          "score": 0.9994,
-          "rank": 13,
-          "certified": true,
-          "npmWeekly": 22620,
-          "npmMonthly": 44299
-        },
-        "deltas": {
-          "7d": {
-            "stars": 144,
-            "score": 0.0069,
-            "rank": 1
-          },
-          "30d": {
-            "stars": 845,
-            "score": 0.0836,
-            "rank": 8
-          },
-          "90d": {
-            "stars": 845,
-            "score": 0.0836,
-            "rank": 8
-          }
-        },
-        "direction": "rising",
-        "sparkline": [
-          143,
-          429,
-          633,
-          756,
-          844,
-          903,
-          931,
-          937,
-          943,
-          962,
-          973,
-          988
+          138
         ]
       }
     ],
@@ -9532,28 +9532,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 988,
-          "score": 0.9994,
-          "rank": 13,
+          "stars": 992,
+          "score": 0.9996,
+          "rank": 11,
           "certified": true,
           "npmWeekly": 22620,
           "npmMonthly": 44299
         },
         "deltas": {
           "7d": {
-            "stars": 144,
-            "score": 0.0069,
-            "rank": 1
+            "stars": 148,
+            "score": 0.0071,
+            "rank": 3
           },
           "30d": {
-            "stars": 845,
-            "score": 0.0836,
-            "rank": 8
+            "stars": 849,
+            "score": 0.0838,
+            "rank": 10
           },
           "90d": {
-            "stars": 845,
-            "score": 0.0836,
-            "rank": 8
+            "stars": 849,
+            "score": 0.0838,
+            "rank": 10
           }
         },
         "direction": "rising",
@@ -9569,7 +9569,7 @@
           943,
           962,
           973,
-          988
+          992
         ]
       }
     ],
@@ -9579,9 +9579,9 @@
         "firstSeen": "2026-08-26",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 280,
-          "score": 0.9443,
-          "rank": 39,
+          "stars": 284,
+          "score": 0.9447,
+          "rank": 40,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
@@ -9605,7 +9605,7 @@
         },
         "direction": "new",
         "sparkline": [
-          280
+          284
         ]
       },
       {
@@ -9613,8 +9613,8 @@
         "firstSeen": "2026-08-26",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 235,
-          "score": 0.9373,
+          "stars": 236,
+          "score": 0.9372,
           "rank": 45,
           "certified": false,
           "npmWeekly": null,
@@ -9639,7 +9639,7 @@
         },
         "direction": "new",
         "sparkline": [
-          235
+          236
         ]
       },
       {
@@ -9647,8 +9647,8 @@
         "firstSeen": "2026-08-25",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 83,
-          "score": 0.8915,
+          "stars": 84,
+          "score": 0.8918,
           "rank": 89,
           "certified": false,
           "npmWeekly": null,
@@ -9656,25 +9656,25 @@
         },
         "deltas": {
           "7d": {
-            "stars": 8,
-            "score": 0.009,
+            "stars": 9,
+            "score": 0.0093,
             "rank": 5
           },
           "30d": {
-            "stars": 8,
-            "score": 0.009,
+            "stars": 9,
+            "score": 0.0093,
             "rank": 5
           },
           "90d": {
-            "stars": 8,
-            "score": 0.009,
+            "stars": 9,
+            "score": 0.0093,
             "rank": 5
           }
         },
         "direction": "new",
         "sparkline": [
           75,
-          83
+          84
         ]
       },
       {
@@ -9682,35 +9682,35 @@
         "firstSeen": "2026-08-24",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 20581,
-          "score": 0.9999,
-          "rank": 4,
+          "stars": 20657,
+          "score": 0.9998,
+          "rank": 6,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 929,
-            "score": 0.0002,
-            "rank": -1
+            "stars": 1005,
+            "score": 0.0001,
+            "rank": -3
           },
           "30d": {
-            "stars": 929,
-            "score": 0.0002,
-            "rank": -1
+            "stars": 1005,
+            "score": 0.0001,
+            "rank": -3
           },
           "90d": {
-            "stars": 929,
-            "score": 0.0002,
-            "rank": -1
+            "stars": 1005,
+            "score": 0.0001,
+            "rank": -3
           }
         },
         "direction": "new",
         "sparkline": [
           19652,
           20178,
-          20581
+          20657
         ]
       },
       {
@@ -9718,35 +9718,35 @@
         "firstSeen": "2026-08-24",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 6152,
-          "score": 0.9999,
-          "rank": 5,
+          "stars": 6173,
+          "score": 1,
+          "rank": 1,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 242,
-            "score": 0.0006,
-            "rank": 5
+            "stars": 263,
+            "score": 0.0007,
+            "rank": 9
           },
           "30d": {
-            "stars": 242,
-            "score": 0.0006,
-            "rank": 5
+            "stars": 263,
+            "score": 0.0007,
+            "rank": 9
           },
           "90d": {
-            "stars": 242,
-            "score": 0.0006,
-            "rank": 5
+            "stars": 263,
+            "score": 0.0007,
+            "rank": 9
           }
         },
         "direction": "new",
         "sparkline": [
           5910,
           6050,
-          6152
+          6173
         ]
       },
       {
@@ -9755,7 +9755,7 @@
         "lastSeen": "2026-08-26",
         "current": {
           "stars": 2515,
-          "score": 0.9935,
+          "score": 0.9933,
           "rank": 19,
           "certified": false,
           "npmWeekly": null,
@@ -9764,17 +9764,17 @@
         "deltas": {
           "7d": {
             "stars": 18,
-            "score": -0.0031,
+            "score": -0.0033,
             "rank": -3
           },
           "30d": {
             "stars": 18,
-            "score": -0.0031,
+            "score": -0.0033,
             "rank": -3
           },
           "90d": {
             "stars": 18,
-            "score": -0.0031,
+            "score": -0.0033,
             "rank": -3
           }
         },
@@ -9790,7 +9790,7 @@
         "firstSeen": "2026-08-23",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1220,
+          "stars": 1231,
           "score": 0.9998,
           "rank": 9,
           "certified": false,
@@ -9799,17 +9799,17 @@
         },
         "deltas": {
           "7d": {
-            "stars": 222,
+            "stars": 233,
             "score": 0.0004,
             "rank": 0
           },
           "30d": {
-            "stars": 222,
+            "stars": 233,
             "score": 0.0004,
             "rank": 0
           },
           "90d": {
-            "stars": 222,
+            "stars": 233,
             "score": 0.0004,
             "rank": 0
           }
@@ -9819,7 +9819,7 @@
           998,
           1104,
           1177,
-          1220
+          1231
         ]
       },
       {
@@ -9827,8 +9827,8 @@
         "firstSeen": "2026-08-23",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1060,
-          "score": 0.9964,
+          "stars": 1074,
+          "score": 0.9962,
           "rank": 16,
           "certified": false,
           "npmWeekly": null,
@@ -9836,18 +9836,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 346,
-            "score": 0.0122,
+            "stars": 360,
+            "score": 0.012,
             "rank": 2
           },
           "30d": {
-            "stars": 346,
-            "score": 0.0122,
+            "stars": 360,
+            "score": 0.012,
             "rank": 2
           },
           "90d": {
-            "stars": 346,
-            "score": 0.0122,
+            "stars": 360,
+            "score": 0.012,
             "rank": 2
           }
         },
@@ -9856,7 +9856,7 @@
           714,
           864,
           996,
-          1060
+          1074
         ]
       },
       {
@@ -9902,7 +9902,7 @@
         "lastSeen": "2026-08-26",
         "current": {
           "stars": 632,
-          "score": 0.978,
+          "score": 0.9778,
           "rank": 25,
           "certified": false,
           "npmWeekly": null,
@@ -9911,17 +9911,17 @@
         "deltas": {
           "7d": {
             "stars": 11,
-            "score": -0.0009,
+            "score": -0.0011,
             "rank": -4
           },
           "30d": {
             "stars": 11,
-            "score": -0.0009,
+            "score": -0.0011,
             "rank": -4
           },
           "90d": {
             "stars": 11,
-            "score": -0.0009,
+            "score": -0.0011,
             "rank": -4
           }
         },
@@ -9938,28 +9938,28 @@
         "firstSeen": "2026-08-23",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 140,
-          "score": 0.9096,
-          "rank": 66,
+          "stars": 141,
+          "score": 0.9097,
+          "rank": 67,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 8,
-            "score": -0.0025,
-            "rank": -8
+            "stars": 9,
+            "score": -0.0024,
+            "rank": -9
           },
           "30d": {
-            "stars": 8,
-            "score": -0.0025,
-            "rank": -8
+            "stars": 9,
+            "score": -0.0024,
+            "rank": -9
           },
           "90d": {
-            "stars": 8,
-            "score": -0.0025,
-            "rank": -8
+            "stars": 9,
+            "score": -0.0024,
+            "rank": -9
           }
         },
         "direction": "new",
@@ -9967,7 +9967,7 @@
           132,
           134,
           135,
-          140
+          141
         ]
       },
       {
@@ -9975,8 +9975,8 @@
         "firstSeen": "2026-08-23",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 124,
-          "score": 0.9074,
+          "stars": 125,
+          "score": 0.9075,
           "rank": 70,
           "certified": false,
           "npmWeekly": null,
@@ -9984,18 +9984,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 16,
-            "score": 0.0048,
+            "stars": 17,
+            "score": 0.0049,
             "rank": -3
           },
           "30d": {
-            "stars": 16,
-            "score": 0.0048,
+            "stars": 17,
+            "score": 0.0049,
             "rank": -3
           },
           "90d": {
-            "stars": 16,
-            "score": 0.0048,
+            "stars": 17,
+            "score": 0.0049,
             "rank": -3
           }
         },
@@ -10004,7 +10004,7 @@
           108,
           118,
           121,
-          124
+          125
         ]
       },
       {
@@ -10012,8 +10012,8 @@
         "firstSeen": "2026-08-23",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 104,
-          "score": 0.8909,
+          "stars": 106,
+          "score": 0.8915,
           "rank": 90,
           "certified": false,
           "npmWeekly": null,
@@ -10021,18 +10021,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 31,
-            "score": 0.0103,
+            "stars": 33,
+            "score": 0.0109,
             "rank": 1
           },
           "30d": {
-            "stars": 31,
-            "score": 0.0103,
+            "stars": 33,
+            "score": 0.0109,
             "rank": 1
           },
           "90d": {
-            "stars": 31,
-            "score": 0.0103,
+            "stars": 33,
+            "score": 0.0109,
             "rank": 1
           }
         },
@@ -10041,7 +10041,7 @@
           73,
           87,
           98,
-          104
+          106
         ]
       },
       {
@@ -10049,8 +10049,8 @@
         "firstSeen": "2026-08-22",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 254,
-          "score": 0.937,
+          "stars": 255,
+          "score": 0.9369,
           "rank": 46,
           "certified": false,
           "npmWeekly": null,
@@ -10058,18 +10058,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 47,
-            "score": 0.0078,
+            "stars": 48,
+            "score": 0.0077,
             "rank": -4
           },
           "30d": {
-            "stars": 47,
-            "score": 0.0078,
+            "stars": 48,
+            "score": 0.0077,
             "rank": -4
           },
           "90d": {
-            "stars": 47,
-            "score": 0.0078,
+            "stars": 48,
+            "score": 0.0077,
             "rank": -4
           }
         },
@@ -10079,7 +10079,7 @@
           218,
           242,
           253,
-          254
+          255
         ]
       },
       {
@@ -10088,8 +10088,8 @@
         "lastSeen": "2026-08-26",
         "current": {
           "stars": 119,
-          "score": 0.8991,
-          "rank": 83,
+          "score": 0.8989,
+          "rank": 84,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
@@ -10097,18 +10097,18 @@
         "deltas": {
           "7d": {
             "stars": 44,
-            "score": 0.0129,
-            "rank": -7
+            "score": 0.0127,
+            "rank": -8
           },
           "30d": {
             "stars": 44,
-            "score": 0.0129,
-            "rank": -7
+            "score": 0.0127,
+            "rank": -8
           },
           "90d": {
             "stars": 44,
-            "score": 0.0129,
-            "rank": -7
+            "score": 0.0127,
+            "rank": -8
           }
         },
         "direction": "new",
@@ -10125,28 +10125,28 @@
         "firstSeen": "2026-08-21",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 1372,
-          "score": 0.9995,
-          "rank": 11,
+          "stars": 1375,
+          "score": 0.9993,
+          "rank": 12,
           "certified": false,
           "npmWeekly": null,
           "npmMonthly": null
         },
         "deltas": {
           "7d": {
-            "stars": 122,
-            "score": 0.0004,
-            "rank": -1
+            "stars": 125,
+            "score": 0.0002,
+            "rank": -2
           },
           "30d": {
-            "stars": 122,
-            "score": 0.0004,
-            "rank": -1
+            "stars": 125,
+            "score": 0.0002,
+            "rank": -2
           },
           "90d": {
-            "stars": 122,
-            "score": 0.0004,
-            "rank": -1
+            "stars": 125,
+            "score": 0.0002,
+            "rank": -2
           }
         },
         "direction": "new",
@@ -10156,7 +10156,7 @@
           1280,
           1300,
           1322,
-          1372
+          1375
         ]
       },
       {
@@ -10164,8 +10164,8 @@
         "firstSeen": "2026-08-21",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 478,
-          "score": 0.9606,
+          "stars": 481,
+          "score": 0.9607,
           "rank": 34,
           "certified": false,
           "npmWeekly": null,
@@ -10173,18 +10173,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 29,
-            "score": -0.0022,
+            "stars": 32,
+            "score": -0.0021,
             "rank": -12
           },
           "30d": {
-            "stars": 29,
-            "score": -0.0022,
+            "stars": 32,
+            "score": -0.0021,
             "rank": -12
           },
           "90d": {
-            "stars": 29,
-            "score": -0.0022,
+            "stars": 32,
+            "score": -0.0021,
             "rank": -12
           }
         },
@@ -10195,7 +10195,7 @@
           461,
           467,
           474,
-          478
+          481
         ]
       },
       {
@@ -10203,7 +10203,7 @@
         "firstSeen": "2026-08-21",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 278,
+          "stars": 279,
           "score": 0.9405,
           "rank": 42,
           "certified": false,
@@ -10212,17 +10212,17 @@
         },
         "deltas": {
           "7d": {
-            "stars": 55,
+            "stars": 56,
             "score": 0.0065,
             "rank": -5
           },
           "30d": {
-            "stars": 55,
+            "stars": 56,
             "score": 0.0065,
             "rank": -5
           },
           "90d": {
-            "stars": 55,
+            "stars": 56,
             "score": 0.0065,
             "rank": -5
           }
@@ -10234,7 +10234,7 @@
           252,
           264,
           273,
-          278
+          279
         ]
       },
       {
@@ -10242,8 +10242,8 @@
         "firstSeen": "2026-08-21",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 137,
-          "score": 0.9131,
+          "stars": 138,
+          "score": 0.9132,
           "rank": 64,
           "certified": false,
           "npmWeekly": null,
@@ -10251,18 +10251,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 67,
-            "score": 0.0286,
+            "stars": 68,
+            "score": 0.0287,
             "rank": 10
           },
           "30d": {
-            "stars": 67,
-            "score": 0.0286,
+            "stars": 68,
+            "score": 0.0287,
             "rank": 10
           },
           "90d": {
-            "stars": 67,
-            "score": 0.0286,
+            "stars": 68,
+            "score": 0.0287,
             "rank": 10
           }
         },
@@ -10273,7 +10273,7 @@
           115,
           126,
           134,
-          137
+          138
         ]
       },
       {
@@ -10281,8 +10281,8 @@
         "firstSeen": "2026-08-21",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 68,
-          "score": 0.8837,
+          "stars": 67,
+          "score": 0.8829,
           "rank": 98,
           "certified": false,
           "npmWeekly": null,
@@ -10290,18 +10290,18 @@
         },
         "deltas": {
           "7d": {
-            "stars": 16,
-            "score": 0.0119,
+            "stars": 15,
+            "score": 0.0111,
             "rank": 0
           },
           "30d": {
-            "stars": 16,
-            "score": 0.0119,
+            "stars": 15,
+            "score": 0.0111,
             "rank": 0
           },
           "90d": {
-            "stars": 16,
-            "score": 0.0119,
+            "stars": 15,
+            "score": 0.0111,
             "rank": 0
           }
         },
@@ -10311,7 +10311,7 @@
           57,
           61,
           67,
-          68
+          67
         ]
       }
     ],
@@ -10321,28 +10321,28 @@
         "firstSeen": "2026-08-15",
         "lastSeen": "2026-08-26",
         "current": {
-          "stars": 988,
-          "score": 0.9994,
-          "rank": 13,
+          "stars": 992,
+          "score": 0.9996,
+          "rank": 11,
           "certified": true,
           "npmWeekly": 22620,
           "npmMonthly": 44299
         },
         "deltas": {
           "7d": {
-            "stars": 144,
-            "score": 0.0069,
-            "rank": 1
+            "stars": 148,
+            "score": 0.0071,
+            "rank": 3
           },
           "30d": {
-            "stars": 845,
-            "score": 0.0836,
-            "rank": 8
+            "stars": 849,
+            "score": 0.0838,
+            "rank": 10
           },
           "90d": {
-            "stars": 845,
-            "score": 0.0836,
-            "rank": 8
+            "stars": 849,
+            "score": 0.0838,
+            "rank": 10
           }
         },
         "direction": "rising",
@@ -10358,7 +10358,7 @@
           943,
           962,
           973,
-          988
+          992
         ]
       }
     ]
