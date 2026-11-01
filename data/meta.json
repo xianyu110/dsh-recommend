@@ -6,25 +6,25 @@
     "quality": 0.2,
     "ecosystem": 0.15
   },
-  "generatedAt": "2026-11-01T13:52:07.032Z",
-  "rawFetchedAt": "2026-11-01T13:44:26.169Z",
+  "generatedAt": "2026-11-01T19:18:55.265Z",
+  "rawFetchedAt": "2026-11-01T19:11:03.277Z",
   "counts": {
-    "topicRepos": 8053,
-    "excluded": 486,
-    "ranked": 7567
+    "topicRepos": 8133,
+    "excluded": 482,
+    "ranked": 7651
   },
   "signals": {
     "hubCatalog": {
-      "fetchedAt": "2026-11-01T13:44:24.304Z",
+      "fetchedAt": "2026-11-01T19:11:02.021Z",
       "entries": 271,
       "categories": 9,
       "error": null
     },
     "awesome": {
-      "hitRepos": 8266
+      "hitRepos": 8414
     },
     "deepScan": {
-      "at": "2026-11-01T13:52:06.896Z",
+      "at": "2026-11-01T19:18:55.096Z",
       "top": 200,
       "scanned": 200,
       "verified": 169,
@@ -36,7 +36,7 @@
       "verified": 169,
       "unverified": 31,
       "error": 0,
-      "skipped": 7853
+      "skipped": 7933
     }
   },
   "formula": {
